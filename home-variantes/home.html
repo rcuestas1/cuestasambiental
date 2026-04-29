@@ -10,12 +10,12 @@
     /* ==========================================================
        SF Pro — @font-face local (fonte: tokens-preview.html)
        ========================================================== */
-    @font-face { font-family:'SF Pro Display'; src:url('../Fonts/sf-pro/SF-Pro-Display-Regular.otf') format('opentype'); font-weight:400; font-display:swap; }
-    @font-face { font-family:'SF Pro Display'; src:url('../Fonts/sf-pro/SF-Pro-Display-Medium.otf') format('opentype'); font-weight:500; font-display:swap; }
-    @font-face { font-family:'SF Pro Display'; src:url('../Fonts/sf-pro/SF-Pro-Display-Semibold.otf') format('opentype'); font-weight:600; font-display:swap; }
-    @font-face { font-family:'SF Pro Text'; src:url('../Fonts/sf-pro/SF-Pro-Text-Regular.otf') format('opentype'); font-weight:400; font-display:swap; }
-    @font-face { font-family:'SF Pro Text'; src:url('../Fonts/sf-pro/SF-Pro-Text-Medium.otf') format('opentype'); font-weight:500; font-display:swap; }
-    @font-face { font-family:'SF Pro Text'; src:url('../Fonts/sf-pro/SF-Pro-Text-Semibold.otf') format('opentype'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'SF Pro Display'; src:url('Fonts/sf-pro/SF-Pro-Display-Regular.otf') format('opentype'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'SF Pro Display'; src:url('Fonts/sf-pro/SF-Pro-Display-Medium.otf') format('opentype'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'SF Pro Display'; src:url('Fonts/sf-pro/SF-Pro-Display-Semibold.otf') format('opentype'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('Fonts/sf-pro/SF-Pro-Text-Regular.otf') format('opentype'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('Fonts/sf-pro/SF-Pro-Text-Medium.otf') format('opentype'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('Fonts/sf-pro/SF-Pro-Text-Semibold.otf') format('opentype'); font-weight:600; font-display:swap; }
 
     /* ==========================================================
        Design Tokens aprovados
@@ -138,6 +138,7 @@
       font-size: 18px; letter-spacing: -0.2px;
     }
     .brand .brand-dot { color: var(--color-accent); }
+    .navbar-logo { height: 34px; width: auto; display: block; }
     .nav-links { display: flex; gap: var(--space-8); align-items: center; font-size: 13px; }
     .nav-links a { color: var(--color-text-primary); opacity: 0.82; transition: opacity .2s ease; }
     .nav-links a:hover { opacity: 1; }
@@ -216,6 +217,9 @@
     .diferenciais {
       background: var(--color-surface);
       padding: var(--space-24) 0;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 -10px 32px rgba(0, 0, 0, 0.18);
     }
     .section-eyebrow {
       font-size: 12px; text-transform: uppercase; letter-spacing: 0.18em;
@@ -327,7 +331,31 @@
     .servicos {
       background: var(--color-text-primary);
       padding: var(--space-24) 0;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      box-shadow: 0 -10px 32px rgba(0, 0, 0, 0.18), 0 10px 32px rgba(0, 0, 0, 0.18);
     }
+    .servicos::before {
+      content: '';
+      position: absolute;
+      top: 0; right: -4%;
+      width: 55%; height: 100%;
+      background: url('assets/images/topografia-branco.png') top right / contain no-repeat;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+    .servicos::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 180px 180px;
+      opacity: 0.04;
+      pointer-events: none;
+    }
+    .servicos > .container { position: relative; z-index: 1; }
     .servicos .section-eyebrow { color: var(--color-accent-soft); }
     .servicos .section-title { color: var(--color-on-dark); }
     .servicos .section-lead {
@@ -394,6 +422,7 @@
       display: flex;
       gap: var(--space-4);
       width: max-content;
+      padding-top: 4px;
     }
     .servico-card {
       flex: 0 0 280px;
@@ -512,6 +541,17 @@
       font-size: 14px; color: var(--color-text-secondary);
     }
     .cta-meta strong { color: var(--color-text-primary); font-weight: 600; }
+    .cta-block { position: relative; }
+    .cta-deco {
+      position: absolute;
+      top: 0; left: 0;
+      width: 130px; height: 100%;
+      opacity: 0.14;
+      pointer-events: none;
+      z-index: 0;
+      display: block;
+    }
+    .cta-block > .container { position: relative; z-index: 1; }
 
     .cta-form {
       background: var(--color-surface-subtle);
@@ -548,6 +588,25 @@
       outline: none; border-color: var(--color-accent);
       box-shadow: 0 0 0 3px var(--color-accent-soft);
     }
+    .form-check {
+      display: flex; align-items: flex-start; gap: var(--space-2);
+      margin-bottom: var(--space-4);
+    }
+    .form-check input[type="checkbox"] {
+      width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px;
+      accent-color: var(--color-accent); cursor: pointer;
+    }
+    .form-check label {
+      font-size: 13px; color: var(--color-text-secondary);
+      line-height: 1.45; cursor: pointer;
+    }
+    .form-check label a { color: var(--color-accent); text-decoration: underline; }
+    .form-note {
+      font-size: 12px; color: var(--color-text-secondary);
+      margin-top: var(--space-4); padding-top: var(--space-3);
+      border-top: var(--border-hairline);
+    }
+    .form-note a { color: var(--color-accent); text-decoration: underline; }
     .form-actions { display: flex; justify-content: flex-end; margin-top: var(--space-2); }
 
     /* ==========================================================
@@ -692,7 +751,7 @@
   <header class="navbar">
     <div class="navbar-inner">
       <a href="home.html" class="brand" aria-label="Cuestas Engenharia Ambiental — Início">
-        Cuestas<span class="brand-dot">.</span>
+        <img src="assets/images/logo-navbar.png" alt="Cuestas Engenharia Ambiental" class="navbar-logo">
       </a>
       <nav class="nav-links" aria-label="Navegação principal">
         <a href="#main" aria-current="page">Home</a>
@@ -1069,6 +1128,14 @@
          "Contato Rápido" → "Solicitar Avaliação"
          ============================================================ -->
     <section class="cta-block reveal" id="contato" aria-labelledby="cta-title">
+      <svg class="cta-deco" aria-hidden="true" viewBox="0 0 130 600" preserveAspectRatio="none" width="130" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#677A2F" stroke-width="1.4" stroke-linecap="round" vector-effect="non-scaling-stroke">
+          <path d="M108 0 C88 55 112 100 94 168 C76 236 104 282 86 352 C70 412 94 465 78 600"/>
+          <path d="M86 0 C68 52 92 98 74 166 C56 234 84 280 66 350 C50 410 74 464 58 600"/>
+          <path d="M64 0 C48 50 70 96 54 164 C38 232 64 278 48 348 C34 408 56 462 40 600"/>
+          <path d="M44 0 C30 48 50 94 36 162 C22 230 46 276 30 346 C16 406 38 460 24 600"/>
+        </g>
+      </svg>
       <div class="container">
         <div class="cta-grid">
 
@@ -1088,16 +1155,32 @@
             </div>
 
             <div class="form-field">
-              <label for="nome">Nome completo</label>
+              <label for="nome">Nome *</label>
               <input type="text" id="nome" name="nome" required autocomplete="name">
             </div>
             <div class="form-field">
-              <label for="email">E-mail</label>
+              <label for="email">E-mail *</label>
               <input type="email" id="email" name="email" required autocomplete="email" inputmode="email">
             </div>
             <div class="form-field">
+              <label for="telefone">Telefone *</label>
+              <input type="tel" id="telefone" name="telefone" required autocomplete="tel" inputmode="numeric">
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="whatsapp-auth" name="whatsapp_auth">
+              <label for="whatsapp-auth">Autorizo o contato por WhatsApp</label>
+            </div>
+            <div class="form-field">
+              <label for="empresa">Empresa</label>
+              <input type="text" id="empresa" name="empresa" autocomplete="organization">
+            </div>
+            <div class="form-field">
               <label for="mensagem">Mensagem</label>
-              <textarea id="mensagem" name="mensagem" maxlength="500" required></textarea>
+              <textarea id="mensagem" name="mensagem" maxlength="500"></textarea>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="privacidade" name="privacidade" required>
+              <label for="privacidade">Estou de acordo com as <a href="/politica-privacidade">Políticas de Privacidade do site</a></label>
             </div>
 
             <div class="form-actions">
@@ -1127,9 +1210,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <div class="brand" style="font-size: 22px;">
-            Cuestas<span class="brand-dot">.</span>
-          </div>
+          <img src="assets/images/logo-footer.png" alt="Cuestas Engenharia Ambiental" style="height:40px; width:auto; display:block; margin-bottom:var(--space-3);">
           <p>Consultoria de Engenharia Ambiental. CREA nº 2622462662 — Engenheiro Responsável: Laio Cuestas.</p>
         </div>
         <div class="footer-col">
@@ -1244,6 +1325,17 @@
         navbar.classList.toggle('scrolled', window.scrollY > 10);
       }, { passive: true });
 
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ── Parallax sutil no hero ──────────────────────────────────── */
+      if (!reducedMotion) {
+        var heroEl = document.querySelector('.hero');
+        window.addEventListener('scroll', function() {
+          if (!heroEl || window.scrollY > window.innerHeight) return;
+          heroEl.style.backgroundPositionY = 'calc(50% + ' + Math.round(window.scrollY * 0.25) + 'px)';
+        }, { passive: true });
+      }
+
       /* ── Form: previne reload na submissão ───────────────────────── */
       var form = document.querySelector('.cta-form');
       if (form) {
@@ -1348,7 +1440,6 @@
       })();
 
       /* ── Reveal helpers ──────────────────────────────────────────── */
-      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       /* Stagger reveal individual: cada elemento entra com delay incremental.
          Após a transição de entrada, o delay é removido para que hover seja imediato. */
