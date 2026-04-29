@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Tokens Preview — Cuestas Engenharia Ambiental</title>
+  <!--
+    Design Tokens · execução minimalista Apple
+    Tipografia: SF Pro Display + SF Pro Text (Apple system fonts, locais).
+    Estrutura: numeração de seção, "label técnica" (SF Pro Text spaced), motivo topográfico do logo.
+    Whitespace generoso, tipografia restrained, ornamentação cirúrgica.
+
+    Fontes locais em ./Fonts/sf-pro/ (carregadas via @font-face com path relativo a partir do index.html na raiz).
+    Sameness Test (§ 13) compara SF Pro com Funnel e Inter — estrutura > fonte.
+
+    Dependências externas: Google Fonts (apenas para os comparativos do Sameness Test).
+  -->
+  <style>
+    /* Google Fonts — apenas as fontes do Sameness Test (Funnel Display, Inter) */
+    @import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@500&family=Inter:wght@500&display=swap');
+
+    /* SF Pro Display (headings) — pesos 400 / 500 / 600 */
+    @font-face {
+      font-family: 'SF Pro Display';
+      src: url('Fonts/sf-pro/SF-Pro-Display-Regular.otf') format('opentype');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'SF Pro Display';
+      src: url('Fonts/sf-pro/SF-Pro-Display-Medium.otf') format('opentype');
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'SF Pro Display';
+      src: url('Fonts/sf-pro/SF-Pro-Display-Semibold.otf') format('opentype');
+      font-weight: 600; font-style: normal; font-display: swap;
+    }
+
+    /* SF Pro Text (body + labels) — pesos 400 / 500 / 600 */
+    @font-face {
+      font-family: 'SF Pro Text';
+      src: url('Fonts/sf-pro/SF-Pro-Text-Regular.otf') format('opentype');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'SF Pro Text';
+      src: url('Fonts/sf-pro/SF-Pro-Text-Medium.otf') format('opentype');
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'SF Pro Text';
+      src: url('Fonts/sf-pro/SF-Pro-Text-Semibold.otf') format('opentype');
+      font-weight: 600; font-style: normal; font-display: swap;
+    }
+
+
+    /* ─────────────────────────────────────────
+       DESIGN TOKENS
+    ───────────────────────────────────────── */
+    :root {
+      /* Cores */
+      --color-primary:       #677A2F;
+      --color-primary-dark:  #556424;
+      --color-primary-soft:  #EDF0DC;
+      --color-primary-focus: #7B8E3C;  /* Apple-style focus ring (10% mais claro) */
+      --color-ink:           #1C1D1A;
+      --color-ink-muted:     #5C5E59;
+      --color-paper:         #FAFAF7;
+      --color-surface:       #F3F4EE;
+      --color-accent:        #677A2F;
+      --color-border:        #DDE0D7;
+      --hairline:            rgba(0, 0, 0, 0.08); /* Apple hairline para cards */
+      --color-success:       #2E6B29;
+      --color-error:         #892323;
+
+      /* Tipografia · SF Pro (Apple system font)
+         Display: SF Pro Display — headings, hero, títulos (pesos 400/500/600).
+         Body:    SF Pro Text — corpo, labels, parágrafos (pesos 400/500/600).
+         "Mono":  SF Pro Text com letter-spacing + UPPERCASE para sensação de label técnica.
+                  Apple não usa mono em apple.com; usa SF Pro Text Semibold spaced para dar essa sensação. */
+      --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-body:    'SF Pro Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      --font-mono:    'SF Pro Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+      /* Espaçamento · escala Apple, base 8px */
+      --space-1:  4px;
+      --space-2:  8px;
+      --space-3:  12px;
+      --space-4:  16px;
+      --space-6:  24px;
+      --space-8:  32px;
+      --space-12: 48px;
+      --space-16: 64px;
+      --space-24: 96px;
+      --space-32: 128px;
+
+      /* Radius · escala Apple Design System */
+      --radius-xs:   5px;     /* chips inline pequenos */
+      --radius-sm:   8px;     /* inputs, selects, imagens, utilitários */
+      --radius-md:   11px;    /* botões — Pearl Button (Apple oficial) */
+      --radius-lg:   18px;    /* cards estruturais, banners, modais */
+      --radius-pill: 9999px;  /* chips de setor, search input full-pill */
+
+      /* Sombras · duas camadas em UI, uma em produto */
+      --shadow-sm:      0 1px 2px rgba(28, 29, 26, .06);
+      --shadow-md:      0 2px 8px rgba(28, 29, 26, .08),
+                        0 1px 2px rgba(28, 29, 26, .04);
+      --shadow-product: 0 3px 30px 5px rgba(0, 0, 0, 0.22); /* Apple — exclusivo de imagens de produto */
+    }
+
+    /* ─────────────────────────────────────────
+       RESET & BASE
+    ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      font-size: 1rem;
+      line-height: 1.65;
+      letter-spacing: -0.011em; /* Apple body tracking sutil */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─────────────────────────────────────────
+       LAYOUT
+    ───────────────────────────────────────── */
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+
+    .section { padding: var(--space-24) 0; position: relative; }
+
+    /* ─────────────────────────────────────────
+       PRIMITIVOS ESTRUTURAIS · numeração, divisor, metadata
+    ───────────────────────────────────────── */
+
+    /* Section label · padrão V1 ("01 — Paleta") — pequena, primary, uppercase.
+       Usado nos 13 headers de seção do preview. */
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    /* § XX / 13 — coord cartográfica, mono, usada apenas dentro dos cards do Sameness Test */
+    .section-coord {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--color-ink-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: var(--space-3);
+    }
+    .section-coord-num { color: var(--color-primary); }
+    .section-coord-of  { color: var(--color-ink-muted); }
+
+    /* Heading mixed-case, weight 600 — Apple ladder (500 deliberadamente ausente) */
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.875rem, 3.5vw, 2.5rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--color-ink);
+      margin-bottom: var(--space-4);
+    }
+
+    .section-description {
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      color: var(--color-ink-muted);
+      max-width: 620px;
+      margin-bottom: var(--space-12);
+      line-height: 1.6;
+    }
+
+    /* Divisor topográfico — usado SOMENTE em momentos estruturais.
+       Não entre cada seção (Apple não ornamenta entre seções). */
+    .topo-divider {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+      opacity: 0.4;
+    }
+    .topo-divider svg { display: block; width: 100%; height: 32px; }
+
+    /* Metadata em mono — CREA, ART, telefones, datas */
+    .meta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      color: var(--color-ink-muted);
+    }
+
+    /* State label genérico (rótulos de demo) */
+    .state-label {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--color-ink-muted);
+      margin-bottom: var(--space-2);
+      text-transform: uppercase;
+    }
+
+    .demo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-8);
+      align-items: flex-start;
+    }
+    .demo-col { display: flex; flex-direction: column; gap: var(--space-2); }
+
+    /* ─────────────────────────────────────────
+       HERO · simples, dark, único motivo topográfico
+    ───────────────────────────────────────── */
+    .preview-header {
+      position: relative;
+      overflow: hidden;
+      background: var(--color-ink);
+      padding: var(--space-32) 0 var(--space-24);
+    }
+    .preview-header-topo {
+      position: absolute;
+      inset: 0;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+    .preview-header-inner { position: relative; z-index: 1; }
+
+    /* Chips de meta no rodapé do hero — assinatura do sistema (4 itens) */
+    .preview-meta {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      margin-top: var(--space-8);
+    }
+    .preview-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 12px;
+      background: rgba(103, 122, 47, 0.16);
+      border: 1px solid rgba(103, 122, 47, 0.45);
+      border-radius: var(--radius-pill);
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: rgba(250, 250, 247, 0.88);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .preview-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-4);
+    }
+
+    /* Headline · weight 600 (Apple ladder · 500 ausente).
+       Weight 700+ fica exclusivo ao logo SVG; hero usa restraint Apple. */
+    .preview-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: var(--color-paper);
+      margin-bottom: var(--space-6);
+    }
+
+    .preview-sub {
+      font-family: var(--font-body);
+      font-size: 1.125rem;
+      line-height: 1.6;
+      color: rgba(250, 250, 247, 0.6);
+      max-width: 580px;
+      margin-bottom: 0;
+    }
+
+    /* ─────────────────────────────────────────
+       § 01 PALETA · grid limpo
+    ───────────────────────────────────────── */
+    .swatches-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: var(--space-4);
+    }
+    .swatch { display: flex; flex-direction: column; }
+    .swatch-color {
+      height: 96px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0,0,0,0.04);
+      margin-bottom: var(--space-3);
+    }
+    .swatch-name {
+      font-family: var(--font-display);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--color-ink);
+      margin-bottom: 2px;
+      letter-spacing: -0.005em;
+    }
+    .swatch-var {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      color: var(--color-ink-muted);
+      line-height: 1.4;
+    }
+
+    .contrast-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-top: var(--space-8);
+    }
+    .contrast-pill {
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .contrast-pill strong { font-weight: 600; }
+
+    /* ─────────────────────────────────────────
+       § 02 TIPOGRAFIA
+    ───────────────────────────────────────── */
+    .type-scale { display: flex; flex-direction: column; gap: var(--space-4); }
+    .type-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: var(--space-6);
+      align-items: baseline;
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .type-row:last-child { border-bottom: none; }
+    .type-meta {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      color: var(--color-ink-muted);
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+    }
+    .type-meta strong {
+      color: var(--color-ink);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* ─────────────────────────────────────────
+       § 03 ESPAÇAMENTO
+    ───────────────────────────────────────── */
+    .spacing-grid { display: flex; flex-direction: column; gap: var(--space-3); }
+    .spacing-row { display: flex; align-items: center; gap: var(--space-4); }
+    .spacing-bar {
+      background: var(--color-primary);
+      opacity: 0.55;
+      height: 16px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .spacing-info {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-ink-muted);
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+    .spacing-info strong { color: var(--color-ink); font-weight: 600; }
+
+    /* ─────────────────────────────────────────
+       § 04 RADIUS & SOMBRAS
+    ───────────────────────────────────────── */
+    .radius-grid, .shadow-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-8);
+    }
+    .radius-grid { margin-bottom: var(--space-12); }
+    .radius-demo, .shadow-demo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .radius-box {
+      width: 88px;
+      height: 88px;
+      background: var(--color-surface);
+      border: 1.5px solid var(--color-border);
+    }
+    .shadow-box {
+      width: 132px;
+      height: 88px;
+      background: var(--color-paper);
+      border-radius: var(--radius-md);
+    }
+
+    /* ─────────────────────────────────────────
+       BOTÕES
+    ───────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 400;
+      line-height: 1;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: background 150ms ease-out, border-color 150ms ease-out,
+                  transform 150ms ease-out, box-shadow 150ms ease-out;
+      white-space: nowrap;
+    }
+    .btn:focus-visible { outline: 2px solid var(--color-primary-focus); outline-offset: 2px; }
+    .btn:active { transform: scale(0.97); } /* Apple system-wide press micro-interaction */
+
+    .btn-primary { background: var(--color-primary); color: #fff; }
+    .btn-primary:hover, .btn-primary.is-hovered { background: var(--color-primary-dark); }
+    .btn-primary.is-focused { outline: 2px solid var(--color-primary-focus); outline-offset: 2px; }
+    .btn-primary:disabled, .btn-primary.is-disabled {
+      opacity: 0.4; cursor: not-allowed; pointer-events: none;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-primary);
+      border: 1.5px solid var(--color-primary);
+    }
+    .btn-secondary:hover, .btn-secondary.is-hovered { background: var(--color-primary-soft); }
+    .btn-secondary.is-focused { outline: 2px solid var(--color-primary-focus); outline-offset: 2px; }
+    .btn-secondary:disabled, .btn-secondary.is-disabled {
+      opacity: 0.4; cursor: not-allowed; pointer-events: none;
+    }
+
+    /* `.btn-whatsapp` removido deliberadamente.
+       O verde oficial #25D366 fica isolado no botão flutuante (.whatsapp-btn).
+       Em footer, cards e CTAs editoriais, WhatsApp é tratado como qualquer outro canal de contato — olive ou link neutro do contexto. */
+
+    /* ─────────────────────────────────────────
+       INPUTS
+    ───────────────────────────────────────── */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 280px;
+    }
+    .form-label {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-ink);
+    }
+    .form-input, .form-textarea, .form-select {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--color-ink);
+      background: #fff;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      width: 100%;
+      transition: border-color 150ms, box-shadow 150ms;
+      appearance: none;
+    }
+    .form-input { height: 44px; }
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(92, 94, 89, 0.55); }
+
+    .form-input:hover, .form-textarea:hover,
+    .form-input.is-hovered, .form-textarea.is-hovered { border-color: var(--color-ink-muted); }
+
+    .form-input:focus, .form-textarea:focus,
+    .form-input.is-focused, .form-textarea.is-focused {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-input:disabled, .form-textarea:disabled,
+    .form-input.is-disabled, .form-textarea.is-disabled {
+      background: var(--color-surface);
+      color: var(--color-ink-muted);
+      cursor: not-allowed;
+    }
+    .form-textarea { min-height: 120px; resize: vertical; }
+    .form-select {
+      cursor: pointer;
+      padding-right: 36px;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%235C5E59'><path fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.4a.75.75 0 01-1.08 0l-4.25-4.4a.75.75 0 01.02-1.06z' clip-rule='evenodd'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px;
+    }
+
+    /* ─────────────────────────────────────────
+       CARD DE SERVIÇO · clean, com § discreto no canto
+    ───────────────────────────────────────── */
+    /* Card · Apple store-utility-card · radius 18px, sem hover lift, sem box-shadow.
+       Elevação visual vem da troca de border-color (hairline → primary). */
+    .service-card {
+      background: var(--color-surface);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8) var(--space-6);
+      transition: border-color 200ms ease-out, transform 200ms ease-out;
+      cursor: pointer;
+      max-width: 360px;
+      text-decoration: none;
+      display: block;
+      position: relative;
+    }
+    .service-card:hover, .service-card.is-hovered {
+      border-color: var(--color-primary);
+    }
+    .service-card:active { transform: scale(0.99); } /* press sutil Apple-style */
+    .service-card:focus-visible, .service-card.is-focused {
+      outline: 2px solid var(--color-primary-focus);
+      outline-offset: 2px;
+    }
+    .card-coord {
+      position: absolute;
+      top: var(--space-4);
+      right: var(--space-6);
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.03em;
+      color: var(--color-ink-muted);
+    }
+    .card-icon {
+      width: 28px;
+      height: 28px;
+      margin-bottom: var(--space-4);
+      color: var(--color-primary);
+    }
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.375rem;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.005em;
+      color: var(--color-ink);
+      margin-bottom: var(--space-2);
+    }
+    .card-body {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--color-ink-muted);
+    }
+
+    /* ─────────────────────────────────────────
+       NAVBAR
+    ───────────────────────────────────────── */
+    /* NAVBAR · Apple-literal sub-nav-frosted pattern
+       Cor do site (paper), 52px de altura, com hairline border-bottom.
+       Estado scrolled vira frosted-glass: rgba paper + blur(20px) saturate(180%) — assinatura Apple.
+       Tipografia nav-link Apple: 12px / 400 / -0.01em tracking.
+       Logo à esquerda + nav centralizado em grid 3-col. Sem CTA, sem sub-label. */
+    .navbar-demo { margin-bottom: var(--space-4); }
+    .navbar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 14px 22px;
+      min-height: 52px;
+      background: var(--color-paper);
+      color: var(--color-ink);
+      border-bottom: 1px solid var(--hairline);
+    }
+    .navbar.is-scrolled {
+      background: rgba(250, 250, 247, 0.85);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: none;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+    }
+    .navbar-logo {
+      justify-self: start;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      text-decoration: none;
+    }
+    .navbar-logo-mark { width: 22px; height: 22px; }
+    .navbar-logo-text {
+      font-family: var(--font-display);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--color-ink);
+    }
+    .navbar-nav {
+      justify-self: center;
+      display: flex;
+      gap: var(--space-6);
+      list-style: none;
+    }
+    .navbar-nav a {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--color-ink);
+      text-decoration: none;
+      transition: opacity 150ms;
+    }
+    .navbar-nav a:hover { opacity: 0.55; }
+
+    /* CTA da navbar (3ª coluna) — alinhado à direita, compacto */
+    .navbar-cta {
+      justify-self: end;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: var(--radius-md);
+      background: var(--color-primary);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      transition: background 150ms ease-out, transform 150ms ease-out;
+    }
+    .navbar-cta:hover { background: var(--color-primary-dark); }
+    .navbar-cta:active { transform: scale(0.97); }
+    .navbar-cta svg { width: 14px; height: 14px; fill: currentColor; }
+
+    /* ─────────────────────────────────────────
+       FOOTER · enxuto
+    ───────────────────────────────────────── */
+    .footer-demo {
+      background: var(--color-ink);
+      border-radius: var(--radius-lg);
+      padding: var(--space-12) var(--space-8);
+      overflow: hidden;
+      position: relative;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: var(--space-8);
+      margin-bottom: var(--space-8);
+    }
+    .footer-col-title {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(250, 250, 247, 0.4);
+      margin-bottom: var(--space-4);
+    }
+    .footer-logo-text {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-paper);
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-2);
+    }
+    .footer-meta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: rgba(250, 250, 247, 0.5);
+      margin-bottom: var(--space-4);
+      letter-spacing: 0.03em;
+      line-height: 1.6;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+    .footer-links a {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: rgba(250, 250, 247, 0.55);
+      text-decoration: none;
+      transition: color 150ms;
+    }
+    .footer-links a:hover { color: rgba(250, 250, 247, 1); }
+    .footer-bottom {
+      border-top: 1px solid rgba(250, 250, 247, 0.08);
+      padding-top: var(--space-4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: rgba(250, 250, 247, 0.35);
+      letter-spacing: 0.04em;
+    }
+    .footer-bottom a {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      color: rgba(250, 250, 247, 0.4);
+      text-decoration: underline;
+    }
+
+    /* Footer · variante light (mesma cor do site) — opção B do cliente */
+    .footer-demo--light {
+      background: var(--color-paper);
+      border: 1px solid var(--color-border);
+    }
+    .footer-demo--light .footer-logo-text { color: var(--color-ink); }
+    .footer-demo--light .footer-meta { color: var(--color-ink-muted); }
+    .footer-demo--light .footer-col-title { color: var(--color-ink-muted); }
+    .footer-demo--light .footer-links a { color: var(--color-ink-muted); }
+    .footer-demo--light .footer-links a:hover { color: var(--color-ink); }
+    .footer-demo--light .footer-bottom { border-top: 1px solid var(--color-border); }
+    .footer-demo--light .footer-copy { color: var(--color-ink-muted); }
+    .footer-demo--light .footer-bottom a { color: var(--color-ink-muted); }
+
+    /* ─────────────────────────────────────────
+       COOKIE BANNER
+    ───────────────────────────────────────── */
+    .cookie-banner {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      border-radius: var(--radius-md);
+      flex-wrap: wrap;
+    }
+    .cookie-text {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--color-ink-muted);
+      line-height: 1.5;
+      flex: 1;
+      min-width: 200px;
+    }
+    .cookie-text a { color: var(--color-primary); text-decoration: underline; }
+    .cookie-actions { display: flex; align-items: center; gap: var(--space-4); flex-shrink: 0; }
+    .cookie-actions .btn { padding: 8px 16px; font-size: 0.875rem; }
+    .cookie-link {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--color-ink-muted);
+      text-decoration: underline;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      padding: 4px 0;
+    }
+    .cookie-link:hover { color: var(--color-ink); }
+    .cookie-link:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    /* ─────────────────────────────────────────
+       WHATSAPP BUTTON (fixo)
+    ───────────────────────────────────────── */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 40;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25D366;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md), 0 4px 16px rgba(37, 211, 102, .3);
+      transition: transform 150ms ease-out, box-shadow 150ms ease-out;
+      text-decoration: none;
+    }
+    .whatsapp-btn:hover {
+      transform: scale(1.06);
+      box-shadow: var(--shadow-md), 0 6px 24px rgba(37, 211, 102, .4);
+    }
+    .whatsapp-btn svg { width: 28px; height: 28px; fill: #fff; }
+
+    /* ─────────────────────────────────────────
+       CHIPS DE SETOR
+    ───────────────────────────────────────── */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 400;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      color: var(--color-ink-muted);
+      white-space: nowrap;
+      max-width: 100%;
+    }
+    .chip-grid { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+    /* ─────────────────────────────────────────
+       § INNER PAGE NUMBERING · refinado, não dramático
+       Visível em SOBRE e SERVIÇOS-EMPRESAS · Ausente em Home e PF
+    ───────────────────────────────────────── */
+    .page-section-num {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-4);
+      margin-bottom: var(--space-4);
+    }
+    .page-section-num .num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 600;
+      line-height: 1;
+      color: var(--color-primary);
+      letter-spacing: -0.01em;
+    }
+    .page-section-num .label {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      color: var(--color-ink);
+      line-height: 1.15;
+    }
+    .page-context-flag {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.06em;
+      color: var(--color-ink-muted);
+      text-transform: uppercase;
+      margin-bottom: var(--space-3);
+    }
+    .page-context-flag.is-absent { color: var(--color-error); opacity: 0.7; }
+
+    /* ─────────────────────────────────────────
+       ANTI-PADRÕES
+    ───────────────────────────────────────── */
+    .antipatterns { background: var(--color-surface); }
+    .antipattern-list { display: flex; flex-direction: column; gap: var(--space-3); list-style: none; }
+    .antipattern-item {
+      display: flex;
+      gap: var(--space-4);
+      align-items: flex-start;
+      padding: var(--space-4) var(--space-6);
+      background: var(--color-paper);
+      border-radius: var(--radius-md);
+      border-left: 2px solid var(--color-error);
+    }
+    .antipattern-no {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-error);
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+    .antipattern-text {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--color-ink);
+      line-height: 1.55;
+    }
+    .antipattern-text strong { font-weight: 600; }
+
+    /* ─────────────────────────────────────────
+       SAMENESS TEST · § 13
+    ───────────────────────────────────────── */
+    .sameness-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-4);
+      margin-top: var(--space-8);
+    }
+    .sameness-col {
+      background: var(--color-paper);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-8) var(--space-6);
+      position: relative;
+    }
+    .sameness-tag {
+      position: absolute;
+      top: 0;
+      left: var(--space-6);
+      transform: translateY(-50%);
+      background: var(--color-paper);
+      padding: 3px 10px;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      color: var(--color-ink-muted);
+    }
+    .sameness-tag.is-recommended { color: var(--color-primary); border-color: var(--color-primary); }
+    /* Sameness Test · exceção deliberada do ladder Apple (300/400/600/700).
+       Usa weight 500 para paridade visual entre os 3 cards: Funnel e Inter
+       só carregam weight 500 do Google Fonts. Todos no mesmo nominal weight = comparação visual justa. */
+    .sameness-col h3 {
+      font-size: 1.875rem;
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--color-ink);
+      margin: var(--space-2) 0 var(--space-3);
+    }
+    .sameness-col-sfpro h3  { font-family: 'SF Pro Display', system-ui, sans-serif; }
+    .sameness-col-funnel h3 { font-family: 'Funnel Display', system-ui, sans-serif; }
+    .sameness-col-inter h3  { font-family: 'Inter', system-ui, sans-serif; }
+    .sameness-col p {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--color-ink-muted);
+      line-height: 1.6;
+      margin-bottom: var(--space-4);
+    }
+    .sameness-conclusion {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      color: var(--color-ink-muted);
+      line-height: 1.6;
+      margin-top: var(--space-12);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-border);
+    }
+    .sameness-conclusion strong { color: var(--color-ink); font-weight: 600; }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVO
+    ───────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .sameness-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .navbar-nav { display: none; }
+      .type-row { grid-template-columns: 1fr; gap: var(--space-2); }
+    }
+    @media (max-width: 480px) {
+      .chip { font-size: 0.75rem; padding: 4px 10px; }
+      .whatsapp-btn { bottom: 16px; right: 16px; width: 48px; height: 48px; }
+      .whatsapp-btn svg { width: 24px; height: 24px; }
+      .page-section-num .num { font-size: 2rem; }
+      /* .preview-headline já usa clamp(3rem, 8vw, 6rem) — não sobrescrever em mobile */
+    }
+
+    /* ─────────────────────────────────────────
+       prefers-reduced-motion
+    ───────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .service-card:hover, .service-card.is-hovered, .whatsapp-btn:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <header class="preview-header">
+    <svg class="preview-header-topo" viewBox="0 0 1200 400" fill="none" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-100 280 C 80 200, 200 360, 380 280 S 600 200, 780 280 S 1000 200, 1300 280" stroke="#677A2F" stroke-width="1.5" fill="none"/>
+      <path d="M-100 240 C 60 160, 220 320, 400 240 S 640 160, 820 240 S 1040 160, 1300 240" stroke="#677A2F" stroke-width="1.5" fill="none"/>
+      <path d="M-100 310 C 100 230, 280 380, 460 310 S 680 230, 860 310 S 1060 230, 1300 310" stroke="#677A2F" stroke-width="1.5" fill="none"/>
+      <path d="M-100 180 C 40 100, 200 260, 440 180 S 700 100, 900 180 S 1100 100, 1300 180" stroke="#677A2F" stroke-width="1.5" fill="none"/>
+      <path d="M-100 210 C 50 130, 240 290, 480 210 S 740 130, 940 210 S 1140 130, 1300 210" stroke="#677A2F" stroke-width="1" stroke-dasharray="8 5" fill="none"/>
+      <path d="M-100 260 C 90 180, 260 340, 500 260 S 760 180, 960 260 S 1160 180, 1300 260" stroke="#677A2F" stroke-width="1" stroke-dasharray="8 5" fill="none"/>
+      <path d="M-100 150 C 30 70, 190 230, 460 150 S 720 70, 920 150 S 1120 70, 1300 150" stroke="#677A2F" stroke-width="1" stroke-dasharray="6 4" fill="none"/>
+    </svg>
+
+    <div class="container preview-header-inner">
+      <p class="preview-eyebrow">Etapa 1 — Aprovação visual</p>
+      <h1 class="preview-headline">Cuestas<br>Engenharia Ambiental</h1>
+      <p class="preview-sub">Design tokens para aprovação do cliente antes da Etapa 2. Abra no navegador, percorra as seções, e confirme se o "sabor visual" representa corretamente a identidade da consultoria.</p>
+      <div class="preview-meta">
+        <span class="preview-chip">SF Pro Display + SF Pro Text</span>
+        <span class="preview-chip">Olive #677A2F</span>
+        <span class="preview-chip">WCAG AA verificado</span>
+        <span class="preview-chip">cuestasambiental.com</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════ § 01 PALETA ═══════════════ -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">01 — Paleta</p>
+      <h2 class="section-title">Cores</h2>
+      <p class="section-description">Uma cor cromática (olive extraído do wordmark). O resto, escala de neutros com undertone quente. A restrição é o que dá rigor ao sistema.</p>
+
+      <div class="swatches-grid">
+        <div class="swatch"><div class="swatch-color" style="background:#677A2F;"></div><span class="swatch-name">Primary</span><span class="swatch-var">--color-primary<br>#677A2F</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#EDF0DC;border-color:#DDE0D7;"></div><span class="swatch-name">Primary Soft</span><span class="swatch-var">--color-primary-soft<br>#EDF0DC</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#1C1D1A;"></div><span class="swatch-name">Ink</span><span class="swatch-var">--color-ink<br>#1C1D1A</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#5C5E59;"></div><span class="swatch-name">Ink Muted</span><span class="swatch-var">--color-ink-muted<br>#5C5E59</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#FAFAF7;border-color:#DDE0D7;"></div><span class="swatch-name">Paper</span><span class="swatch-var">--color-paper<br>#FAFAF7</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#F3F4EE;border-color:#DDE0D7;"></div><span class="swatch-name">Surface</span><span class="swatch-var">--color-surface<br>#F3F4EE</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#DDE0D7;"></div><span class="swatch-name">Border</span><span class="swatch-var">--color-border<br>#DDE0D7</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#677A2F;"></div><span class="swatch-name">Accent</span><span class="swatch-var">--color-accent<br>= primary</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#2E6B29;"></div><span class="swatch-name">Success</span><span class="swatch-var">--color-success<br>#2E6B29</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#892323;"></div><span class="swatch-name">Error</span><span class="swatch-var">--color-error<br>#892323</span></div>
+      </div>
+
+      <div class="contrast-grid">
+        <div class="contrast-pill" style="background:#1C1D1A; color:#FAFAF7;">Ink / Paper · <strong style="color:#fff;">16.5:1</strong> · AAA</div>
+        <div class="contrast-pill" style="background:#5C5E59; color:#FAFAF7;">Muted / Paper · <strong style="color:#fff;">6.3:1</strong> · AA</div>
+        <div class="contrast-pill" style="background:#677A2F; color:#fff;">White / Primary · <strong>4.8:1</strong> · AA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ § 02 TIPOGRAFIA ═══════════════ -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">02 — Tipografia</p>
+      <h2 class="section-title">Escala tipográfica</h2>
+      <p class="section-description">SF Pro Display + SF Pro Text — par tipográfico oficial da Apple, carregado localmente. Display em pesos 500/600 nos headings; Text em 400/500 no corpo e em pesos 500/600 com letter-spacing positivo nos labels técnicos (substituindo o uso tradicional de mono — Apple não usa mono em apple.com).</p>
+
+      <div class="type-scale">
+
+        <div class="type-row">
+          <div class="type-meta"><strong>Hero</strong>clamp(2.5rem, 5vw, 4rem)<br>weight 500<br>lh 1.1 · ls -0.025em<br><em style="opacity:0.7;">700 só no logo SVG</em></div>
+          <div style="font-family:var(--font-display); font-size:clamp(2.5rem, 5vw, 4rem); font-weight:600; line-height:1.1; letter-spacing:-0.015em; color:var(--color-ink);">Engenharia aplicada.</div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta"><strong>Display</strong>2.5rem · 40px<br>weight 500<br>lh 1.1 · ls -0.02em</div>
+          <div style="font-family:var(--font-display); font-size:2.5rem; font-weight:600; line-height:1.1; letter-spacing:-0.01em; color:var(--color-ink);">Licenciamento Ambiental</div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta"><strong>H2</strong>2rem · 32px<br>weight 500<br>lh 1.15 · ls -0.015em</div>
+          <div style="font-family:var(--font-display); font-size:2rem; font-weight:600; line-height:1.15; letter-spacing:-0.01em; color:var(--color-ink);">Due Diligence Ambiental</div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta"><strong>H3</strong>1.375rem · 22px<br>weight 500<br>lh 1.25</div>
+          <div style="font-family:var(--font-display); font-size:1.375rem; font-weight:600; line-height:1.25; letter-spacing:-0.005em; color:var(--color-ink);">Gestão de resíduos sólidos</div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta"><strong>Body Large</strong>1.125rem · 18px<br>weight 400<br>lh 1.6</div>
+          <div style="font-family:var(--font-body); font-size:1.125rem; line-height:1.6; color:var(--color-ink);">Licenciamento, due diligence ambiental, laudos e conformidade legal para empresas, imóveis e pessoas físicas.</div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta"><strong>Body</strong>1rem · 16px<br>weight 400<br>lh 1.65</div>
+          <div style="font-family:var(--font-body); font-size:1rem; line-height:1.65; color:var(--color-ink-muted); max-width:580px;">A Cuestas Engenharia Ambiental é uma consultoria especializada em soluções ambientais técnicas para empresas, empreendimentos e pessoas físicas.</div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta"><strong>Small</strong>0.875rem · 14px<br>weight 400<br>lh 1.5</div>
+          <div style="font-family:var(--font-body); font-size:0.875rem; line-height:1.5; color:var(--color-ink-muted);">Retorno em até 24 horas úteis. Atendimento presencial e remoto em todo o Brasil.</div>
+        </div>
+
+        <div class="type-row">
+          <div class="type-meta"><strong>Spec · Meta</strong>0.75rem · 12px<br>SF Pro Text 600<br>UPPER · ls 0.06em</div>
+          <div style="font-family:var(--font-mono); font-size:0.75rem; line-height:1.4; letter-spacing:0.06em; font-weight:600; color:var(--color-ink); text-transform:uppercase;">CREA 26 22 46 26 62 · ART 2024.4421.07 · 23°32'18"S</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVISOR TOPOGRÁFICO · 1 de 2 momentos estratégicos -->
+  <div class="topo-divider" aria-hidden="true">
+    <svg viewBox="0 0 1200 32" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 18 C 100 6, 200 26, 350 16 S 600 4, 750 18 S 1000 28, 1200 14" stroke="#677A2F" stroke-width="1" fill="none"/>
+      <path d="M0 12 C 120 22, 240 4, 380 14 S 620 26, 800 10 S 1000 4, 1200 22" stroke="#677A2F" stroke-width="0.8" fill="none" stroke-dasharray="6 4"/>
+    </svg>
+  </div>
+
+  <!-- ═══════════════ § 03 ESPAÇAMENTO ═══════════════ -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">03 — Espaçamento</p>
+      <h2 class="section-title">Escala de espaço</h2>
+      <p class="section-description">Base 8px. Cada step tem uso semântico definido — não usar valores arbitrários fora desta escala.</p>
+
+      <div class="spacing-grid">
+        <div class="spacing-row"><div class="spacing-bar" style="width:4px;"></div><span class="spacing-info"><strong>--space-1</strong> · 4px · gap ícone↔label</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:8px;"></div><span class="spacing-info"><strong>--space-2</strong> · 8px · padding badges</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:12px;"></div><span class="spacing-info"><strong>--space-3</strong> · 12px · padding inputs</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:16px;"></div><span class="spacing-info"><strong>--space-4</strong> · 16px · padding botões</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:24px;"></div><span class="spacing-info"><strong>--space-6</strong> · 24px · gap cards, gutter</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:32px;"></div><span class="spacing-info"><strong>--space-8</strong> · 32px · padding seção pequena</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:48px;"></div><span class="spacing-info"><strong>--space-12</strong> · 48px · grupos de componentes</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:64px;"></div><span class="spacing-info"><strong>--space-16</strong> · 64px · padding seção</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:96px;"></div><span class="spacing-info"><strong>--space-24</strong> · 96px · entre seções</span></div>
+        <div class="spacing-row"><div class="spacing-bar" style="width:128px;"></div><span class="spacing-info"><strong>--space-32</strong> · 128px · padding hero</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ § 04 RADIUS & SOMBRAS ═══════════════ -->
+  <section class="section" style="background:var(--color-surface);">
+    <div class="container">
+      <p class="section-label">04 — Radius & Sombras</p>
+      <h2 class="section-title">Profundidade</h2>
+      <p class="section-description">Escala alinhada com Apple Design System (Pearl Button 11px, cards 18px). Sombra reservada para imagens de produto — UI chrome (cards, botões, banners) sem shadow. Elevação visual vem de troca de superfície e backdrop-blur.</p>
+
+      <div class="radius-grid">
+        <div class="radius-demo"><div class="radius-box" style="border-radius:5px;"></div><span class="state-label">--radius-xs · 5px</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">chips inline</span></div>
+        <div class="radius-demo"><div class="radius-box" style="border-radius:8px;"></div><span class="state-label">--radius-sm · 8px</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">inputs, selects</span></div>
+        <div class="radius-demo"><div class="radius-box" style="border-radius:11px;"></div><span class="state-label">--radius-md · 11px</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">botões (Pearl)</span></div>
+        <div class="radius-demo"><div class="radius-box" style="border-radius:18px;"></div><span class="state-label">--radius-lg · 18px</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">cards, modais</span></div>
+        <div class="radius-demo"><div class="radius-box" style="border-radius:9999px; width:140px; height:44px;"></div><span class="state-label">--radius-pill</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">chips de setor</span></div>
+      </div>
+
+      <div class="shadow-grid">
+        <div class="shadow-demo"><div class="shadow-box" style="box-shadow:var(--shadow-sm);"></div><span class="state-label">--shadow-sm</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">input em foco</span></div>
+        <div class="shadow-demo"><div class="shadow-box" style="box-shadow:var(--shadow-md);"></div><span class="state-label">--shadow-md</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">navbar scrolled</span></div>
+        <div class="shadow-demo"><div class="shadow-box" style="box-shadow:var(--shadow-product);"></div><span class="state-label">--shadow-product</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">imagens de produto</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ § 05 BOTÕES ═══════════════ -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">05 — Componentes</p>
+      <h2 class="section-title">Botões</h2>
+
+      <p class="state-label" style="margin-bottom:var(--space-4);">Primário</p>
+      <div class="demo-row" style="margin-bottom:var(--space-12);">
+        <div class="demo-col"><span class="state-label">Default</span><button class="btn btn-primary">Solicite uma Avaliação Técnica</button></div>
+        <div class="demo-col"><span class="state-label">Hover</span><button class="btn btn-primary is-hovered">Solicite uma Avaliação Técnica</button></div>
+        <div class="demo-col"><span class="state-label">Focus</span><button class="btn btn-primary is-focused">Solicite uma Avaliação Técnica</button></div>
+        <div class="demo-col"><span class="state-label">Disabled</span><button class="btn btn-primary" disabled>Solicite uma Avaliação Técnica</button></div>
+      </div>
+
+      <p class="state-label" style="margin-bottom:var(--space-4);">Secundário</p>
+      <div class="demo-row">
+        <div class="demo-col"><span class="state-label">Default</span><button class="btn btn-secondary">Conheça os Serviços</button></div>
+        <div class="demo-col"><span class="state-label">Hover</span><button class="btn btn-secondary is-hovered">Conheça os Serviços</button></div>
+        <div class="demo-col"><span class="state-label">Focus</span><button class="btn btn-secondary is-focused">Conheça os Serviços</button></div>
+        <div class="demo-col"><span class="state-label">Disabled</span><button class="btn btn-secondary" disabled>Conheça os Serviços</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ § 06 INPUTS ═══════════════ -->
+  <section class="section" style="background:var(--color-surface);">
+    <div class="container">
+      <p class="section-label">06 — Componentes</p>
+      <h2 class="section-title">Inputs e formulário</h2>
+
+      <div class="demo-row" style="flex-wrap:wrap;">
+        <div class="demo-col" style="min-width:260px;"><span class="state-label">Default</span><div class="form-group"><label class="form-label" for="i1">Nome completo</label><input class="form-input" id="i1" type="text" placeholder="Laio Cuestas"></div></div>
+        <div class="demo-col" style="min-width:260px;"><span class="state-label">Hover</span><div class="form-group"><label class="form-label">Nome completo</label><input class="form-input is-hovered" type="text" placeholder="Laio Cuestas"></div></div>
+        <div class="demo-col" style="min-width:260px;"><span class="state-label">Focus</span><div class="form-group"><label class="form-label">Nome completo</label><input class="form-input is-focused" type="text" value="Laio Cuestas"></div></div>
+        <div class="demo-col" style="min-width:260px;"><span class="state-label">Disabled</span><div class="form-group"><label class="form-label" style="color:var(--color-ink-muted);">Nome completo</label><input class="form-input is-disabled" type="text" placeholder="Bloqueado" disabled></div></div>
+      </div>
+
+      <div style="margin-top:var(--space-12);">
+        <p class="state-label" style="margin-bottom:var(--space-4);">Textarea — Focus</p>
+        <div class="form-group" style="max-width:480px;">
+          <label class="form-label" for="ta1">Descreva brevemente sua necessidade</label>
+          <textarea class="form-textarea is-focused" id="ta1" placeholder="Ex: Due diligence ambiental para aquisição de centro logístico em Guarulhos, SP."></textarea>
+        </div>
+      </div>
+
+      <div style="margin-top:var(--space-8); max-width:320px;">
+        <div class="form-group">
+          <label class="form-label" for="s1">Tipo de solicitação</label>
+          <select class="form-input form-select" id="s1">
+            <option>Orçamento</option><option>Consulta Técnica</option><option>Agendamento de Vistoria</option><option>Parceria</option><option>Outro</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ § 07 CARDS ═══════════════ -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">07 — Componentes</p>
+      <h2 class="section-title">Cards de serviço</h2>
+      <p class="section-description">Cards com identificador de seção discreto no canto (§ ref). Sem aesthetic de ficha de inspeção, sem ruler marks — apenas a chave de seção como ancoragem.</p>
+
+      <div class="demo-row" style="flex-wrap:wrap;">
+        <div class="demo-col">
+          <span class="state-label">Default</span>
+          <div class="service-card" tabindex="0" role="link">
+            <span class="card-coord">§ 3.7</span>
+            <svg class="card-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+            <h3 class="card-title">Laudos e perícias</h3>
+            <p class="card-body">Laudos técnicos com finalidade pericial, regulatória ou de constatação para processos judiciais, arbitragens e due diligence.</p>
+          </div>
+        </div>
+
+        <div class="demo-col">
+          <span class="state-label">Hover</span>
+          <div class="service-card is-hovered" tabindex="0" role="link">
+            <span class="card-coord">§ 3.2</span>
+            <svg class="card-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
+            <h3 class="card-title">Due diligence</h3>
+            <p class="card-body">Avaliação de risco ambiental para aquisição, locação ou financiamento de imóveis comerciais, industriais e logísticos.</p>
+          </div>
+        </div>
+
+        <div class="demo-col">
+          <span class="state-label">Default</span>
+          <div class="service-card" tabindex="0" role="link">
+            <span class="card-coord">§ 3.1</span>
+            <svg class="card-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
+            <h3 class="card-title">Licenciamento</h3>
+            <p class="card-body">Condução do processo de licenciamento junto a CETESB, SVMA, SMA e IBAMA — da LP à LO.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:var(--space-16);">
+        <p class="state-label" style="margin-bottom:var(--space-3);">Chips de setor (radius-pill)</p>
+        <div class="chip-grid">
+          <span class="chip">Empreendimentos imobiliários</span>
+          <span class="chip">Indústrias e galpões logísticos</span>
+          <span class="chip">Construtoras</span>
+          <span class="chip">Postos de combustíveis</span>
+          <span class="chip">Escritórios de advocacia</span>
+          <span class="chip">Fundos de investimento</span>
+          <span class="chip">Pessoas físicas</span>
+          <span class="chip">Comércio e varejo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ § 08 § INNER PAGE ═══════════════ -->
+  <section class="section" style="background:var(--color-surface);">
+    <div class="container">
+      <p class="section-label">08 — Componentes</p>
+      <h2 class="section-title">Numeração de página interna</h2>
+      <p class="section-description">Um padrão § XX abre cada bloco em <strong>Sobre</strong> e <strong>Serviços-Empresas</strong> — páginas de leitura técnica densa onde a ancoragem ajuda. Ausente em <strong>Home</strong> e <strong>Pessoas Físicas</strong> — varredura rápida prevalece sobre ancoragem.</p>
+
+      <div class="demo-row" style="flex-wrap:wrap; gap:var(--space-12);">
+        <div class="demo-col" style="flex:1; min-width:280px; max-width:480px;">
+          <p class="page-context-flag">Página: Serviços-Empresas · Presente</p>
+          <div class="page-section-num">
+            <span class="num">§ 03</span>
+            <span class="label">Licenciamento<br>Ambiental</span>
+          </div>
+          <p style="font-family:var(--font-body); font-size:0.9375rem; line-height:1.6; color:var(--color-ink-muted);">A Cuestas Engenharia Ambiental realiza o gerenciamento completo do processo de licenciamento ambiental de empreendimentos industriais, logísticos, comerciais, obras civis e instalações diversas.</p>
+          <p class="meta" style="margin-top:var(--space-4);">LP · LI · LO · LAS · LAO · CTF/IBAMA · CADRI · SIGOR</p>
+        </div>
+
+        <div class="demo-col" style="flex:1; min-width:280px; max-width:480px;">
+          <p class="page-context-flag is-absent">Página: Home · Ausente (deliberadamente)</p>
+          <h3 style="font-family:var(--font-display); font-size:2rem; font-weight:600; line-height:1.1; letter-spacing:-0.01em; color:var(--color-ink); margin-bottom:var(--space-3);">Engenharia aplicada à decisão ambiental</h3>
+          <p style="font-family:var(--font-body); font-size:0.9375rem; line-height:1.6; color:var(--color-ink-muted);">Licenciamento, due diligence ambiental, laudos e conformidade legal para empresas, imóveis e pessoas físicas — com rigor técnico de quem conhece a legislação ambiental na prática.</p>
+          <p class="meta" style="margin-top:var(--space-4); text-transform:uppercase; opacity:0.7;">Sem § — varredura rápida prevalece</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ § 09 NAVBAR ═══════════════ -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">09 — Componentes</p>
+      <h2 class="section-title">Navbar</h2>
+
+      <p class="section-description">Padrão Apple <code style="font-family:var(--font-mono); background:var(--color-surface); padding:1px 6px; border-radius:4px; font-size:0.875rem;">sub-nav-frosted</code> — navbar integrada à cor do site (paper), altura 52px com hairline divisor. Logo à esquerda, nav centralizado, **botão WhatsApp em olive primary à direita** (CTA persistente). Tipografia <code style="font-family:var(--font-mono); background:var(--color-surface); padding:1px 6px; border-radius:4px; font-size:0.875rem;">nav-link</code>: 12px / 400 / -0.01em. No estado scrolled, vira frosted-glass: paper translúcido + <code style="font-family:var(--font-mono); background:var(--color-surface); padding:1px 6px; border-radius:4px; font-size:0.875rem;">backdrop-filter: blur(20px) saturate(180%)</code> — assinatura Apple para overlay sobre conteúdo em scroll. WhatsApp aqui usa olive (não #25D366) para preservar a política de cor: brand green isolado apenas no botão flutuante.</p>
+
+      <div class="navbar-demo">
+        <span class="state-label" style="display:block; margin-bottom:var(--space-2);">Estado: topo da página</span>
+        <nav class="navbar">
+          <a class="navbar-logo" href="#">
+            <svg class="navbar-logo-mark" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="4" fill="#F3F4EE" stroke="#DDE0D7" stroke-width="1"/>
+              <path d="M4 16 C 8 11, 14 21, 18 16 S 26 11, 30 16" stroke="#677A2F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M4 20 C 9 15, 15 25, 19 20 S 27 15, 30 20" stroke="#677A2F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M4 12 C 8 7, 14 17, 18 12 S 26 7, 30 12" stroke="#677A2F" stroke-width="1" fill="none" stroke-linecap="round" stroke-dasharray="3 2"/>
+            </svg>
+            <span class="navbar-logo-text">Cuestas</span>
+          </a>
+          <ul class="navbar-nav">
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Serviços</a></li>
+            <li><a href="#">Projetos</a></li>
+            <li><a href="#">Contato</a></li>
+          </ul>
+          <a class="navbar-cta" href="https://wa.me/5511914958701" aria-label="Falar pelo WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+            WhatsApp
+          </a>
+        </nav>
+      </div>
+
+      <div class="navbar-demo" style="margin-top:var(--space-6);">
+        <span class="state-label" style="display:block; margin-bottom:var(--space-2);">Estado: scrolled (após 64px)</span>
+        <nav class="navbar is-scrolled">
+          <a class="navbar-logo" href="#">
+            <svg class="navbar-logo-mark" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="4" fill="#F3F4EE" stroke="#DDE0D7" stroke-width="1"/>
+              <path d="M4 16 C 8 11, 14 21, 18 16 S 26 11, 30 16" stroke="#677A2F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M4 20 C 9 15, 15 25, 19 20 S 27 15, 30 20" stroke="#677A2F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M4 12 C 8 7, 14 17, 18 12 S 26 7, 30 12" stroke="#677A2F" stroke-width="1" fill="none" stroke-linecap="round" stroke-dasharray="3 2"/>
+            </svg>
+            <span class="navbar-logo-text">Cuestas</span>
+          </a>
+          <ul class="navbar-nav">
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Serviços</a></li>
+            <li><a href="#">Projetos</a></li>
+            <li><a href="#">Contato</a></li>
+          </ul>
+          <a class="navbar-cta" href="https://wa.me/5511914958701" aria-label="Falar pelo WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+            WhatsApp
+          </a>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ § 10 FOOTER ═══════════════ -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">10 — Componentes</p>
+      <h2 class="section-title">Footer</h2>
+      <p class="section-description">Duas opções para escolha do cliente — mesma estrutura, fundo distinto.</p>
+
+      <span class="state-label" style="display:block; margin-bottom:var(--space-3);">Opção A · Fundo escuro (atual)</span>
+      <div class="footer-demo">
+        <div class="footer-grid">
+          <div>
+            <p class="footer-logo-text">Cuestas Engenharia Ambiental</p>
+            <p class="footer-meta">CREA 26 22 46 26 62 · Engº Ambiental<br>São Paulo, SP · cuestasambiental.com<br>Atendimento presencial e remoto</p>
+          </div>
+          <div>
+            <p class="footer-col-title">Serviços</p>
+            <ul class="footer-links">
+              <li><a href="#">Licenciamento ambiental</a></li>
+              <li><a href="#">Due diligence</a></li>
+              <li><a href="#">Gestão de resíduos</a></li>
+              <li><a href="#">Laudos e perícias</a></li>
+              <li><a href="#">Pessoas físicas</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="footer-col-title">Contato</p>
+            <ul class="footer-links">
+              <li><a href="#">(11) 91495-8701</a></li>
+              <li><a href="#">WhatsApp</a></li>
+              <li><a href="#">contato@cuestasengambiental.com.br</a></li>
+              <li><a href="#">LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span class="footer-copy">© 2025 · Cuestas Eng. Ambiental</span>
+          <a href="#">Política de privacidade</a>
+        </div>
+      </div>
+
+      <div style="margin-top:var(--space-12);">
+        <span class="state-label" style="display:block; margin-bottom:var(--space-3);">Opção B · Fundo paper (mesma cor do site)</span>
+        <div class="footer-demo footer-demo--light">
+          <div class="footer-grid">
+            <div>
+              <p class="footer-logo-text">Cuestas Engenharia Ambiental</p>
+              <p class="footer-meta">CREA 26 22 46 26 62 · Engº Ambiental<br>São Paulo, SP · cuestasambiental.com<br>Atendimento presencial e remoto</p>
+            </div>
+            <div>
+              <p class="footer-col-title">Serviços</p>
+              <ul class="footer-links">
+                <li><a href="#">Licenciamento ambiental</a></li>
+                <li><a href="#">Due diligence</a></li>
+                <li><a href="#">Gestão de resíduos</a></li>
+                <li><a href="#">Laudos e perícias</a></li>
+                <li><a href="#">Pessoas físicas</a></li>
+              </ul>
+            </div>
+            <div>
+              <p class="footer-col-title">Contato</p>
+              <ul class="footer-links">
+                <li><a href="#">(11) 91495-8701</a></li>
+                <li><a href="#">WhatsApp</a></li>
+                <li><a href="#">contato@cuestasengambiental.com.br</a></li>
+                <li><a href="#">LinkedIn</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <span class="footer-copy">© 2025 · Cuestas Eng. Ambiental</span>
+            <a href="#">Política de privacidade</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ § 11 COOKIE ═══════════════ -->
+  <section class="section" style="background:var(--color-surface);">
+    <div class="container">
+      <p class="section-label">11 — Componentes</p>
+      <h2 class="section-title">Cookie banner · LGPD</h2>
+
+      <div class="cookie-banner">
+        <p class="cookie-text">Utilizamos cookies para melhorar sua experiência e conforme nossa <a href="#">Política de Privacidade</a>. Ao continuar navegando, você concorda com o uso de cookies.</p>
+        <div class="cookie-actions">
+          <button type="button" class="cookie-link">Personalizar</button>
+          <button type="button" class="btn btn-primary">Aceitar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVISOR TOPOGRÁFICO · 2 de 2 momentos estratégicos (antes dos anti-padrões) -->
+  <div class="topo-divider" aria-hidden="true">
+    <svg viewBox="0 0 1200 32" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 16 C 100 24, 200 8, 350 18 S 600 26, 750 14 S 1000 6, 1200 18" stroke="#677A2F" stroke-width="1" fill="none"/>
+      <path d="M0 22 C 120 12, 240 28, 380 14 S 620 6, 800 22 S 1000 28, 1200 12" stroke="#677A2F" stroke-width="0.8" fill="none" stroke-dasharray="6 4"/>
+    </svg>
+  </div>
+
+  <!-- ═══════════════ § 12 ANTI-PADRÕES ═══════════════ -->
+  <section class="section antipatterns">
+    <div class="container">
+      <p class="section-label">12 — Restrições</p>
+      <h2 class="section-title">Anti-padrões</h2>
+      <p class="section-description">O que este projeto não vai fazer. Âncoras de decisão para as próximas etapas.</p>
+
+      <ul class="antipattern-list">
+        <li class="antipattern-item"><span class="antipattern-no">Não</span><span class="antipattern-text"><strong>Verde-folha brilhante</strong> — qualquer verde com Lightness > 45% (#4CAF50, #22C55E) rompe o tom pericial. O verde da marca é olive desaturado #677A2F (L=33%).</span></li>
+        <li class="antipattern-item"><span class="antipattern-no">Não</span><span class="antipattern-text"><strong>Gradientes cromáticos</strong> — verde→azul, verde→amarelo. Sinaliza relatório de sustentabilidade corporativa. Apenas gradientes de neutros são permitidos.</span></li>
+        <li class="antipattern-item"><span class="antipattern-no">Não</span><span class="antipattern-text"><strong>Glassmorphism em cards</strong> — backdrop-filter em cards de conteúdo sinaliza app SaaS. Permitido somente na navbar scrolled (uso funcional).</span></li>
+        <li class="antipattern-item"><span class="antipattern-no">Não</span><span class="antipattern-text"><strong>Fontes rounded</strong> (Nunito, Poppins, Quicksand, SF Pro Rounded) — terminações arredondadas comunicam acolhimento. SF Pro Display/Text têm terminações funcionais.</span></li>
+        <li class="antipattern-item"><span class="antipattern-no">Não</span><span class="antipattern-text"><strong>Ruler marks, fichas de inspeção, cream paper</strong> — recusados deliberadamente. A estrutura (numeração + topografia) é funcional, não cosplay de caderno de campo.</span></li>
+        <li class="antipattern-item"><span class="antipattern-no">Não</span><span class="antipattern-text"><strong>Topografia ornamental entre cada seção</strong> — usar divisor topográfico só em momentos estruturais (1-2 por página). Apple-restraint sobre pulsão decorativa.</span></li>
+        <li class="antipattern-item"><span class="antipattern-no">Não</span><span class="antipattern-text"><strong>Headings UPPERCASE chunky</strong> em conteúdo editorial — uppercase só no logo "CUESTAS" e em labels mono pequenas. Mixed-case domina por restraint.</span></li>
+        <li class="antipattern-item"><span class="antipattern-no">Não</span><span class="antipattern-text"><strong>#25D366 (verde-WhatsApp) fora do botão flutuante</strong> — o verde brilhante oficial briga com o olive desaturado. Em footer, cards e CTAs editoriais, WhatsApp é tratado como qualquer canal de contato (link olive ou neutro do contexto). #25D366 sobrevive isolado apenas no `.whatsapp-btn` fixed bottom-right.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════ § 13 SAMENESS TEST ═══════════════ -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">13 — Validação</p>
+      <h2 class="section-title">Sameness test</h2>
+      <p class="section-description">Mesmo bloco renderizado com três fontes diferentes — SF Pro Display (escolhida, em uso no preview todo), Funnel Display (alternativa Google Fonts free) e Inter (default genérico). A topografia, o § XX na meta, a coordenada CREA, o ritmo da página — tudo idêntico. <strong>Se o sistema sobrevive ao swap de fonte, a estrutura é o que carrega.</strong></p>
+
+      <div class="sameness-grid">
+
+        <div class="sameness-col sameness-col-sfpro">
+          <span class="sameness-tag is-recommended">A · SF Pro Display (escolhida · em uso)</span>
+          <div class="section-coord" style="margin-top:0;"><span class="section-coord-num">§ 03</span><span>/</span><span class="section-coord-of">07</span></div>
+          <h3>Licenciamento ambiental</h3>
+          <p>Condução do processo junto a CETESB, SVMA, SMA e IBAMA. Da LP à LO, com gestão de condicionantes e interface direta com órgãos.</p>
+          <p class="meta">CREA 26 22 46 26 62 · ART 2024.4421.07 · LP · LI · LO</p>
+        </div>
+
+        <div class="sameness-col sameness-col-funnel">
+          <span class="sameness-tag">B · Funnel Display (alternativa free)</span>
+          <div class="section-coord" style="margin-top:0;"><span class="section-coord-num">§ 03</span><span>/</span><span class="section-coord-of">07</span></div>
+          <h3>Licenciamento ambiental</h3>
+          <p>Condução do processo junto a CETESB, SVMA, SMA e IBAMA. Da LP à LO, com gestão de condicionantes e interface direta com órgãos.</p>
+          <p class="meta">CREA 26 22 46 26 62 · ART 2024.4421.07 · LP · LI · LO</p>
+        </div>
+
+        <div class="sameness-col sameness-col-inter">
+          <span class="sameness-tag">C · Inter (default genérico)</span>
+          <div class="section-coord" style="margin-top:0;"><span class="section-coord-num">§ 03</span><span>/</span><span class="section-coord-of">07</span></div>
+          <h3>Licenciamento ambiental</h3>
+          <p>Condução do processo junto a CETESB, SVMA, SMA e IBAMA. Da LP à LO, com gestão de condicionantes e interface direta com órgãos.</p>
+          <p class="meta">CREA 26 22 46 26 62 · ART 2024.4421.07 · LP · LI · LO</p>
+        </div>
+
+      </div>
+
+      <p class="sameness-conclusion">
+        Conclusão · A · SF Pro Display tem o restraint Apple nativo, neutralidade equilibrada que serve à intenção minimalista. B · Funnel Display tem caráter geométrico próprio, gravidade média. C · Inter é o default funcional sem assinatura. Mas <strong>a leitura estrutural do bloco — § 03 / 07, label técnica em SF Pro spaced, contraste ink-on-paper, ritmo de espaçamento — funciona idêntica nas três.</strong> Estrutura &gt; fonte. SF Pro Display foi escolhida por ser a referência canônica do design system Apple; Funnel Display fica como fallback caso o cliente queira alternativa não-Apple sem dependência de licença Apple.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER PREVIEW ═══════════════ -->
+  <footer style="background:var(--color-ink); padding:var(--space-12) 0; text-align:center;">
+    <p style="font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.06em; color:rgba(250,250,247,0.4); text-transform:uppercase;">
+      Design Tokens v1.0 · Etapa 1 de N · Execução minimalista<br>
+      <span style="color:rgba(250,250,247,0.6); margin-top:8px; display:inline-block;">SF Pro Display · SF Pro Text · Primary #677A2F</span>
+    </p>
+  </footer>
+
+  <!-- WhatsApp flutuante -->
+  <a class="whatsapp-btn" href="https://wa.me/5511914958701?text=Olá%2C%20encontrei%20o%20site%20da%20Cuestas%20Engenharia%20Ambiental%20e%20gostaria%20de%20solicitar%20um%20orçamento." target="_blank" aria-label="Fale pelo WhatsApp">
+    <svg viewBox="0 0 24 24">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </a>
+
+</body>
+</html>
