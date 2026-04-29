@@ -336,6 +336,44 @@
     }
     .servicos .section-title.reveal { transition-delay: 80ms; }
     .servicos .section-lead.reveal  { transition-delay: 160ms; }
+
+    /* Toggle Empresas / Pessoas Físicas */
+    .servicos-toggle {
+      display: flex;
+      width: fit-content;
+      margin: 0 auto var(--space-8);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-pill);
+      padding: 4px;
+      gap: 2px;
+    }
+    .toggle-btn {
+      padding: 9px 22px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.50);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: background .25s cubic-bezier(0.28, 0.11, 0.32, 1),
+                  color .25s cubic-bezier(0.28, 0.11, 0.32, 1),
+                  box-shadow .25s ease;
+      white-space: nowrap;
+    }
+    .toggle-btn.active {
+      background: var(--color-accent);
+      color: var(--color-on-accent);
+      box-shadow: 0 2px 8px rgba(103, 122, 47, 0.40);
+    }
+    .toggle-btn:hover:not(.active) {
+      color: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.08);
+    }
+
     /* Carrossel */
     .servicos-track-wrapper {
       overflow-x: auto;
@@ -820,12 +858,18 @@
           Atendemos empresas, empreendimentos e pessoas físicas com rigor técnico e conformidade legal em cada etapa.
         </p>
 
+        <div class="servicos-toggle" role="group" aria-label="Filtrar serviços por público">
+          <button class="toggle-btn active" data-target="empresas" aria-pressed="true">Empresas</button>
+          <button class="toggle-btn" data-target="pessoas-fisicas" aria-pressed="false">Pessoas Físicas</button>
+        </div>
+
         <div class="servicos-track-wrapper" id="servicos-track">
         <div class="servicos-grid">
 
           <!-- 3.1 -->
           <a class="servico-card" href="/servicos/licenciamento"
-             aria-label="Licenciamento Ambiental">
+             aria-label="Licenciamento Ambiental"
+             data-group-start="empresas">
             <span class="card-label">Empresas</span>
             <h3>Licenciamento Ambiental</h3>
             <p>Condução do processo junto a CETESB, SVMA, SMA e IBAMA — da LP à LO.</p>
@@ -944,7 +988,8 @@
 
           <!-- 4.2 -->
           <a class="servico-card" href="/servicos/avaliacao-imovel"
-             aria-label="Avaliação Ambiental de Imóvel">
+             aria-label="Avaliação Ambiental de Imóvel"
+             data-group-start="pessoas-fisicas">
             <span class="card-label">Pessoas Físicas</span>
             <h3>Avaliação Ambiental de Imóvel</h3>
             <p>Identificação de passivos, restrições e pendências ambientais antes de comprar, vender ou financiar um imóvel.</p>
@@ -1039,7 +1084,7 @@
 
           <form class="cta-form" action="#" method="post" aria-label="Formulário de contato">
             <div class="form-head">
-              <span class="form-head-label">Solicitar Avaliação</span>
+              <span class="form-head-label">Entre em Contato</span>
             </div>
 
             <div class="form-field">
@@ -1101,7 +1146,8 @@
           <h4>Serviços</h4>
           <ul>
             <li><a href="/servicos/empresas">Empresas e Empreendimentos</a></li>
-            <li><a href="/servicos/pessoas-fisicas">Imóveis e Pessoas Físicas</a></li>
+            <li><a href="/servicos/imoveis">Imóveis</a></li>
+            <li><a href="/servicos/pessoas-fisicas">Pessoas Físicas</a></li>
             <li><a href="/servicos/laudos">Laudos e Perícias</a></li>
             <li><a href="/setores">Setores Atendidos</a></li>
           </ul>
@@ -1208,12 +1254,13 @@
         });
       }
 
-      /* ── Carrossel de serviços — drag + setas ────────────────────── */
+      /* ── Carrossel de serviços — drag + setas + toggle ──────────── */
       (function() {
-        var track   = document.getElementById('servicos-track');
-        var prevBtn = document.getElementById('serv-prev');
-        var nextBtn = document.getElementById('serv-next');
-        var STEP    = 296;
+        var track      = document.getElementById('servicos-track');
+        var prevBtn    = document.getElementById('serv-prev');
+        var nextBtn    = document.getElementById('serv-next');
+        var toggleBtns = Array.from(document.querySelectorAll('.toggle-btn'));
+        var STEP       = 296;
 
         function updateButtons() {
           var atStart = track.scrollLeft <= 0;
@@ -1224,13 +1271,55 @@
           nextBtn.setAttribute('aria-disabled', String(atEnd));
         }
         updateButtons();
-        track.addEventListener('scroll', updateButtons, { passive: true });
+
+        /* Scroll para o card âncora do grupo usando coordenadas de viewport */
+        function scrollToGroup(group) {
+          var target = track.querySelector('[data-group-start="' + group + '"]');
+          if (!target) return;
+          var cardRect  = target.getBoundingClientRect();
+          var trackRect = track.getBoundingClientRect();
+          var padding   = parseFloat(getComputedStyle(track).paddingLeft) || 24;
+          var newLeft   = track.scrollLeft + cardRect.left - trackRect.left - padding;
+          track.scrollTo({ left: Math.max(0, newLeft), behavior: 'smooth' });
+        }
+
+        /* Sync toggle ao rolar manualmente */
+        function syncToggle() {
+          var pfCard = track.querySelector('[data-group-start="pessoas-fisicas"]');
+          if (!pfCard) return;
+          var pfRect    = pfCard.getBoundingClientRect();
+          var trackRect = track.getBoundingClientRect();
+          /* Se o meio da viewport do track já passou a metade do card PF → ativo é PF */
+          var trackMid  = trackRect.left + trackRect.width / 2;
+          var activeGroup = pfRect.left <= trackMid ? 'pessoas-fisicas' : 'empresas';
+          toggleBtns.forEach(function(btn) {
+            var isActive = btn.dataset.target === activeGroup;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-pressed', String(isActive));
+          });
+        }
+
+        track.addEventListener('scroll', function() {
+          updateButtons();
+          syncToggle();
+        }, { passive: true });
 
         prevBtn.addEventListener('click', function() {
           track.scrollBy({ left: -STEP * 2, behavior: 'smooth' });
         });
         nextBtn.addEventListener('click', function() {
           track.scrollBy({ left: STEP * 2, behavior: 'smooth' });
+        });
+
+        /* Toggle click */
+        toggleBtns.forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            toggleBtns.forEach(function(b) {
+              b.classList.toggle('active', b === btn);
+              b.setAttribute('aria-pressed', String(b === btn));
+            });
+            scrollToGroup(btn.dataset.target);
+          });
         });
 
         var dragging = false, startX, startScroll, totalMoved;
