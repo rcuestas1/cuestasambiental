@@ -10,7 +10,7 @@
     Estrutura: numeração de seção, "label técnica" (SF Pro Text spaced), motivo topográfico do logo.
     Whitespace generoso, tipografia restrained, ornamentação cirúrgica.
 
-    Fontes locais em ./Fonts/sf-pro/ (carregadas via @font-face com path relativo a partir do index.html na raiz).
+    Fontes locais em /Fonts/sf-pro/ (carregadas via @font-face com path relativo).
     Sameness Test (§ 13) compara SF Pro com Funnel e Inter — estrutura > fonte.
 
     Dependências externas: Google Fonts (apenas para os comparativos do Sameness Test).
@@ -59,30 +59,49 @@
     ───────────────────────────────────────── */
     :root {
       /* Cores */
-      --color-primary:       #677A2F;
-      --color-primary-dark:  #556424;
-      --color-primary-soft:  #EDF0DC;
-      --color-primary-focus: #7B8E3C;  /* Apple-style focus ring (10% mais claro) */
-      --color-ink:           #1C1D1A;
-      --color-ink-muted:     #5C5E59;
-      --color-paper:         #FAFAF7;
-      --color-surface:       #F3F4EE;
-      --color-accent:        #677A2F;
-      --color-border:        #DDE0D7;
-      --hairline:            rgba(0, 0, 0, 0.08); /* Apple hairline para cards */
-      --color-success:       #2E6B29;
-      --color-error:         #892323;
+      --color-background:      #FAFAF7;
+      --color-surface:         #F3F4EE;
+      --color-surface-subtle:  #FFFFFF;
+      --color-border-hairline: rgba(0, 0, 0, 0.08);
+      --color-border:          #DDE0D7;
+      --color-text-primary:    #1C1D1A;
+      --color-text-secondary:  #5C5E59;
+      --color-accent:          #677A2F;
+      --color-accent-hover:    #556424;
+      --color-accent-soft:     #EDF0DC;
+      --color-accent-focus:    #7B8E3C;
+      --color-on-accent:       #FFFFFF;
+      --color-whatsapp:        #25D366;
+      --color-on-dark:         #FFFFFF;
+      --color-success:         #2E6B29;
+      --color-error:           #892323;
 
-      /* Tipografia · SF Pro (Apple system font)
-         Display: SF Pro Display — headings, hero, títulos (pesos 400/500/600).
-         Body:    SF Pro Text — corpo, labels, parágrafos (pesos 400/500/600).
-         "Mono":  SF Pro Text com letter-spacing + UPPERCASE para sensação de label técnica.
-                  Apple não usa mono em apple.com; usa SF Pro Text Semibold spaced para dar essa sensação. */
+      /* Tipografia */
+      --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
       --font-body:    'SF Pro Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
       --font-mono:    'SF Pro Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 
-      /* Espaçamento · escala Apple, base 8px */
+      --font-size-xs:   12px;
+      --font-size-sm:   14px;
+      --font-size-base: 16px;
+      --font-size-md:   18px;
+      --font-size-lg:   22px;
+      --font-size-xl:   28px;
+      --font-size-2xl:  36px;
+      --font-size-3xl:  48px;
+
+      --leading-tight:  1.07;
+      --leading-snug:   1.2;
+      --leading-normal: 1.47;
+      --leading-loose:  1.6;
+
+      --tracking-tight:  -0.374px;
+      --tracking-hero:   -0.28px;
+      --tracking-normal: 0;
+      --tracking-wide:   0.12px;
+
+      /* Espaçamento */
       --space-1:  4px;
       --space-2:  8px;
       --space-3:  12px;
@@ -94,18 +113,24 @@
       --space-24: 96px;
       --space-32: 128px;
 
-      /* Radius · escala Apple Design System */
-      --radius-xs:   5px;     /* chips inline pequenos */
-      --radius-sm:   8px;     /* inputs, selects, imagens, utilitários */
-      --radius-md:   11px;    /* botões — Pearl Button (Apple oficial) */
-      --radius-lg:   18px;    /* cards estruturais, banners, modais */
-      --radius-pill: 9999px;  /* chips de setor, search input full-pill */
+      /* Radius */
+      --radius-none: 0px;
+      --radius-xs:   4px;
+      --radius-sm:   6px;
+      --radius-md:   10px;
+      --radius-lg:   14px;
+      --radius-pill: 9999px;
+      --radius-full: 9999px;
 
-      /* Sombras · duas camadas em UI, uma em produto */
-      --shadow-sm:      0 1px 2px rgba(28, 29, 26, .06);
-      --shadow-md:      0 2px 8px rgba(28, 29, 26, .08),
-                        0 1px 2px rgba(28, 29, 26, .04);
-      --shadow-product: 0 3px 30px 5px rgba(0, 0, 0, 0.22); /* Apple — exclusivo de imagens de produto */
+      /* Sombras */
+      --shadow-card:     0 2px 12px rgba(0, 0, 0, 0.08);
+      --shadow-hero:     0 8px 40px rgba(0, 0, 0, 0.12);
+      --shadow-floating: 0 4px 24px rgba(0, 0, 0, 0.18);
+
+      /* Borders */
+      --border-hairline: 1px solid var(--color-border-hairline);
+      --border-default:  1px solid var(--color-border);
+      --border-focus:    2px solid var(--color-accent-focus);
     }
 
     /* ─────────────────────────────────────────
@@ -116,8 +141,8 @@
 
     body {
       font-family: var(--font-body);
-      background: var(--color-paper);
-      color: var(--color-ink);
+      background: var(--color-background);
+      color: var(--color-text-primary);
       font-size: 1rem;
       line-height: 1.65;
       letter-spacing: -0.011em; /* Apple body tracking sutil */
@@ -148,7 +173,7 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--color-primary);
+      color: var(--color-accent);
       margin-bottom: var(--space-2);
     }
 
@@ -158,14 +183,14 @@
       font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
       display: inline-flex;
       align-items: center;
       gap: 6px;
       margin-bottom: var(--space-3);
     }
-    .section-coord-num { color: var(--color-primary); }
-    .section-coord-of  { color: var(--color-ink-muted); }
+    .section-coord-num { color: var(--color-accent); }
+    .section-coord-of  { color: var(--color-text-secondary); }
 
     /* Heading mixed-case, weight 600 — Apple ladder (500 deliberadamente ausente) */
     .section-title {
@@ -174,14 +199,14 @@
       font-weight: 600;
       line-height: 1.1;
       letter-spacing: -0.01em;
-      color: var(--color-ink);
+      color: var(--color-text-primary);
       margin-bottom: var(--space-4);
     }
 
     .section-description {
       font-family: var(--font-body);
       font-size: 1.0625rem;
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
       max-width: 620px;
       margin-bottom: var(--space-12);
       line-height: 1.6;
@@ -203,7 +228,7 @@
       font-family: var(--font-mono);
       font-size: 0.75rem;
       letter-spacing: 0.04em;
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
     }
 
     /* State label genérico (rótulos de demo) */
@@ -212,7 +237,7 @@
       font-size: 0.6875rem;
       font-weight: 600;
       letter-spacing: 0.06em;
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
       margin-bottom: var(--space-2);
       text-transform: uppercase;
     }
@@ -231,7 +256,7 @@
     .preview-header {
       position: relative;
       overflow: hidden;
-      background: var(--color-ink);
+      background: var(--color-text-primary);
       padding: var(--space-32) 0 var(--space-24);
     }
     .preview-header-topo {
@@ -274,7 +299,7 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--color-primary);
+      color: var(--color-accent);
       margin-bottom: var(--space-4);
     }
 
@@ -286,7 +311,7 @@
       font-weight: 600;
       line-height: 1.1;
       letter-spacing: -0.015em;
-      color: var(--color-paper);
+      color: var(--color-background);
       margin-bottom: var(--space-6);
     }
 
@@ -318,14 +343,14 @@
       font-family: var(--font-display);
       font-size: 0.9375rem;
       font-weight: 600;
-      color: var(--color-ink);
+      color: var(--color-text-primary);
       margin-bottom: 2px;
       letter-spacing: -0.005em;
     }
     .swatch-var {
       font-family: var(--font-mono);
       font-size: 0.6875rem;
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
       line-height: 1.4;
     }
 
@@ -363,12 +388,12 @@
     .type-meta {
       font-family: var(--font-mono);
       font-size: 0.6875rem;
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
       line-height: 1.6;
       letter-spacing: 0.02em;
     }
     .type-meta strong {
-      color: var(--color-ink);
+      color: var(--color-text-primary);
       font-weight: 600;
       display: block;
       margin-bottom: 2px;
@@ -380,7 +405,7 @@
     .spacing-grid { display: flex; flex-direction: column; gap: var(--space-3); }
     .spacing-row { display: flex; align-items: center; gap: var(--space-4); }
     .spacing-bar {
-      background: var(--color-primary);
+      background: var(--color-accent);
       opacity: 0.55;
       height: 16px;
       border-radius: 2px;
@@ -389,11 +414,11 @@
     .spacing-info {
       font-family: var(--font-mono);
       font-size: 0.75rem;
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
       white-space: nowrap;
       letter-spacing: 0.02em;
     }
-    .spacing-info strong { color: var(--color-ink); font-weight: 600; }
+    .spacing-info strong { color: var(--color-text-primary); font-weight: 600; }
 
     /* ─────────────────────────────────────────
        § 04 RADIUS & SOMBRAS
@@ -419,7 +444,7 @@
     .shadow-box {
       width: 132px;
       height: 88px;
-      background: var(--color-paper);
+      background: var(--color-background);
       border-radius: var(--radius-md);
     }
 
@@ -443,23 +468,23 @@
                   transform 150ms ease-out, box-shadow 150ms ease-out;
       white-space: nowrap;
     }
-    .btn:focus-visible { outline: 2px solid var(--color-primary-focus); outline-offset: 2px; }
+    .btn:focus-visible { outline: 2px solid var(--color-accent-focus); outline-offset: 2px; }
     .btn:active { transform: scale(0.97); } /* Apple system-wide press micro-interaction */
 
-    .btn-primary { background: var(--color-primary); color: #fff; }
-    .btn-primary:hover, .btn-primary.is-hovered { background: var(--color-primary-dark); }
-    .btn-primary.is-focused { outline: 2px solid var(--color-primary-focus); outline-offset: 2px; }
+    .btn-primary { background: var(--color-accent); color: #fff; }
+    .btn-primary:hover, .btn-primary.is-hovered { background: var(--color-accent-hover); }
+    .btn-primary.is-focused { outline: 2px solid var(--color-accent-focus); outline-offset: 2px; }
     .btn-primary:disabled, .btn-primary.is-disabled {
       opacity: 0.4; cursor: not-allowed; pointer-events: none;
     }
 
     .btn-secondary {
       background: transparent;
-      color: var(--color-primary);
-      border: 1.5px solid var(--color-primary);
+      color: var(--color-accent);
+      border: 1.5px solid var(--color-accent);
     }
-    .btn-secondary:hover, .btn-secondary.is-hovered { background: var(--color-primary-soft); }
-    .btn-secondary.is-focused { outline: 2px solid var(--color-primary-focus); outline-offset: 2px; }
+    .btn-secondary:hover, .btn-secondary.is-hovered { background: var(--color-accent-soft); }
+    .btn-secondary.is-focused { outline: 2px solid var(--color-accent-focus); outline-offset: 2px; }
     .btn-secondary:disabled, .btn-secondary.is-disabled {
       opacity: 0.4; cursor: not-allowed; pointer-events: none;
     }
@@ -481,12 +506,12 @@
       font-family: var(--font-body);
       font-size: 0.875rem;
       font-weight: 600;
-      color: var(--color-ink);
+      color: var(--color-text-primary);
     }
     .form-input, .form-textarea, .form-select {
       font-family: var(--font-body);
       font-size: 1rem;
-      color: var(--color-ink);
+      color: var(--color-text-primary);
       background: #fff;
       border: 1px solid var(--color-border);
       border-radius: var(--radius-sm);
@@ -499,19 +524,19 @@
     .form-input::placeholder, .form-textarea::placeholder { color: rgba(92, 94, 89, 0.55); }
 
     .form-input:hover, .form-textarea:hover,
-    .form-input.is-hovered, .form-textarea.is-hovered { border-color: var(--color-ink-muted); }
+    .form-input.is-hovered, .form-textarea.is-hovered { border-color: var(--color-text-secondary); }
 
     .form-input:focus, .form-textarea:focus,
     .form-input.is-focused, .form-textarea.is-focused {
       outline: none;
-      border-color: var(--color-primary);
-      box-shadow: var(--shadow-sm);
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-card);
     }
 
     .form-input:disabled, .form-textarea:disabled,
     .form-input.is-disabled, .form-textarea.is-disabled {
       background: var(--color-surface);
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
       cursor: not-allowed;
     }
     .form-textarea { min-height: 120px; resize: vertical; }
@@ -531,7 +556,7 @@
        Elevação visual vem da troca de border-color (hairline → primary). */
     .service-card {
       background: var(--color-surface);
-      border: 1px solid var(--hairline);
+      border: 1px solid var(--color-border-hairline);
       border-radius: var(--radius-lg);
       padding: var(--space-8) var(--space-6);
       transition: border-color 200ms ease-out, transform 200ms ease-out;
@@ -542,11 +567,11 @@
       position: relative;
     }
     .service-card:hover, .service-card.is-hovered {
-      border-color: var(--color-primary);
+      border-color: var(--color-accent);
     }
     .service-card:active { transform: scale(0.99); } /* press sutil Apple-style */
     .service-card:focus-visible, .service-card.is-focused {
-      outline: 2px solid var(--color-primary-focus);
+      outline: 2px solid var(--color-accent-focus);
       outline-offset: 2px;
     }
     .card-coord {
@@ -556,13 +581,13 @@
       font-family: var(--font-mono);
       font-size: 0.6875rem;
       letter-spacing: 0.03em;
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
     }
     .card-icon {
       width: 28px;
       height: 28px;
       margin-bottom: var(--space-4);
-      color: var(--color-primary);
+      color: var(--color-accent);
     }
     .card-title {
       font-family: var(--font-display);
@@ -570,14 +595,14 @@
       font-weight: 600;
       line-height: 1.2;
       letter-spacing: -0.005em;
-      color: var(--color-ink);
+      color: var(--color-text-primary);
       margin-bottom: var(--space-2);
     }
     .card-body {
       font-family: var(--font-body);
       font-size: 0.9375rem;
       line-height: 1.6;
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
     }
 
     /* ─────────────────────────────────────────
@@ -595,9 +620,9 @@
       align-items: center;
       padding: 14px 22px;
       min-height: 52px;
-      background: var(--color-paper);
-      color: var(--color-ink);
-      border-bottom: 1px solid var(--hairline);
+      background: var(--color-background);
+      color: var(--color-text-primary);
+      border-bottom: 1px solid var(--color-border-hairline);
     }
     .navbar.is-scrolled {
       background: rgba(250, 250, 247, 0.85);
@@ -619,7 +644,7 @@
       font-size: 0.9375rem;
       font-weight: 600;
       letter-spacing: -0.01em;
-      color: var(--color-ink);
+      color: var(--color-text-primary);
     }
     .navbar-nav {
       justify-self: center;
@@ -632,7 +657,7 @@
       font-size: 0.75rem;
       font-weight: 400;
       letter-spacing: -0.01em;
-      color: var(--color-ink);
+      color: var(--color-text-primary);
       text-decoration: none;
       transition: opacity 150ms;
     }
@@ -646,7 +671,7 @@
       gap: 6px;
       padding: 6px 14px;
       border-radius: var(--radius-md);
-      background: var(--color-primary);
+      background: var(--color-accent);
       color: #fff;
       font-family: var(--font-body);
       font-size: 0.75rem;
@@ -655,7 +680,7 @@
       text-decoration: none;
       transition: background 150ms ease-out, transform 150ms ease-out;
     }
-    .navbar-cta:hover { background: var(--color-primary-dark); }
+    .navbar-cta:hover { background: var(--color-accent-hover); }
     .navbar-cta:active { transform: scale(0.97); }
     .navbar-cta svg { width: 14px; height: 14px; fill: currentColor; }
 
@@ -663,7 +688,7 @@
        FOOTER · enxuto
     ───────────────────────────────────────── */
     .footer-demo {
-      background: var(--color-ink);
+      background: var(--color-text-primary);
       border-radius: var(--radius-lg);
       padding: var(--space-12) var(--space-8);
       overflow: hidden;
@@ -688,7 +713,7 @@
       font-family: var(--font-display);
       font-size: 1.5rem;
       font-weight: 600;
-      color: var(--color-paper);
+      color: var(--color-background);
       letter-spacing: -0.01em;
       margin-bottom: var(--space-2);
     }
@@ -734,17 +759,17 @@
 
     /* Footer · variante light (mesma cor do site) — opção B do cliente */
     .footer-demo--light {
-      background: var(--color-paper);
+      background: var(--color-background);
       border: 1px solid var(--color-border);
     }
-    .footer-demo--light .footer-logo-text { color: var(--color-ink); }
-    .footer-demo--light .footer-meta { color: var(--color-ink-muted); }
-    .footer-demo--light .footer-col-title { color: var(--color-ink-muted); }
-    .footer-demo--light .footer-links a { color: var(--color-ink-muted); }
-    .footer-demo--light .footer-links a:hover { color: var(--color-ink); }
+    .footer-demo--light .footer-logo-text { color: var(--color-text-primary); }
+    .footer-demo--light .footer-meta { color: var(--color-text-secondary); }
+    .footer-demo--light .footer-col-title { color: var(--color-text-secondary); }
+    .footer-demo--light .footer-links a { color: var(--color-text-secondary); }
+    .footer-demo--light .footer-links a:hover { color: var(--color-text-primary); }
     .footer-demo--light .footer-bottom { border-top: 1px solid var(--color-border); }
-    .footer-demo--light .footer-copy { color: var(--color-ink-muted); }
-    .footer-demo--light .footer-bottom a { color: var(--color-ink-muted); }
+    .footer-demo--light .footer-copy { color: var(--color-text-secondary); }
+    .footer-demo--light .footer-bottom a { color: var(--color-text-secondary); }
 
     /* ─────────────────────────────────────────
        COOKIE BANNER
@@ -763,27 +788,27 @@
     .cookie-text {
       font-family: var(--font-body);
       font-size: 0.875rem;
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
       line-height: 1.5;
       flex: 1;
       min-width: 200px;
     }
-    .cookie-text a { color: var(--color-primary); text-decoration: underline; }
+    .cookie-text a { color: var(--color-accent); text-decoration: underline; }
     .cookie-actions { display: flex; align-items: center; gap: var(--space-4); flex-shrink: 0; }
     .cookie-actions .btn { padding: 8px 16px; font-size: 0.875rem; }
     .cookie-link {
       font-family: var(--font-body);
       font-size: 0.875rem;
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
       text-decoration: underline;
       cursor: pointer;
       background: transparent;
       border: none;
       padding: 4px 0;
     }
-    .cookie-link:hover { color: var(--color-ink); }
+    .cookie-link:hover { color: var(--color-text-primary); }
     .cookie-link:focus-visible {
-      outline: 2px solid var(--color-primary);
+      outline: 2px solid var(--color-accent);
       outline-offset: 2px;
       border-radius: 2px;
     }
@@ -799,19 +824,19 @@
       width: 56px;
       height: 56px;
       border-radius: 50%;
-      background: #25D366;
+      background: var(--color-whatsapp);
       border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: var(--shadow-md), 0 4px 16px rgba(37, 211, 102, .3);
+      box-shadow: var(--shadow-floating), 0 4px 16px rgba(37, 211, 102, .3);
       transition: transform 150ms ease-out, box-shadow 150ms ease-out;
       text-decoration: none;
     }
     .whatsapp-btn:hover {
       transform: scale(1.06);
-      box-shadow: var(--shadow-md), 0 6px 24px rgba(37, 211, 102, .4);
+      box-shadow: var(--shadow-floating), 0 6px 24px rgba(37, 211, 102, .4);
     }
     .whatsapp-btn svg { width: 28px; height: 28px; fill: #fff; }
 
@@ -828,7 +853,7 @@
       font-weight: 400;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
       white-space: nowrap;
       max-width: 100%;
     }
@@ -849,7 +874,7 @@
       font-size: 2.5rem;
       font-weight: 600;
       line-height: 1;
-      color: var(--color-primary);
+      color: var(--color-accent);
       letter-spacing: -0.01em;
     }
     .page-section-num .label {
@@ -857,14 +882,14 @@
       font-size: 1.5rem;
       font-weight: 600;
       letter-spacing: -0.005em;
-      color: var(--color-ink);
+      color: var(--color-text-primary);
       line-height: 1.15;
     }
     .page-context-flag {
       font-family: var(--font-mono);
       font-size: 0.6875rem;
       letter-spacing: 0.06em;
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
       text-transform: uppercase;
       margin-bottom: var(--space-3);
     }
@@ -880,7 +905,7 @@
       gap: var(--space-4);
       align-items: flex-start;
       padding: var(--space-4) var(--space-6);
-      background: var(--color-paper);
+      background: var(--color-background);
       border-radius: var(--radius-md);
       border-left: 2px solid var(--color-error);
     }
@@ -897,7 +922,7 @@
     .antipattern-text {
       font-family: var(--font-body);
       font-size: 0.9375rem;
-      color: var(--color-ink);
+      color: var(--color-text-primary);
       line-height: 1.55;
     }
     .antipattern-text strong { font-weight: 600; }
@@ -912,7 +937,7 @@
       margin-top: var(--space-8);
     }
     .sameness-col {
-      background: var(--color-paper);
+      background: var(--color-background);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-md);
       padding: var(--space-8) var(--space-6);
@@ -923,7 +948,7 @@
       top: 0;
       left: var(--space-6);
       transform: translateY(-50%);
-      background: var(--color-paper);
+      background: var(--color-background);
       padding: 3px 10px;
       font-family: var(--font-mono);
       font-size: 0.6875rem;
@@ -931,9 +956,9 @@
       text-transform: uppercase;
       border: 1px solid var(--color-border);
       border-radius: var(--radius-sm);
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
     }
-    .sameness-tag.is-recommended { color: var(--color-primary); border-color: var(--color-primary); }
+    .sameness-tag.is-recommended { color: var(--color-accent); border-color: var(--color-accent); }
     /* Sameness Test · exceção deliberada do ladder Apple (300/400/600/700).
        Usa weight 500 para paridade visual entre os 3 cards: Funnel e Inter
        só carregam weight 500 do Google Fonts. Todos no mesmo nominal weight = comparação visual justa. */
@@ -942,7 +967,7 @@
       font-weight: 500;
       line-height: 1.1;
       letter-spacing: -0.01em;
-      color: var(--color-ink);
+      color: var(--color-text-primary);
       margin: var(--space-2) 0 var(--space-3);
     }
     .sameness-col-sfpro h3  { font-family: 'SF Pro Display', system-ui, sans-serif; }
@@ -951,7 +976,7 @@
     .sameness-col p {
       font-family: var(--font-body);
       font-size: 0.9375rem;
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
       line-height: 1.6;
       margin-bottom: var(--space-4);
     }
@@ -959,13 +984,13 @@
       font-family: var(--font-mono);
       font-size: 0.75rem;
       letter-spacing: 0.04em;
-      color: var(--color-ink-muted);
+      color: var(--color-text-secondary);
       line-height: 1.6;
       margin-top: var(--space-12);
       padding-top: var(--space-6);
       border-top: 1px solid var(--color-border);
     }
-    .sameness-conclusion strong { color: var(--color-ink); font-weight: 600; }
+    .sameness-conclusion strong { color: var(--color-text-primary); font-weight: 600; }
 
     /* ─────────────────────────────────────────
        RESPONSIVO
@@ -1025,14 +1050,15 @@
       <p class="section-description">Uma cor cromática (olive extraído do wordmark). O resto, escala de neutros com undertone quente. A restrição é o que dá rigor ao sistema.</p>
 
       <div class="swatches-grid">
-        <div class="swatch"><div class="swatch-color" style="background:#677A2F;"></div><span class="swatch-name">Primary</span><span class="swatch-var">--color-primary<br>#677A2F</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#EDF0DC;border-color:#DDE0D7;"></div><span class="swatch-name">Primary Soft</span><span class="swatch-var">--color-primary-soft<br>#EDF0DC</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#1C1D1A;"></div><span class="swatch-name">Ink</span><span class="swatch-var">--color-ink<br>#1C1D1A</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#5C5E59;"></div><span class="swatch-name">Ink Muted</span><span class="swatch-var">--color-ink-muted<br>#5C5E59</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#FAFAF7;border-color:#DDE0D7;"></div><span class="swatch-name">Paper</span><span class="swatch-var">--color-paper<br>#FAFAF7</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#677A2F;"></div><span class="swatch-name">Accent</span><span class="swatch-var">--color-accent<br>#677A2F</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#556424;"></div><span class="swatch-name">Accent Hover</span><span class="swatch-var">--color-accent-hover<br>#556424</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#EDF0DC;border-color:#DDE0D7;"></div><span class="swatch-name">Accent Soft</span><span class="swatch-var">--color-accent-soft<br>#EDF0DC</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#1C1D1A;"></div><span class="swatch-name">Text Primary</span><span class="swatch-var">--color-text-primary<br>#1C1D1A</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#5C5E59;"></div><span class="swatch-name">Text Secondary</span><span class="swatch-var">--color-text-secondary<br>#5C5E59</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#FAFAF7;border-color:#DDE0D7;"></div><span class="swatch-name">Background</span><span class="swatch-var">--color-background<br>#FAFAF7</span></div>
         <div class="swatch"><div class="swatch-color" style="background:#F3F4EE;border-color:#DDE0D7;"></div><span class="swatch-name">Surface</span><span class="swatch-var">--color-surface<br>#F3F4EE</span></div>
         <div class="swatch"><div class="swatch-color" style="background:#DDE0D7;"></div><span class="swatch-name">Border</span><span class="swatch-var">--color-border<br>#DDE0D7</span></div>
-        <div class="swatch"><div class="swatch-color" style="background:#677A2F;"></div><span class="swatch-name">Accent</span><span class="swatch-var">--color-accent<br>= primary</span></div>
+        <div class="swatch"><div class="swatch-color" style="background:#25D366;"></div><span class="swatch-name">WhatsApp</span><span class="swatch-var">--color-whatsapp<br>#25D366</span></div>
         <div class="swatch"><div class="swatch-color" style="background:#2E6B29;"></div><span class="swatch-name">Success</span><span class="swatch-var">--color-success<br>#2E6B29</span></div>
         <div class="swatch"><div class="swatch-color" style="background:#892323;"></div><span class="swatch-name">Error</span><span class="swatch-var">--color-error<br>#892323</span></div>
       </div>
@@ -1056,42 +1082,42 @@
 
         <div class="type-row">
           <div class="type-meta"><strong>Hero</strong>clamp(2.5rem, 5vw, 4rem)<br>weight 500<br>lh 1.1 · ls -0.025em<br><em style="opacity:0.7;">700 só no logo SVG</em></div>
-          <div style="font-family:var(--font-display); font-size:clamp(2.5rem, 5vw, 4rem); font-weight:600; line-height:1.1; letter-spacing:-0.015em; color:var(--color-ink);">Engenharia aplicada.</div>
+          <div style="font-family:var(--font-display); font-size:clamp(2.5rem, 5vw, 4rem); font-weight:600; line-height:1.1; letter-spacing:-0.015em; color:var(--color-text-primary);">Engenharia aplicada.</div>
         </div>
 
         <div class="type-row">
           <div class="type-meta"><strong>Display</strong>2.5rem · 40px<br>weight 500<br>lh 1.1 · ls -0.02em</div>
-          <div style="font-family:var(--font-display); font-size:2.5rem; font-weight:600; line-height:1.1; letter-spacing:-0.01em; color:var(--color-ink);">Licenciamento Ambiental</div>
+          <div style="font-family:var(--font-display); font-size:2.5rem; font-weight:600; line-height:1.1; letter-spacing:-0.01em; color:var(--color-text-primary);">Licenciamento Ambiental</div>
         </div>
 
         <div class="type-row">
           <div class="type-meta"><strong>H2</strong>2rem · 32px<br>weight 500<br>lh 1.15 · ls -0.015em</div>
-          <div style="font-family:var(--font-display); font-size:2rem; font-weight:600; line-height:1.15; letter-spacing:-0.01em; color:var(--color-ink);">Due Diligence Ambiental</div>
+          <div style="font-family:var(--font-display); font-size:2rem; font-weight:600; line-height:1.15; letter-spacing:-0.01em; color:var(--color-text-primary);">Due Diligence Ambiental</div>
         </div>
 
         <div class="type-row">
           <div class="type-meta"><strong>H3</strong>1.375rem · 22px<br>weight 500<br>lh 1.25</div>
-          <div style="font-family:var(--font-display); font-size:1.375rem; font-weight:600; line-height:1.25; letter-spacing:-0.005em; color:var(--color-ink);">Gestão de resíduos sólidos</div>
+          <div style="font-family:var(--font-display); font-size:1.375rem; font-weight:600; line-height:1.25; letter-spacing:-0.005em; color:var(--color-text-primary);">Gestão de resíduos sólidos</div>
         </div>
 
         <div class="type-row">
           <div class="type-meta"><strong>Body Large</strong>1.125rem · 18px<br>weight 400<br>lh 1.6</div>
-          <div style="font-family:var(--font-body); font-size:1.125rem; line-height:1.6; color:var(--color-ink);">Licenciamento, due diligence ambiental, laudos e conformidade legal para empresas, imóveis e pessoas físicas.</div>
+          <div style="font-family:var(--font-body); font-size:1.125rem; line-height:1.6; color:var(--color-text-primary);">Licenciamento, due diligence ambiental, laudos e conformidade legal para empresas, imóveis e pessoas físicas.</div>
         </div>
 
         <div class="type-row">
           <div class="type-meta"><strong>Body</strong>1rem · 16px<br>weight 400<br>lh 1.65</div>
-          <div style="font-family:var(--font-body); font-size:1rem; line-height:1.65; color:var(--color-ink-muted); max-width:580px;">A Cuestas Engenharia Ambiental é uma consultoria especializada em soluções ambientais técnicas para empresas, empreendimentos e pessoas físicas.</div>
+          <div style="font-family:var(--font-body); font-size:1rem; line-height:1.65; color:var(--color-text-secondary); max-width:580px;">A Cuestas Engenharia Ambiental é uma consultoria especializada em soluções ambientais técnicas para empresas, empreendimentos e pessoas físicas.</div>
         </div>
 
         <div class="type-row">
           <div class="type-meta"><strong>Small</strong>0.875rem · 14px<br>weight 400<br>lh 1.5</div>
-          <div style="font-family:var(--font-body); font-size:0.875rem; line-height:1.5; color:var(--color-ink-muted);">Retorno em até 24 horas úteis. Atendimento presencial e remoto em todo o Brasil.</div>
+          <div style="font-family:var(--font-body); font-size:0.875rem; line-height:1.5; color:var(--color-text-secondary);">Retorno em até 24 horas úteis. Atendimento presencial e remoto em todo o Brasil.</div>
         </div>
 
         <div class="type-row">
           <div class="type-meta"><strong>Spec · Meta</strong>0.75rem · 12px<br>SF Pro Text 600<br>UPPER · ls 0.06em</div>
-          <div style="font-family:var(--font-mono); font-size:0.75rem; line-height:1.4; letter-spacing:0.06em; font-weight:600; color:var(--color-ink); text-transform:uppercase;">CREA 26 22 46 26 62 · ART 2024.4421.07 · 23°32'18"S</div>
+          <div style="font-family:var(--font-mono); font-size:0.75rem; line-height:1.4; letter-spacing:0.06em; font-weight:600; color:var(--color-text-primary); text-transform:uppercase;">CREA 26 22 46 26 62 · ART 2024.4421.07 · 23°32'18"S</div>
         </div>
 
       </div>
@@ -1136,17 +1162,17 @@
       <p class="section-description">Escala alinhada com Apple Design System (Pearl Button 11px, cards 18px). Sombra reservada para imagens de produto — UI chrome (cards, botões, banners) sem shadow. Elevação visual vem de troca de superfície e backdrop-blur.</p>
 
       <div class="radius-grid">
-        <div class="radius-demo"><div class="radius-box" style="border-radius:5px;"></div><span class="state-label">--radius-xs · 5px</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">chips inline</span></div>
-        <div class="radius-demo"><div class="radius-box" style="border-radius:8px;"></div><span class="state-label">--radius-sm · 8px</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">inputs, selects</span></div>
-        <div class="radius-demo"><div class="radius-box" style="border-radius:11px;"></div><span class="state-label">--radius-md · 11px</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">botões (Pearl)</span></div>
-        <div class="radius-demo"><div class="radius-box" style="border-radius:18px;"></div><span class="state-label">--radius-lg · 18px</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">cards, modais</span></div>
-        <div class="radius-demo"><div class="radius-box" style="border-radius:9999px; width:140px; height:44px;"></div><span class="state-label">--radius-pill</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">chips de setor</span></div>
+        <div class="radius-demo"><div class="radius-box" style="border-radius:4px;"></div><span class="state-label">--radius-xs · 4px</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-text-secondary);">chips inline</span></div>
+        <div class="radius-demo"><div class="radius-box" style="border-radius:6px;"></div><span class="state-label">--radius-sm · 6px</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-text-secondary);">inputs, selects</span></div>
+        <div class="radius-demo"><div class="radius-box" style="border-radius:10px;"></div><span class="state-label">--radius-md · 10px</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-text-secondary);">botões</span></div>
+        <div class="radius-demo"><div class="radius-box" style="border-radius:14px;"></div><span class="state-label">--radius-lg · 14px</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-text-secondary);">cards, modais</span></div>
+        <div class="radius-demo"><div class="radius-box" style="border-radius:9999px; width:140px; height:44px;"></div><span class="state-label">--radius-pill</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-text-secondary);">chips de setor</span></div>
       </div>
 
       <div class="shadow-grid">
-        <div class="shadow-demo"><div class="shadow-box" style="box-shadow:var(--shadow-sm);"></div><span class="state-label">--shadow-sm</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">input em foco</span></div>
-        <div class="shadow-demo"><div class="shadow-box" style="box-shadow:var(--shadow-md);"></div><span class="state-label">--shadow-md</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">navbar scrolled</span></div>
-        <div class="shadow-demo"><div class="shadow-box" style="box-shadow:var(--shadow-product);"></div><span class="state-label">--shadow-product</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-ink-muted);">imagens de produto</span></div>
+        <div class="shadow-demo"><div class="shadow-box" style="box-shadow:var(--shadow-card);"></div><span class="state-label">--shadow-card</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-text-secondary);">cards</span></div>
+        <div class="shadow-demo"><div class="shadow-box" style="box-shadow:var(--shadow-hero);"></div><span class="state-label">--shadow-hero</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-text-secondary);">hero</span></div>
+        <div class="shadow-demo"><div class="shadow-box" style="box-shadow:var(--shadow-floating);"></div><span class="state-label">--shadow-floating</span><span style="font-family:var(--font-mono); font-size:0.6875rem; color:var(--color-text-secondary);">floating elements</span></div>
       </div>
     </div>
   </section>
@@ -1185,7 +1211,7 @@
         <div class="demo-col" style="min-width:260px;"><span class="state-label">Default</span><div class="form-group"><label class="form-label" for="i1">Nome completo</label><input class="form-input" id="i1" type="text" placeholder="Laio Cuestas"></div></div>
         <div class="demo-col" style="min-width:260px;"><span class="state-label">Hover</span><div class="form-group"><label class="form-label">Nome completo</label><input class="form-input is-hovered" type="text" placeholder="Laio Cuestas"></div></div>
         <div class="demo-col" style="min-width:260px;"><span class="state-label">Focus</span><div class="form-group"><label class="form-label">Nome completo</label><input class="form-input is-focused" type="text" value="Laio Cuestas"></div></div>
-        <div class="demo-col" style="min-width:260px;"><span class="state-label">Disabled</span><div class="form-group"><label class="form-label" style="color:var(--color-ink-muted);">Nome completo</label><input class="form-input is-disabled" type="text" placeholder="Bloqueado" disabled></div></div>
+        <div class="demo-col" style="min-width:260px;"><span class="state-label">Disabled</span><div class="form-group"><label class="form-label" style="color:var(--color-text-secondary);">Nome completo</label><input class="form-input is-disabled" type="text" placeholder="Bloqueado" disabled></div></div>
       </div>
 
       <div style="margin-top:var(--space-12);">
@@ -1276,14 +1302,14 @@
             <span class="num">§ 03</span>
             <span class="label">Licenciamento<br>Ambiental</span>
           </div>
-          <p style="font-family:var(--font-body); font-size:0.9375rem; line-height:1.6; color:var(--color-ink-muted);">A Cuestas Engenharia Ambiental realiza o gerenciamento completo do processo de licenciamento ambiental de empreendimentos industriais, logísticos, comerciais, obras civis e instalações diversas.</p>
+          <p style="font-family:var(--font-body); font-size:0.9375rem; line-height:1.6; color:var(--color-text-secondary);">A Cuestas Engenharia Ambiental realiza o gerenciamento completo do processo de licenciamento ambiental de empreendimentos industriais, logísticos, comerciais, obras civis e instalações diversas.</p>
           <p class="meta" style="margin-top:var(--space-4);">LP · LI · LO · LAS · LAO · CTF/IBAMA · CADRI · SIGOR</p>
         </div>
 
         <div class="demo-col" style="flex:1; min-width:280px; max-width:480px;">
           <p class="page-context-flag is-absent">Página: Home · Ausente (deliberadamente)</p>
-          <h3 style="font-family:var(--font-display); font-size:2rem; font-weight:600; line-height:1.1; letter-spacing:-0.01em; color:var(--color-ink); margin-bottom:var(--space-3);">Engenharia aplicada à decisão ambiental</h3>
-          <p style="font-family:var(--font-body); font-size:0.9375rem; line-height:1.6; color:var(--color-ink-muted);">Licenciamento, due diligence ambiental, laudos e conformidade legal para empresas, imóveis e pessoas físicas — com rigor técnico de quem conhece a legislação ambiental na prática.</p>
+          <h3 style="font-family:var(--font-display); font-size:2rem; font-weight:600; line-height:1.1; letter-spacing:-0.01em; color:var(--color-text-primary); margin-bottom:var(--space-3);">Engenharia aplicada à decisão ambiental</h3>
+          <p style="font-family:var(--font-body); font-size:0.9375rem; line-height:1.6; color:var(--color-text-secondary);">Licenciamento, due diligence ambiental, laudos e conformidade legal para empresas, imóveis e pessoas físicas — com rigor técnico de quem conhece a legislação ambiental na prática.</p>
           <p class="meta" style="margin-top:var(--space-4); text-transform:uppercase; opacity:0.7;">Sem § — varredura rápida prevalece</p>
         </div>
       </div>
@@ -1517,7 +1543,7 @@
   </section>
 
   <!-- ═══════════════ FOOTER PREVIEW ═══════════════ -->
-  <footer style="background:var(--color-ink); padding:var(--space-12) 0; text-align:center;">
+  <footer style="background:var(--color-text-primary); padding:var(--space-12) 0; text-align:center;">
     <p style="font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.06em; color:rgba(250,250,247,0.4); text-transform:uppercase;">
       Design Tokens v1.0 · Etapa 1 de N · Execução minimalista<br>
       <span style="color:rgba(250,250,247,0.6); margin-top:8px; display:inline-block;">SF Pro Display · SF Pro Text · Primary #677A2F</span>
