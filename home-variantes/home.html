@@ -44,11 +44,12 @@
       --space-24:96px; --space-32:128px;
 
       --radius-xs:4px; --radius-sm:6px; --radius-md:10px; --radius-lg:14px;
-      --radius-pill:9999px; --radius-full:9999px;
+      --radius-xl:20px; --radius-pill:9999px; --radius-full:9999px;
 
-      --shadow-card:     0 2px 12px rgba(0, 0, 0, 0.08);
-      --shadow-hero:     0 8px 40px rgba(0, 0, 0, 0.12);
-      --shadow-floating: 0 4px 24px rgba(0, 0, 0, 0.18);
+      --shadow-card:       0 2px 12px rgba(0, 0, 0, 0.08);
+      --shadow-card-hover: 0 8px 32px rgba(0, 0, 0, 0.14);
+      --shadow-hero:       0 8px 40px rgba(0, 0, 0, 0.12);
+      --shadow-floating:   0 4px 24px rgba(0, 0, 0, 0.18);
 
       --border-hairline: 1px solid var(--color-border-hairline);
       --border-default:  1px solid var(--color-border);
@@ -92,7 +93,7 @@
       padding: 13px 26px; border-radius: var(--radius-pill);
       font-family: var(--font-body); font-size: 16px; font-weight: 500;
       border: 1px solid transparent; line-height: 1;
-      transition: all .25s ease;
+      transition: background-color .25s ease, color .25s ease, border-color .25s ease, transform .2s ease;
     }
     .btn:active { transform: scale(0.97); }
     .btn .arrow { transition: transform .25s ease; }
@@ -108,7 +109,7 @@
     .btn-on-dark:hover { background: var(--color-accent); color: var(--color-on-accent); }
 
     /* Reveal animation (fonte: B) */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .85s ease-out, transform .85s ease-out; }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .65s cubic-bezier(0.28, 0.11, 0.32, 1), transform .65s cubic-bezier(0.28, 0.11, 0.32, 1); }
     .reveal.in-view { opacity: 1; transform: translateY(0); }
 
     /* ==========================================================
@@ -138,7 +139,7 @@
     }
     .brand .brand-dot { color: var(--color-accent); }
     .nav-links { display: flex; gap: var(--space-8); align-items: center; font-size: 13px; }
-    .nav-links a { color: var(--color-text-primary); opacity: 0.7; transition: opacity .2s ease; }
+    .nav-links a { color: var(--color-text-primary); opacity: 0.82; transition: opacity .2s ease; }
     .nav-links a:hover { opacity: 1; }
     .nav-links a[aria-current="page"] { opacity: 1; color: var(--color-accent); }
 
@@ -150,7 +151,7 @@
       min-height: 100vh;
       display: flex; align-items: center; justify-content: center;
       text-align: center;
-      padding: 80px var(--space-6) 0;
+      padding: 80px var(--space-6) var(--space-16);
       overflow: hidden;
       background:
         linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)),
@@ -168,7 +169,7 @@
       font-size: 13px; text-transform: uppercase; letter-spacing: 0.22em;
       color: rgba(255,255,255,0.75);
       margin-bottom: var(--space-8);
-      opacity: 0; animation: fadeUp .9s .1s ease-out forwards;
+      opacity: 0; animation: fadeUp .9s .1s cubic-bezier(0.28, 0.11, 0.32, 1) forwards;
     }
     .hero h1 {
       font-family: var(--font-display); font-weight: 500;
@@ -176,7 +177,7 @@
       line-height: 1.02; letter-spacing: -0.04em;
       color: var(--color-on-dark);
       margin-bottom: var(--space-8);
-      opacity: 0; animation: fadeUp 1s .25s ease-out forwards;
+      opacity: 0; animation: fadeUp 1s .25s cubic-bezier(0.28, 0.11, 0.32, 1) forwards;
     }
     .hero h1 em { font-style: normal; color: #C8D98A; }
     .hero-sub {
@@ -184,25 +185,29 @@
       color: rgba(255,255,255,0.80);
       max-width: 56ch; margin: 0 auto var(--space-12);
       line-height: 1.5;
-      opacity: 0; animation: fadeUp 1s .45s ease-out forwards;
+      opacity: 0; animation: fadeUp 1s .45s cubic-bezier(0.28, 0.11, 0.32, 1) forwards;
     }
     .hero-ctas {
       display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp 1s .65s ease-out forwards;
+      opacity: 0; animation: fadeUp 1s .65s cubic-bezier(0.28, 0.11, 0.32, 1) forwards;
     }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
     .hero-scroll-hint {
-      position: absolute; bottom: var(--space-8); left: 50%; transform: translateX(-50%);
-      font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+      position: absolute; bottom: var(--space-4); left: 50%;
+      font-size: 28px; letter-spacing: 0;
       color: rgba(255,255,255,0.45);
-      animation: bob 2.6s ease-in-out infinite;
+      opacity: 0;
+      animation: bob 2.4s ease-in-out 2.8s 3 forwards;
     }
     @keyframes bob {
-      0%, 100% { transform: translate(-50%, 0); opacity: 0.35; }
-      50%       { transform: translate(-50%, 6px); opacity: 0.70; }
+      0%   { transform: translate(-50%, 0);   opacity: 0; }
+      20%  { opacity: 0.50; }
+      50%  { transform: translate(-50%, 7px); opacity: 0.75; }
+      80%  { opacity: 0.50; }
+      100% { transform: translate(-50%, 0);   opacity: 0; }
     }
 
     /* ==========================================================
@@ -227,18 +232,29 @@
     .diferenciais-grid {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4);
     }
+    .diferenciais .section-title.reveal { transition-delay: 80ms; }
+    .setores .section-title.reveal      { transition-delay: 80ms; }
     /* Cards estilo Apple — ícone + título bold + corpo + link */
     .diferencial-card {
       background: var(--color-surface-subtle);
-      border-radius: 20px;
+      border-radius: var(--radius-xl);
       padding: var(--space-8);
-      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      box-shadow: var(--shadow-card);
       display: flex; flex-direction: column;
-      transition: box-shadow .3s ease, transform .3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s cubic-bezier(0.28, 0.11, 0.32, 1),
+                  transform .6s cubic-bezier(0.28, 0.11, 0.32, 1),
+                  box-shadow .28s ease;
     }
-    .diferencial-card:hover {
-      box-shadow: 0 6px 28px rgba(0,0,0,0.12);
-      transform: translateY(-2px);
+    .diferencial-card.in-view { opacity: 1; transform: translateY(0); }
+    .diferencial-card:nth-child(2) { transition-delay: 80ms; }
+    .diferencial-card:nth-child(3) { transition-delay: 160ms; }
+    .diferencial-card:nth-child(4) { transition-delay: 240ms; }
+    .diferencial-card:hover        { transition-delay: 0ms; }
+    .diferencial-card.in-view:hover {
+      box-shadow: var(--shadow-card-hover);
+      transform: translateY(-4px);
     }
     .diferencial-icon {
       width: 44px; height: 44px; border-radius: var(--radius-full);
@@ -249,7 +265,7 @@
       transition: background .3s ease;
       flex-shrink: 0;
     }
-    .diferencial-card:hover .diferencial-icon { background: var(--color-accent); }
+    .diferencial-card.in-view:hover .diferencial-icon { background: var(--color-accent); }
     .diferencial-icon svg { width: 22px; height: 22px; }
     .diferencial-card h3 {
       font-family: var(--font-display); font-weight: 600;
@@ -261,11 +277,11 @@
       line-height: 1.55; flex: 1; margin-bottom: var(--space-4);
     }
     .diferencial-link {
-      display: inline-flex; align-items: center; gap: var(--space-1);
+      display: inline-flex; align-items: center; gap: var(--space-2);
       color: var(--color-accent); font-weight: 500; font-size: 15px;
-      transition: gap .2s ease;
     }
-    .diferencial-link:hover { gap: var(--space-2); }
+    .diferencial-link .arrow { transition: transform .25s ease; }
+    .diferencial-link:hover .arrow { transform: translateX(3px); }
 
     /* ==========================================================
        SEÇÃO 4 — Setores Atendidos (fonte: A, sem bullet, com link)
@@ -286,9 +302,18 @@
       border-radius: var(--radius-pill);
       font-size: 15px; color: var(--color-text-primary);
       cursor: pointer;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: border-color .2s ease, color .2s ease, background .2s ease,
+                  transform .5s cubic-bezier(0.28, 0.11, 0.32, 1),
+                  opacity .5s cubic-bezier(0.28, 0.11, 0.32, 1);
+    }
+    .setor-chip.in-view {
+      opacity: 1;
+      transform: translateY(0);
       transition: border-color .2s ease, color .2s ease, background .2s ease, transform .15s ease;
     }
-    .setor-chip:hover {
+    .setor-chip.in-view:hover {
       border-color: var(--color-accent); color: var(--color-accent);
       background: var(--color-accent-soft);
       transform: translateX(3px);
@@ -309,6 +334,8 @@
       font-size: 18px; color: rgba(255,255,255,0.65);
       max-width: 52ch; margin-bottom: var(--space-12);
     }
+    .servicos .section-title.reveal { transition-delay: 80ms; }
+    .servicos .section-lead.reveal  { transition-delay: 160ms; }
     /* Carrossel */
     .servicos-track-wrapper {
       overflow-x: auto;
@@ -323,7 +350,8 @@
       padding: 0 var(--space-6);
     }
     .servicos-track-wrapper::-webkit-scrollbar { display: none; }
-    .servicos-track-wrapper.dragging { cursor: grabbing; scroll-snap-type: none; }
+    .servicos-track-wrapper.dragging         { cursor: grabbing; scroll-snap-type: none; }
+    .servicos-track-wrapper.dragging *       { cursor: grabbing; }
     .servicos-grid {
       display: flex;
       gap: var(--space-4);
@@ -475,7 +503,7 @@
       background: var(--color-surface-subtle);
       color: var(--color-text-primary);
       font-size: 15px; font-family: var(--font-body);
-      transition: border-color .2s ease;
+      transition: border-color .2s ease, box-shadow .2s ease;
     }
     .form-field textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
     .form-field input:focus, .form-field textarea:focus {
@@ -610,6 +638,7 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
       .reveal { opacity: 1 !important; transform: none !important; }
+      .diferencial-card, .setor-chip { opacity: 1 !important; transform: none !important; }
       html { scroll-behavior: auto; }
     }
 
@@ -628,10 +657,10 @@
         Cuestas<span class="brand-dot">.</span>
       </a>
       <nav class="nav-links" aria-label="Navegação principal">
-        <a href="home.html" aria-current="page">Home</a>
-        <a href="#">Sobre</a>
-        <a href="#">Serviços</a>
-        <a href="#">Projetos</a>
+        <a href="#main" aria-current="page">Home</a>
+        <a href="/sobre">Sobre</a>
+        <a href="#servicos">Serviços</a>
+        <a href="/projetos">Projetos</a>
         <a href="#contato">Contato</a>
       </nav>
       <a href="#contato" class="btn btn-primary" style="padding: 8px 18px; font-size: 13px;">Solicitar Orçamento</a>
@@ -666,10 +695,10 @@
          SEÇÃO 3 — Diferenciais (estrutura: A + cards estilo Apple)
          Cards: ícone circular preto, título 600, corpo, link olive
          ============================================================ -->
-    <section class="diferenciais reveal" aria-labelledby="diferenciais-title">
+    <section class="diferenciais" id="diferenciais" aria-labelledby="diferenciais-title">
       <div class="container">
-        <span class="section-eyebrow">Diferenciais</span>
-        <h2 id="diferenciais-title" class="section-title">Quatro pilares que sustentam cada laudo entregue.</h2>
+        <span class="section-eyebrow reveal">Diferenciais</span>
+        <h2 id="diferenciais-title" class="section-title reveal">Quatro pilares que sustentam cada laudo entregue.</h2>
 
         <div class="diferenciais-grid">
 
@@ -681,7 +710,7 @@
             </span>
             <h3>Rigor Técnico</h3>
             <p>Formação em Engenharia Ambiental e MBA em Gestão e Tecnologias Ambientais (POLI/USP). Laudo assinado por profissional com CREA ativo.</p>
-            <a href="#" class="diferencial-link">Saiba mais ›</a>
+            <a href="#" class="diferencial-link">Saiba mais <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
           <article class="diferencial-card">
@@ -693,7 +722,7 @@
             </span>
             <h3>Experiência de Campo</h3>
             <p>Mais de 4 anos em áreas contaminadas, licenciamento, SSMA em obras e due diligence ambiental de ativos imobiliários.</p>
-            <a href="#" class="diferencial-link">Saiba mais ›</a>
+            <a href="#" class="diferencial-link">Saiba mais <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
           <article class="diferencial-card">
@@ -705,7 +734,7 @@
             </span>
             <h3>Conformidade Legal</h3>
             <p>Atuação integrada com a legislação federal, estadual e municipal, incluindo CONAMA, CETESB, IBAMA e PNRS.</p>
-            <a href="#" class="diferencial-link">Saiba mais ›</a>
+            <a href="#" class="diferencial-link">Saiba mais <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
           <article class="diferencial-card">
@@ -717,7 +746,7 @@
             </span>
             <h3>Atendimento Personalizado</h3>
             <p>Do empreendedor individual ao gestor de grandes ativos — cada cliente recebe análise técnica adaptada à sua necessidade.</p>
-            <a href="#" class="diferencial-link">Saiba mais ›</a>
+            <a href="#" class="diferencial-link">Saiba mais <span class="arrow" aria-hidden="true">→</span></a>
           </article>
 
         </div>
@@ -728,10 +757,10 @@
          SEÇÃO 4 — Setores Atendidos (fonte: A, sem bullet, chips como links)
          Destino: /setores#slug — página pendente (ver notas-merge.md)
          ============================================================ -->
-    <section class="setores reveal" aria-labelledby="setores-title">
+    <section class="setores" id="setores" aria-labelledby="setores-title">
       <div class="container">
-        <span class="section-eyebrow">Setores Atendidos</span>
-        <h2 id="setores-title" class="section-title">Atuação técnica adaptada ao contexto de cada setor.</h2>
+        <span class="section-eyebrow reveal">Setores Atendidos</span>
+        <h2 id="setores-title" class="section-title reveal">Atuação técnica adaptada ao contexto de cada setor.</h2>
 
         <ul class="setores-list">
           <li>
@@ -785,9 +814,9 @@
          ============================================================ -->
     <section class="servicos" id="servicos" aria-labelledby="servicos-title">
       <div class="container">
-        <span class="section-eyebrow">Nossos Serviços</span>
-        <h2 id="servicos-title" class="section-title">Do licenciamento ao laudo. Cada serviço sob medida.</h2>
-        <p class="section-lead">
+        <span class="section-eyebrow reveal">Nossos Serviços</span>
+        <h2 id="servicos-title" class="section-title reveal">Do licenciamento ao laudo. Cada serviço sob medida.</h2>
+        <p class="section-lead reveal">
           Atendemos empresas, empreendimentos e pessoas físicas com rigor técnico e conformidade legal em cada etapa.
         </p>
 
@@ -1019,7 +1048,7 @@
             </div>
             <div class="form-field">
               <label for="email">E-mail</label>
-              <input type="email" id="email" name="email" required autocomplete="email">
+              <input type="email" id="email" name="email" required autocomplete="email" inputmode="email">
             </div>
             <div class="form-field">
               <label for="mensagem">Mensagem</label>
@@ -1061,10 +1090,10 @@
         <div class="footer-col">
           <h4>Navegação</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Sobre</a></li>
-            <li><a href="#">Serviços</a></li>
-            <li><a href="#">Projetos</a></li>
+            <li><a href="#main">Home</a></li>
+            <li><a href="/sobre">Sobre</a></li>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="/projetos">Projetos</a></li>
             <li><a href="#contato">Contato</a></li>
           </ul>
         </div>
@@ -1143,44 +1172,56 @@
 
   <script>
     (function() {
-      /* Cookie banner */
-      const banner = document.getElementById('cookie-banner');
-      const accept = document.getElementById('cookie-accept');
-      const decline = document.getElementById('cookie-decline');
+      /* ── Cookie banner ───────────────────────────────────────────── */
+      var banner  = document.getElementById('cookie-banner');
+      var accept  = document.getElementById('cookie-accept');
+      var decline = document.getElementById('cookie-decline');
       try {
-        if (localStorage.getItem('cuestas-cookie-consent') === 'accepted') banner.hidden = true;
+        var stored = localStorage.getItem('cuestas-cookie-consent');
+        if (stored && JSON.parse(stored).status === 'accepted') banner.hidden = true;
       } catch (e) {}
       accept.addEventListener('click', function() {
         try {
           localStorage.setItem('cuestas-cookie-consent', JSON.stringify({
-            status: 'accepted',
-            timestamp: new Date().toISOString()
+            status: 'accepted', timestamp: new Date().toISOString()
           }));
         } catch (e) {}
         banner.hidden = true;
       });
       decline.addEventListener('click', function() {
-        /* Por ora: fecha sem persistir. Pendência: implementar /politica-privacidade */
-        window.location.href = '#';
         banner.hidden = true;
       });
 
-      /* Navbar: opaca no load, frosted ao rolar */
+      /* ── Navbar: frosted ao rolar ────────────────────────────────── */
       var navbar = document.querySelector('.navbar');
       window.addEventListener('scroll', function() {
         navbar.classList.toggle('scrolled', window.scrollY > 10);
       }, { passive: true });
 
-      /* Carrossel de serviços — drag + setas */
+      /* ── Form: previne reload na submissão ───────────────────────── */
+      var form = document.querySelector('.cta-form');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var success = document.getElementById('form-success');
+          if (success) success.hidden = false;
+        });
+      }
+
+      /* ── Carrossel de serviços — drag + setas ────────────────────── */
       (function() {
-        var track = document.getElementById('servicos-track');
+        var track   = document.getElementById('servicos-track');
         var prevBtn = document.getElementById('serv-prev');
         var nextBtn = document.getElementById('serv-next');
-        var STEP = 296;
+        var STEP    = 296;
 
         function updateButtons() {
-          prevBtn.disabled = track.scrollLeft <= 0;
-          nextBtn.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 1;
+          var atStart = track.scrollLeft <= 0;
+          var atEnd   = track.scrollLeft >= track.scrollWidth - track.clientWidth - 1;
+          prevBtn.disabled = atStart;
+          nextBtn.disabled = atEnd;
+          prevBtn.setAttribute('aria-disabled', String(atStart));
+          nextBtn.setAttribute('aria-disabled', String(atEnd));
         }
         updateButtons();
         track.addEventListener('scroll', updateButtons, { passive: true });
@@ -1192,47 +1233,67 @@
           track.scrollBy({ left: STEP * 2, behavior: 'smooth' });
         });
 
-        /* Drag com Pointer Events — previne navegação nos <a> durante arrasto */
         var dragging = false, startX, startScroll, totalMoved;
-
         track.addEventListener('pointerdown', function(e) {
           e.preventDefault();
-          dragging = true;
-          totalMoved = 0;
-          startX = e.clientX;
-          startScroll = track.scrollLeft;
+          dragging = true; totalMoved = 0;
+          startX = e.clientX; startScroll = track.scrollLeft;
           track.setPointerCapture(e.pointerId);
           track.classList.add('dragging');
         });
-
         track.addEventListener('pointermove', function(e) {
           if (!dragging) return;
           var dx = e.clientX - startX;
           totalMoved = Math.abs(dx);
           track.scrollLeft = startScroll - dx;
         });
-
         track.addEventListener('pointerup', function() {
-          dragging = false;
-          track.classList.remove('dragging');
+          dragging = false; track.classList.remove('dragging');
         });
-
         track.addEventListener('pointercancel', function() {
-          dragging = false;
-          track.classList.remove('dragging');
+          dragging = false; track.classList.remove('dragging');
         });
-
-        /* Cancela clique se foi arrasto (> 5px) */
         track.addEventListener('click', function(e) {
-          if (totalMoved > 5) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-          }
+          if (totalMoved > 5) { e.preventDefault(); e.stopImmediatePropagation(); }
         }, true);
       })();
 
-      /* Reveal on scroll via IntersectionObserver (fonte: B) */
+      /* ── Reveal helpers ──────────────────────────────────────────── */
       var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* Stagger reveal individual: cada elemento entra com delay incremental.
+         Após a transição de entrada, o delay é removido para que hover seja imediato. */
+      function setupStaggerReveal(elements, delayStep) {
+        if (reducedMotion || !('IntersectionObserver' in window)) {
+          elements.forEach(function(el) {
+            el.classList.add('in-view');
+            el.style.transitionDelay = '';
+          });
+          return;
+        }
+        elements.forEach(function(el, i) {
+          el.style.transitionDelay = (i * delayStep) + 'ms';
+          var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add('in-view');
+              entry.target.addEventListener('transitionend', function() {
+                entry.target.style.transitionDelay = '';
+              }, { once: true });
+              obs.unobserve(entry.target);
+            });
+          }, { threshold: 0.15 });
+          obs.observe(el);
+        });
+      }
+
+      /* Cards dos Diferenciais — stagger 80ms por card */
+      setupStaggerReveal(Array.from(document.querySelectorAll('.diferencial-card')), 80);
+
+      /* Chips dos Setores — stagger 40ms por chip */
+      setupStaggerReveal(Array.from(document.querySelectorAll('.setor-chip')), 40);
+
+      /* Reveal on scroll para elementos .reveal (seções, header de serviços, CTA) */
       var reveals = document.querySelectorAll('.reveal');
       if (reducedMotion || !('IntersectionObserver' in window)) {
         reveals.forEach(function(el) { el.classList.add('in-view'); });
