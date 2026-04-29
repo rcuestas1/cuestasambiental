@@ -236,8 +236,12 @@
     }
     .preview-header-topo {
       position: absolute;
-      inset: 0;
-      opacity: 0.1;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 140%;
+      width: auto;
+      opacity: 0.12;
       pointer-events: none;
     }
     .preview-header-inner { position: relative; z-index: 1; }
@@ -998,15 +1002,7 @@
 
   <!-- ═══════════════ HERO ═══════════════ -->
   <header class="preview-header">
-    <svg class="preview-header-topo" viewBox="0 0 1200 400" fill="none" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <path d="M-100 280 C 80 200, 200 360, 380 280 S 600 200, 780 280 S 1000 200, 1300 280" stroke="#677A2F" stroke-width="1.5" fill="none"/>
-      <path d="M-100 240 C 60 160, 220 320, 400 240 S 640 160, 820 240 S 1040 160, 1300 240" stroke="#677A2F" stroke-width="1.5" fill="none"/>
-      <path d="M-100 310 C 100 230, 280 380, 460 310 S 680 230, 860 310 S 1060 230, 1300 310" stroke="#677A2F" stroke-width="1.5" fill="none"/>
-      <path d="M-100 180 C 40 100, 200 260, 440 180 S 700 100, 900 180 S 1100 100, 1300 180" stroke="#677A2F" stroke-width="1.5" fill="none"/>
-      <path d="M-100 210 C 50 130, 240 290, 480 210 S 740 130, 940 210 S 1140 130, 1300 210" stroke="#677A2F" stroke-width="1" stroke-dasharray="8 5" fill="none"/>
-      <path d="M-100 260 C 90 180, 260 340, 500 260 S 760 180, 960 260 S 1160 180, 1300 260" stroke="#677A2F" stroke-width="1" stroke-dasharray="8 5" fill="none"/>
-      <path d="M-100 150 C 30 70, 190 230, 460 150 S 720 70, 920 150 S 1120 70, 1300 150" stroke="#677A2F" stroke-width="1" stroke-dasharray="6 4" fill="none"/>
-    </svg>
+    <img class="preview-header-topo" src="Logos/Topografia_Branco_invertido.png" alt="">
 
     <div class="container preview-header-inner">
       <p class="preview-eyebrow">Etapa 1 — Aprovação visual</p>
