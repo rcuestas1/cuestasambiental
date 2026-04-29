@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Consultoria ambiental para empresas e pessoas físicas. Licenciamento ambiental, due diligence, laudos e gestão de resíduos em São Paulo e região. CREA ativo.">
+  <title>Cuestas Engenharia Ambiental | Licenciamento e Due Diligence em SP</title>
+  <style>
+    /* ====== SF Pro ====== */
+    @font-face { font-family:'SF Pro Display'; src:url('../../Fonts/sf-pro/SF-Pro-Display-Regular.otf') format('opentype'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'SF Pro Display'; src:url('../../Fonts/sf-pro/SF-Pro-Display-Medium.otf') format('opentype'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'SF Pro Display'; src:url('../../Fonts/sf-pro/SF-Pro-Display-Semibold.otf') format('opentype'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('../../Fonts/sf-pro/SF-Pro-Text-Regular.otf') format('opentype'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('../../Fonts/sf-pro/SF-Pro-Text-Medium.otf') format('opentype'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('../../Fonts/sf-pro/SF-Pro-Text-Semibold.otf') format('opentype'); font-weight:600; font-display:swap; }
+
+    /* ====== Tokens ====== */
+    :root {
+      --color-background:      #FAFAF7;
+      --color-surface:         #F3F4EE;
+      --color-surface-subtle:  #FFFFFF;
+      --color-border-hairline: rgba(0, 0, 0, 0.08);
+      --color-border:          #DDE0D7;
+      --color-text-primary:    #1C1D1A;
+      --color-text-secondary:  #5C5E59;
+      --color-accent:          #677A2F;
+      --color-accent-hover:    #556424;
+      --color-accent-soft:     #EDF0DC;
+      --color-accent-focus:    #7B8E3C;
+      --color-on-accent:       #FFFFFF;
+      --color-whatsapp:        #25D366;
+      --color-on-dark:         #FFFFFF;
+
+      --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-body:    'SF Pro Text',    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+      --fs-xs:12px; --fs-sm:14px; --fs-base:16px; --fs-md:18px; --fs-lg:22px;
+      --fs-xl:28px; --fs-2xl:36px; --fs-3xl:48px;
+
+      --leading-tight:1.07; --leading-snug:1.2; --leading-normal:1.47; --leading-loose:1.6;
+      --tracking-tight:-0.374px; --tracking-hero:-0.28px; --tracking-normal:0; --tracking-wide:0.12px;
+
+      --space-1:4px;  --space-2:8px;  --space-3:12px; --space-4:16px;
+      --space-6:24px; --space-8:32px; --space-12:48px; --space-16:64px;
+      --space-24:96px; --space-32:128px;
+
+      --radius-xs:4px; --radius-sm:6px; --radius-md:10px; --radius-lg:14px;
+      --radius-pill:9999px; --radius-full:9999px;
+
+      --shadow-card:    0 2px 12px rgba(0, 0, 0, 0.08);
+      --shadow-floating:0 4px 24px rgba(0, 0, 0, 0.18);
+
+      --container: 1120px;
+      --section-y: var(--space-24);
+    }
+
+    /* ====== Reset ====== */
+    *,*::before,*::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--color-background);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      font-size: var(--fs-base);
+      line-height: var(--leading-normal);
+      -webkit-font-smoothing: antialiased;
+    }
+    h1,h2,h3,h4,p,ul,ol { margin: 0; padding: 0; }
+    ul,ol { list-style: none; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; cursor: pointer; }
+
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--space-6); }
+
+    .skip-link {
+      position: absolute; top: -40px; left: var(--space-4);
+      background: var(--color-text-primary); color: var(--color-on-dark);
+      padding: var(--space-2) var(--space-4); border-radius: var(--radius-sm);
+      z-index: 100;
+    }
+    .skip-link:focus { top: var(--space-2); }
+
+    :focus-visible { outline: 2px solid var(--color-accent-focus); outline-offset: 2px; border-radius: 2px; }
+
+    /* ====== Navbar ====== */
+    .navbar {
+      position: sticky; top: 0; z-index: 50;
+      height: 56px;
+      background: rgba(250, 250, 247, 0.82);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--color-border-hairline);
+    }
+    .navbar-inner { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+    .brand {
+      font-family: var(--font-display); font-weight: 600;
+      letter-spacing: -0.2px;
+      font-size: var(--fs-md);
+    }
+    .brand .brand-dot { color: var(--color-accent); }
+    .nav-links { display: flex; gap: var(--space-6); align-items: center; font-size: var(--fs-sm); }
+    .nav-links a { color: var(--color-text-primary); transition: opacity .2s ease; }
+    .nav-links a:hover { opacity: 0.6; }
+    .nav-links a[aria-current="page"] { color: var(--color-accent); }
+    .nav-cta {
+      background: var(--color-text-primary); color: var(--color-on-dark);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-pill);
+      font-size: var(--fs-sm); font-weight: 500;
+      transition: background .2s ease;
+    }
+    .nav-cta:hover { background: var(--color-accent); }
+
+    /* ====== Hero ====== */
+    .hero {
+      position: relative;
+      min-height: 70vh;
+      display: flex; align-items: center;
+      padding: var(--space-16) 0 var(--space-24);
+      overflow: hidden;
+      background: linear-gradient(180deg, var(--color-background) 0%, var(--color-background) 60%, var(--color-surface) 100%);
+    }
+    .hero-topo {
+      position: absolute; right: -10%; bottom: -10%;
+      width: 80%; max-width: 900px; opacity: 0.10;
+      pointer-events: none;
+    }
+    .hero-content { position: relative; max-width: 760px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-size: var(--fs-xs); text-transform: uppercase;
+      letter-spacing: 0.18em; color: var(--color-text-secondary);
+      margin-bottom: var(--space-6);
+      font-family: var(--font-body); font-weight: 500;
+    }
+    .hero-eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--color-accent); }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(40px, 6vw, 60px);
+      line-height: var(--leading-tight);
+      letter-spacing: var(--tracking-hero);
+      margin-bottom: var(--space-6);
+      max-width: 18ch;
+    }
+    .hero-sub {
+      font-size: var(--fs-md);
+      color: var(--color-text-secondary);
+      line-height: var(--leading-normal);
+      max-width: 56ch;
+      margin-bottom: var(--space-8);
+    }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-pill);
+      font-size: var(--fs-base); font-weight: 500;
+      transition: all .2s ease;
+      border: 1px solid transparent;
+      font-family: var(--font-body);
+      line-height: 1;
+    }
+    .btn-primary { background: var(--color-accent); color: var(--color-on-accent); }
+    .btn-primary:hover { background: var(--color-accent-hover); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-text-primary);
+      border-color: var(--color-border);
+    }
+    .btn-secondary:hover { border-color: var(--color-accent); color: var(--color-accent); }
+    .btn:active { transform: scale(0.97); }
+    .btn .arrow { transition: transform .2s ease; }
+    .btn:hover .arrow { transform: translateX(2px); }
+
+    /* ====== Sections ====== */
+    section.block { padding: var(--section-y) 0; }
+    .section-eyebrow {
+      font-size: var(--fs-xs); text-transform: uppercase;
+      letter-spacing: 0.18em; color: var(--color-accent);
+      font-weight: 500; margin-bottom: var(--space-3);
+    }
+    .section-title {
+      font-family: var(--font-display); font-weight: 500;
+      font-size: clamp(28px, 3.6vw, 40px);
+      line-height: var(--leading-snug);
+      letter-spacing: var(--tracking-hero);
+      margin-bottom: var(--space-4);
+      max-width: 22ch;
+    }
+    .section-lead {
+      font-size: var(--fs-md); color: var(--color-text-secondary);
+      max-width: 52ch; margin-bottom: var(--space-12);
+    }
+
+    /* ====== Diferenciais (4-up grid) ====== */
+    .diferenciais-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4);
+    }
+    .dif-card {
+      background: var(--color-surface-subtle);
+      border: 1px solid var(--color-border-hairline);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      transition: border-color .25s ease, transform .25s ease;
+      position: relative;
+    }
+    .dif-card::before {
+      content: ""; display: block;
+      width: 24px; height: 2px;
+      background: var(--color-accent);
+      margin-bottom: var(--space-6);
+    }
+    .dif-card:hover { border-color: var(--color-accent); }
+    .dif-card h3 {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: var(--fs-md);
+      margin-bottom: var(--space-2);
+      letter-spacing: -0.2px;
+    }
+    .dif-card p {
+      font-size: var(--fs-sm); color: var(--color-text-secondary);
+      line-height: var(--leading-normal);
+    }
+
+    /* ====== Topo divider ====== */
+    .topo-divider {
+      position: relative; height: 96px; overflow: hidden;
+      border-top: 1px solid var(--color-border-hairline);
+      border-bottom: 1px solid var(--color-border-hairline);
+    }
+    .topo-divider img {
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 140%; min-width: 1400px;
+      opacity: 0.12; pointer-events: none;
+    }
+
+    /* ====== Setores (2-col chips list) ====== */
+    .setores { background: var(--color-background); }
+    .setores-list {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3) var(--space-4);
+    }
+    .setor-chip {
+      display: inline-flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-3) var(--space-6);
+      background: var(--color-surface-subtle);
+      border: 1px solid var(--color-border-hairline);
+      border-radius: var(--radius-pill);
+      font-size: var(--fs-sm); color: var(--color-text-primary);
+      transition: border-color .2s ease;
+    }
+    .setor-chip:hover { border-color: var(--color-accent); }
+    .setor-chip::before {
+      content: ""; flex-shrink: 0;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--color-accent);
+    }
+
+    /* ====== Serviços (3-up cards) ====== */
+    .servicos { background: var(--color-surface); }
+    .servicos-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6);
+    }
+    .servico-card {
+      background: var(--color-surface-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      border: 1px solid var(--color-border-hairline);
+      display: flex; flex-direction: column;
+      transition: border-color .25s ease;
+    }
+    .servico-card:hover { border-color: var(--color-accent); }
+    .servico-icon {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--color-accent-soft);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-6);
+      color: var(--color-accent);
+    }
+    .servico-icon svg { width: 22px; height: 22px; }
+    .servico-card h3 {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: var(--fs-lg);
+      letter-spacing: -0.3px;
+      margin-bottom: var(--space-3);
+    }
+    .servico-card p {
+      font-size: var(--fs-sm); color: var(--color-text-secondary);
+      line-height: var(--leading-normal);
+      margin-bottom: var(--space-6);
+      flex: 1;
+    }
+    .servico-link {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      color: var(--color-accent); font-weight: 500; font-size: var(--fs-sm);
+      transition: gap .2s ease;
+    }
+    .servico-link:hover { gap: var(--space-3); }
+
+    /* ====== CTA Contato ====== */
+    .cta-contato {
+      background: var(--color-surface);
+      padding: var(--space-16) 0;
+    }
+    .cta-card {
+      background: var(--color-surface-subtle);
+      border: 1px solid var(--color-border-hairline);
+      border-radius: var(--radius-lg);
+      padding: var(--space-12);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-8);
+    }
+    .cta-card h2 {
+      font-family: var(--font-display); font-weight: 500;
+      font-size: var(--fs-2xl);
+      line-height: var(--leading-snug);
+      letter-spacing: var(--tracking-hero);
+      margin-bottom: var(--space-2);
+    }
+    .cta-card p { color: var(--color-text-secondary); font-size: var(--fs-md); }
+
+    /* ====== Footer ====== */
+    .site-footer {
+      background: var(--color-text-primary); color: var(--color-on-dark);
+      padding: var(--space-16) 0 var(--space-8);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: var(--space-8);
+      margin-bottom: var(--space-12);
+    }
+    .footer-brand p {
+      color: rgba(255,255,255,0.6);
+      font-size: var(--fs-sm); margin-top: var(--space-3);
+      max-width: 28ch;
+    }
+    .footer-col h4 {
+      font-family: var(--font-display); font-size: var(--fs-sm); font-weight: 600;
+      margin-bottom: var(--space-4);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: var(--space-3); }
+    .footer-col a {
+      color: rgba(255,255,255,0.7); font-size: var(--fs-sm);
+      transition: color .2s ease;
+    }
+    .footer-col a:hover { color: var(--color-on-dark); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding-top: var(--space-6);
+      display: flex; justify-content: space-between; align-items: center;
+      color: rgba(255,255,255,0.5); font-size: var(--fs-xs);
+    }
+
+    /* ====== WhatsApp float ====== */
+    .whatsapp-float {
+      position: fixed; bottom: var(--space-6); right: var(--space-6);
+      width: 56px; height: 56px;
+      background: var(--color-whatsapp);
+      border-radius: var(--radius-full);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-floating);
+      z-index: 90;
+      transition: transform .2s ease;
+    }
+    .whatsapp-float:hover { transform: scale(1.05); }
+    .whatsapp-float:active { transform: scale(0.95); }
+    .whatsapp-float svg { width: 28px; height: 28px; fill: #FFFFFF; }
+
+    /* ====== Cookie banner ====== */
+    .cookie-banner {
+      position: fixed; bottom: var(--space-6); left: var(--space-6);
+      max-width: 420px; z-index: 80;
+      background: var(--color-surface-subtle);
+      border: 1px solid var(--color-border-hairline);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-floating);
+      padding: var(--space-6);
+      transform: translateY(0); transition: transform .3s ease, opacity .3s ease;
+    }
+    .cookie-banner[hidden] { display: none; }
+    .cookie-banner p { font-size: var(--fs-sm); color: var(--color-text-primary); margin-bottom: var(--space-4); line-height: var(--leading-normal); }
+    .cookie-banner p a { color: var(--color-accent); text-decoration: underline; }
+    .cookie-actions { display: flex; gap: var(--space-3); }
+    .cookie-actions button {
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-pill); font-size: var(--fs-sm); font-weight: 500;
+      border: 1px solid var(--color-border);
+      background: transparent; color: var(--color-text-primary);
+      transition: all .2s ease;
+    }
+    .cookie-actions button.primary { background: var(--color-accent); color: var(--color-on-accent); border-color: var(--color-accent); }
+    .cookie-actions button.primary:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); }
+    .cookie-actions button.secondary:hover { border-color: var(--color-accent); }
+
+    /* ====== Responsive ====== */
+    @media (max-width: 1024px) {
+      .diferenciais-grid { grid-template-columns: repeat(2, 1fr); }
+      .servicos-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1.5fr 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      :root { --section-y: var(--space-16); }
+      .nav-links { display: none; }
+      .hero { min-height: 60vh; padding: var(--space-12) 0; }
+      .hero h1 { font-size: clamp(32px, 9vw, 44px); }
+      .diferenciais-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+      .setores-list { grid-template-columns: 1fr; }
+      .servicos-grid { grid-template-columns: 1fr; }
+      .cta-card { flex-direction: column; align-items: flex-start; padding: var(--space-8); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+      .footer-bottom { flex-direction: column; gap: var(--space-3); align-items: flex-start; }
+      .cookie-banner { left: var(--space-3); right: var(--space-3); bottom: var(--space-3); max-width: none; }
+      .whatsapp-float { width: 52px; height: 52px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *,*::before,*::after { animation: none !important; transition: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Pular para o conteúdo</a>
+
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="home-a-editorial.html" class="brand" aria-label="Cuestas Engenharia Ambiental — Início">
+        Cuestas<span class="brand-dot">.</span>
+      </a>
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="home-a-editorial.html" aria-current="page">Home</a>
+        <a href="#">Sobre</a>
+        <a href="#">Serviços</a>
+        <a href="#">Projetos</a>
+        <a href="#">Contato</a>
+      </nav>
+      <a href="#contato" class="nav-cta">Solicitar Orçamento</a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO 1.1 -->
+    <section class="hero" aria-labelledby="hero-title">
+      <img class="hero-topo" src="../../Logos/Topografia_Branco_invertido.png" alt="" aria-hidden="true">
+      <div class="container hero-content">
+        <span class="hero-eyebrow">Engenharia Ambiental · CREA 2622462662</span>
+        <h1 id="hero-title">Engenharia aplicada à decisão ambiental.</h1>
+        <p class="hero-sub">
+          Licenciamento, due diligence ambiental, laudos e conformidade legal para empresas, imóveis e pessoas físicas — com rigor técnico de quem conhece a legislação ambiental na prática.
+        </p>
+        <div class="hero-ctas">
+          <a href="#contato" class="btn btn-primary">
+            Solicite uma Avaliação Técnica
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a href="#servicos" class="btn btn-secondary">Conheça os Serviços</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIFERENCIAIS 1.2 -->
+    <section class="block diferenciais" aria-labelledby="diferenciais-title">
+      <div class="container">
+        <span class="section-eyebrow">Diferenciais</span>
+        <h2 id="diferenciais-title" class="section-title">Quatro pilares que sustentam cada laudo entregue.</h2>
+
+        <div class="diferenciais-grid">
+          <article class="dif-card">
+            <h3>Rigor Técnico</h3>
+            <p>Formação em Engenharia Ambiental e MBA em Gestão e Tecnologias Ambientais (POLI/USP). Laudo assinado por profissional com CREA ativo.</p>
+          </article>
+          <article class="dif-card">
+            <h3>Experiência de Campo</h3>
+            <p>Mais de 4 anos em áreas contaminadas, licenciamento, SSMA em obras e due diligence ambiental de ativos imobiliários.</p>
+          </article>
+          <article class="dif-card">
+            <h3>Conformidade Legal</h3>
+            <p>Atuação integrada com a legislação federal, estadual e municipal, incluindo CONAMA, CETESB, IBAMA e PNRS.</p>
+          </article>
+          <article class="dif-card">
+            <h3>Atendimento Personalizado</h3>
+            <p>Do empreendedor individual ao gestor de grandes ativos — cada cliente recebe análise técnica adaptada à sua necessidade.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOPO DIVIDER -->
+    <div class="topo-divider" aria-hidden="true">
+      <img src="../../Logos/Topografia_Branco_invertido.png" alt="">
+    </div>
+
+    <!-- SETORES 1.3 -->
+    <section class="block setores" aria-labelledby="setores-title">
+      <div class="container">
+        <span class="section-eyebrow">Setores Atendidos</span>
+        <h2 id="setores-title" class="section-title">Atuação técnica adaptada ao contexto de cada setor.</h2>
+        <p class="section-lead">
+          Atendemos clientes dos setores público e privado, pessoas físicas e jurídicas, com serviços sob medida para cada contexto.
+        </p>
+
+        <ul class="setores-list">
+          <li><span class="setor-chip">Empreendimentos imobiliários e incorporadoras</span></li>
+          <li><span class="setor-chip">Indústrias e galpões logísticos</span></li>
+          <li><span class="setor-chip">Construtoras e obras civis</span></li>
+          <li><span class="setor-chip">Postos de combustíveis e distribuidoras</span></li>
+          <li><span class="setor-chip">Comércio e varejo (supermercados, atacadistas, shoppings)</span></li>
+          <li><span class="setor-chip">Pessoas físicas (proprietários de imóveis e terrenos)</span></li>
+          <li><span class="setor-chip">Escritórios de advocacia e assessoria jurídica</span></li>
+          <li><span class="setor-chip">Fundos de investimento e gestoras de ativos</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS 1.4 -->
+    <section class="block servicos" id="servicos" aria-labelledby="servicos-title">
+      <div class="container">
+        <span class="section-eyebrow">Nossos Serviços</span>
+        <h2 id="servicos-title" class="section-title">Três frentes de atuação. Um mesmo padrão técnico.</h2>
+
+        <div class="servicos-grid">
+          <article class="servico-card">
+            <span class="servico-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M3 9.5L12 4l9 5.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5z"/>
+              </svg>
+            </span>
+            <h3>Empresas e Empreendimentos</h3>
+            <p>Licenciamento ambiental, due diligence, gestão de resíduos, áreas contaminadas e conformidade regulatória.</p>
+            <a href="#" class="servico-link">Ver serviços <span aria-hidden="true">→</span></a>
+          </article>
+
+          <article class="servico-card">
+            <span class="servico-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M12 3l8 7v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V10l8-7z"/>
+                <path d="M9 21v-7h6v7"/>
+              </svg>
+            </span>
+            <h3>Imóveis e Pessoas Físicas</h3>
+            <p>Regularização de imóvel, autorização de supressão de vegetação, consulta ambiental e orientação legal.</p>
+            <a href="#" class="servico-link">Ver serviços <span aria-hidden="true">→</span></a>
+          </article>
+
+          <article class="servico-card">
+            <span class="servico-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
+                <path d="M14 3v6h6M9 13h6M9 17h6"/>
+              </svg>
+            </span>
+            <h3>Laudos e Perícias</h3>
+            <p>Laudos técnicos, constatação, avaliação ambiental preliminar e relatórios para processos judiciais e arbitragem.</p>
+            <a href="#" class="servico-link">Ver serviços <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA CONTATO 1.5 -->
+    <section class="cta-contato" id="contato" aria-labelledby="cta-title">
+      <div class="container">
+        <div class="cta-card">
+          <div>
+            <h2 id="cta-title">Fale com um Engenheiro Ambiental</h2>
+            <p>Tire suas dúvidas, solicite um orçamento ou agende uma vistoria. Retorno em até 24 horas.</p>
+          </div>
+          <a href="#" class="btn btn-primary">
+            Entrar em Contato
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand" style="color: var(--color-on-dark); font-size: var(--fs-lg);">
+            Cuestas<span class="brand-dot">.</span>
+          </div>
+          <p>Consultoria de Engenharia Ambiental. CREA nº 2622462662 — Engenheiro Responsável: Laio Cuestas.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Serviços</a></li>
+            <li><a href="#">Projetos</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <ul>
+            <li><a href="tel:+5511914958701">(11) 91495-8701</a></li>
+            <li><a href="mailto:contato@cuestasambiental.com">contato@cuestasambiental.com</a></li>
+            <li><a href="https://linkedin.com/company/cuestas-engenharia-ambiental" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Localização</h4>
+          <ul>
+            <li>São Paulo, SP</li>
+            <li>Atendimento em todo o Brasil</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Cuestas Engenharia Ambiental</span>
+        <a href="#">Política de Privacidade</a>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/5511914958701?text=Ol%C3%A1%2C%20encontrei%20o%20site%20da%20Cuestas%20Engenharia%20Ambiental%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20%2F%20tirar%20uma%20d%C3%BAvida."
+     class="whatsapp-float" aria-label="Fale pelo WhatsApp"
+     target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M16 .395a15.6 15.6 0 0 0-13.31 23.55L.5 31.605l7.93-2.072A15.6 15.6 0 1 0 16 .395zm0 28.43a12.84 12.84 0 0 1-6.554-1.795l-.469-.279-4.69 1.225 1.252-4.566-.305-.471A12.83 12.83 0 1 1 16 28.825zm7.026-9.61c-.385-.193-2.279-1.124-2.632-1.252-.353-.128-.61-.193-.866.193s-.994 1.252-1.219 1.51c-.224.257-.45.289-.834.096-.385-.192-1.625-.598-3.097-1.91-1.144-1.02-1.916-2.281-2.141-2.667-.224-.385-.024-.594.169-.786.174-.173.385-.45.578-.674.193-.225.257-.385.385-.642.128-.257.064-.482-.032-.674-.096-.193-.866-2.088-1.187-2.86-.313-.752-.631-.65-.866-.66l-.738-.013c-.257 0-.674.096-1.027.482s-1.348 1.317-1.348 3.211 1.38 3.726 1.572 3.984c.193.257 2.717 4.149 6.583 5.819.92.397 1.638.633 2.198.81.923.293 1.764.252 2.428.153.741-.111 2.279-.93 2.6-1.83.321-.898.321-1.667.225-1.83-.096-.161-.353-.257-.738-.45z"/>
+    </svg>
+  </a>
+
+  <div class="cookie-banner" id="cookie-banner" role="region" aria-label="Aviso de cookies">
+    <p>Usamos cookies para melhorar sua experiência. Ao continuar, você concorda com nossa <a href="#">Política de Privacidade</a>.</p>
+    <div class="cookie-actions">
+      <button type="button" class="secondary" id="cookie-decline">Personalizar</button>
+      <button type="button" class="primary" id="cookie-accept">Aceitar</button>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const banner = document.getElementById('cookie-banner');
+      const accept = document.getElementById('cookie-accept');
+      const decline = document.getElementById('cookie-decline');
+      try {
+        if (localStorage.getItem('cuestas-cookies') === 'accepted') banner.hidden = true;
+      } catch (e) { /* noop */ }
+      accept.addEventListener('click', () => {
+        try { localStorage.setItem('cuestas-cookies', 'accepted'); } catch (e) {}
+        banner.hidden = true;
+      });
+      decline.addEventListener('click', () => { banner.hidden = true; });
+    })();
+  </script>
+
+</body>
+</html>
