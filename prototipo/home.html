@@ -1493,9 +1493,9 @@
           <button id="serv-next" aria-label="Próximo">&#8594;</button>
         </div>
 
-        <!-- CTA bridge — link para servicos-empresas.html -->
+        <!-- CTA bridge — atualizado pelo toggle JS -->
         <div class="servicos-cta-bridge">
-          <a href="servicos-empresas.html" class="btn btn-primary">
+          <a id="servicos-cta-link" href="servicos-empresas.html" class="btn btn-primary">
             Conheça todos os serviços
             <span class="arrow" aria-hidden="true">→</span>
           </a>
@@ -1736,8 +1736,28 @@
         var track      = document.getElementById('servicos-track');
         var prevBtn    = document.getElementById('serv-prev');
         var nextBtn    = document.getElementById('serv-next');
+        var ctaLink    = document.getElementById('servicos-cta-link');
         var toggleBtns = Array.from(document.querySelectorAll('.toggle-btn'));
+        var allCards   = Array.from(track.querySelectorAll('.servico-card'));
         var STEP       = 296;
+
+        var ctaUrls = {
+          'empresas':        'servicos-empresas.html',
+          'pessoas-fisicas': 'servicos-pf.html'
+        };
+
+        function groupOf(card) {
+          return card.href.indexOf('servicos-pf') !== -1 ? 'pessoas-fisicas' : 'empresas';
+        }
+
+        function filterCards(group) {
+          allCards.forEach(function(card) {
+            card.style.display = groupOf(card) !== group ? 'none' : '';
+          });
+          if (ctaLink) ctaLink.href = ctaUrls[group];
+          track.scrollLeft = 0;
+          updateButtons();
+        }
 
         function updateButtons() {
           var atStart = track.scrollLeft <= 0;
@@ -1747,39 +1767,11 @@
           prevBtn.setAttribute('aria-disabled', String(atStart));
           nextBtn.setAttribute('aria-disabled', String(atEnd));
         }
-        updateButtons();
 
-        /* Scroll para o card âncora do grupo usando coordenadas de viewport */
-        function scrollToGroup(group) {
-          var target = track.querySelector('[data-group-start="' + group + '"]');
-          if (!target) return;
-          var cardRect  = target.getBoundingClientRect();
-          var trackRect = track.getBoundingClientRect();
-          var padding   = parseFloat(getComputedStyle(track).paddingLeft) || 24;
-          var newLeft   = track.scrollLeft + cardRect.left - trackRect.left - padding;
-          track.scrollTo({ left: Math.max(0, newLeft), behavior: 'smooth' });
-        }
+        /* Estado inicial: Empresas ativo */
+        filterCards('empresas');
 
-        /* Sync toggle ao rolar manualmente */
-        function syncToggle() {
-          var pfCard = track.querySelector('[data-group-start="pessoas-fisicas"]');
-          if (!pfCard) return;
-          var pfRect    = pfCard.getBoundingClientRect();
-          var trackRect = track.getBoundingClientRect();
-          /* Se o meio da viewport do track já passou a metade do card PF → ativo é PF */
-          var trackMid  = trackRect.left + trackRect.width / 2;
-          var activeGroup = pfRect.left <= trackMid ? 'pessoas-fisicas' : 'empresas';
-          toggleBtns.forEach(function(btn) {
-            var isActive = btn.dataset.target === activeGroup;
-            btn.classList.toggle('active', isActive);
-            btn.setAttribute('aria-pressed', String(isActive));
-          });
-        }
-
-        track.addEventListener('scroll', function() {
-          updateButtons();
-          syncToggle();
-        }, { passive: true });
+        track.addEventListener('scroll', updateButtons, { passive: true });
 
         prevBtn.addEventListener('click', function() {
           track.scrollBy({ left: -STEP * 2, behavior: 'smooth' });
@@ -1795,7 +1787,7 @@
               b.classList.toggle('active', b === btn);
               b.setAttribute('aria-pressed', String(b === btn));
             });
-            scrollToGroup(btn.dataset.target);
+            filterCards(btn.dataset.target);
           });
         });
 
