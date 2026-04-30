@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Conheça projetos de due diligence, licenciamento, gestão de resíduos e perícias ambientais conduzidos pela Cuestas Engenharia Ambiental em São Paulo e região.">
+  <title>Projetos | Cuestas Engenharia Ambiental</title>
+  <link rel="canonical" href="https://cuestasambiental.com/projetos">
+  <style>
+
+    /* ==========================================================
+       SF Pro — @font-face (Bloco 1, literal da Home)
+       ========================================================== */
+    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Regular.otf') format('opentype'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Medium.otf') format('opentype'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Semibold.otf') format('opentype'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Regular.otf') format('opentype'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Medium.otf') format('opentype'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Semibold.otf') format('opentype'); font-weight:600; font-display:swap; }
+
+    /* ==========================================================
+       Tokens — Bloco 2 (literal da Home)
+       ========================================================== */
+    :root {
+      --color-background:      #FAFAF7;
+      --color-surface:         #F3F4EE;
+      --color-surface-subtle:  #FFFFFF;
+      --color-border-hairline: rgba(0, 0, 0, 0.08);
+      --color-border:          #DDE0D7;
+      --color-text-primary:    #1C1D1A;
+      --color-text-secondary:  #5C5E59;
+      --color-accent:          #677A2F;
+      --color-accent-hover:    #556424;
+      --color-accent-soft:     #EDF0DC;
+      --color-accent-focus:    #7B8E3C;
+      --color-on-accent:       #FFFFFF;
+      /* --color-whatsapp: #25D366; — DEPRECIADA 2026-04-29 */
+      --color-on-dark:         #FFFFFF;
+
+      --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-body:    'SF Pro Text',    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+      --space-1:4px;  --space-2:8px;  --space-3:12px; --space-4:16px;
+      --space-6:24px; --space-8:32px; --space-12:48px; --space-16:64px;
+      --space-24:96px; --space-32:128px;
+
+      --radius-xs:4px; --radius-sm:6px; --radius-md:10px; --radius-lg:14px;
+      --radius-xl:20px; --radius-pill:9999px; --radius-full:9999px;
+
+      --shadow-card:       0 2px 12px rgba(0, 0, 0, 0.08);
+      --shadow-card-hover: 0 8px 32px rgba(0, 0, 0, 0.14);
+      --shadow-hero:       0 8px 40px rgba(0, 0, 0, 0.12);
+      --shadow-floating:   0 4px 24px rgba(0, 0, 0, 0.18);
+
+      --border-hairline: 1px solid var(--color-border-hairline);
+      --border-default:  1px solid var(--color-border);
+      --border-focus:    2px solid var(--color-accent-focus);
+    }
+
+    /* Reset + base (literal da Home) */
+    *,*::before,*::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 52px; }
+    body {
+      margin: 0;
+      background: var(--color-background);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.47;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    h1,h2,h3,h4,p,ul,ol,figure,dl { margin: 0; padding: 0; }
+    ul,ol { list-style: none; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; cursor: pointer; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); }
+
+    .skip-link {
+      position: absolute; top: -40px; left: var(--space-4);
+      background: var(--color-text-primary); color: var(--color-on-dark);
+      padding: var(--space-2) var(--space-4); border-radius: var(--radius-sm); z-index: 200;
+    }
+    .skip-link:focus { top: var(--space-2); }
+    :focus-visible { outline: var(--border-focus); outline-offset: 2px; border-radius: 2px; }
+
+    /* Visually hidden — a11y (presente em setores.html) */
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Buttons (literal da Home) */
+    .btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 13px 26px; border-radius: var(--radius-pill);
+      font-family: var(--font-body); font-size: 16px; font-weight: 500;
+      border: 1px solid transparent; line-height: 1;
+      transition: background-color .25s ease, color .25s ease, border-color .25s ease, transform .2s ease;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn .arrow { transition: transform .25s ease; }
+    .btn:hover .arrow { transform: translateX(3px); }
+    .btn-primary { background: var(--color-accent); color: var(--color-on-accent); }
+    .btn-primary:hover { background: var(--color-accent-hover); }
+    .btn-secondary { background: transparent; color: var(--color-accent); border-color: var(--color-accent); }
+    .btn-secondary:hover { background: var(--color-accent-soft); color: var(--color-accent-hover); border-color: var(--color-accent-hover); }
+    .btn-ghost-light { background: transparent; color: var(--color-on-dark); border-color: rgba(255,255,255,0.45); }
+    .btn-ghost-light:hover { border-color: var(--color-on-dark); background: rgba(255,255,255,0.10); }
+    .btn-on-dark { background: var(--color-on-dark); color: var(--color-text-primary); }
+    .btn-on-dark:hover { background: var(--color-accent); color: var(--color-on-accent); }
+
+    /* Reveal (literal da Home) */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .65s cubic-bezier(0.28, 0.11, 0.32, 1), transform .65s cubic-bezier(0.28, 0.11, 0.32, 1); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+    /* Section eyebrow (literal da Home) */
+    .section-eyebrow {
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.18em;
+      color: var(--color-accent); font-weight: 500; margin-bottom: var(--space-3);
+      display: block;
+    }
+
+    /* Navbar (literal da Home) */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 52px;
+      background: var(--color-background);
+      backdrop-filter: none; -webkit-backdrop-filter: none;
+      border-bottom: 1px solid var(--color-border-hairline);
+      transition: background .3s ease, backdrop-filter .3s ease;
+    }
+    .navbar.scrolled {
+      background: rgba(250, 250, 247, 0.72);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+    }
+    .navbar-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 100%; max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6);
+    }
+    .brand { font-family: var(--font-display); font-weight: 600; font-size: 18px; letter-spacing: -0.2px; }
+    .brand .brand-dot { color: var(--color-accent); }
+    .navbar-logo { height: 34px; width: auto; display: block; }
+    .nav-links { display: flex; gap: var(--space-8); align-items: center; font-size: 13px; list-style: none; margin: 0; padding: 0; }
+    .nav-links > li > a { color: var(--color-text-primary); opacity: 0.82; transition: opacity .2s ease, transform .2s cubic-bezier(0.28, 0.11, 0.32, 1); }
+    .nav-links > li > a:hover { opacity: 1; transform: translateY(-1px); }
+    .nav-links > li > a[aria-current="page"] { opacity: 1; color: var(--color-accent); }
+    /* Dropdown Serviços */
+    .navbar { overflow: visible; }
+    .nav-item-has-submenu { position: static; }
+    .nav-submenu-toggle {
+      background: none; border: none; padding: 0; font: inherit; font-size: 13px;
+      color: var(--color-text-primary); opacity: 0.82; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 4px;
+      transition: opacity .2s ease, transform .2s cubic-bezier(0.28, 0.11, 0.32, 1);
+    }
+    .nav-submenu-toggle:hover { opacity: 1; transform: translateY(-1px); }
+    .nav-submenu-toggle[aria-current="page"] { opacity: 1; color: var(--color-accent); }
+    .submenu-chevron { font-size: 10px; opacity: 0.6; transition: transform .2s ease; display: inline-block; }
+    .nav-submenu-toggle[aria-expanded="true"] .submenu-chevron { transform: rotate(180deg); }
+    .nav-submenu {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      min-width: 200px; background: var(--color-background);
+      border: var(--border-hairline); border-top: none;
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06); list-style: none; margin: 0;
+      padding: var(--space-2); z-index: 110;
+      transition: background .3s ease;
+    }
+    .navbar.scrolled .nav-submenu {
+      background: rgba(250, 250, 247, 0.72);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+    }
+    .nav-submenu[hidden] { display: none; }
+    .nav-submenu:not([hidden]) { animation: submenu-in .15s ease-out; }
+    @keyframes submenu-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    .nav-submenu-link {
+      display: block; padding: var(--space-3) var(--space-4); font-size: 13px;
+      color: var(--color-text-primary); border-radius: var(--radius-sm);
+      transition: background .15s ease;
+    }
+    .nav-submenu-link:hover { background: var(--color-surface); }
+    .nav-submenu-link[aria-current="page"] { background: var(--color-accent-soft); color: var(--color-accent); font-weight: 500; }
+    @media (max-width: 767px) {
+      .nav-submenu { position: static; transform: none; box-shadow: none; border: none; background: transparent; padding: 0; min-width: 0; margin: var(--space-2) 0 0 var(--space-4); }
+      .nav-submenu:not([hidden]) { animation: none; }
+      .nav-submenu-link { padding: var(--space-2) 0; }
+    }
+
+    /* Form classes (literal da Home — para CTA inline) */
+    .form-field { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .form-field label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--color-text-secondary);
+    }
+    .form-field input, .form-field textarea {
+      width: 100%; padding: 11px 14px;
+      border: var(--border-default);
+      border-radius: var(--radius-sm);
+      background: var(--color-surface-subtle);
+      color: var(--color-text-primary);
+      font-size: 15px; font-family: var(--font-body);
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .form-field textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
+    .form-field input:focus, .form-field textarea:focus {
+      outline: none; border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px var(--color-accent-soft);
+    }
+    .form-check { display: flex; align-items: flex-start; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .form-check input[type="checkbox"] {
+      width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px;
+      accent-color: var(--color-accent); cursor: pointer;
+    }
+    .form-check label { font-size: 13px; color: var(--color-text-secondary); line-height: 1.45; cursor: pointer; }
+    .form-check label a { color: var(--color-accent); text-decoration: underline; }
+    .form-actions { display: flex; justify-content: flex-end; margin-top: var(--space-2); }
+
+    /* CTA Contato — Bloco 5 (literal da Home) */
+    .cta-block {
+      background: var(--color-surface);
+      padding: var(--space-24) 0;
+      position: relative;
+    }
+    .cta-grid {
+      display: grid; grid-template-columns: 1fr 1.3fr;
+      gap: var(--space-12); align-items: start;
+    }
+    .cta-text h2 {
+      font-family: var(--font-display); font-weight: 500;
+      font-size: clamp(28px, 3.2vw, 40px);
+      line-height: 1.12; letter-spacing: -0.022em;
+      margin-bottom: var(--space-4);
+    }
+    .cta-text p {
+      font-size: 17px; color: var(--color-text-secondary);
+      line-height: 1.55; margin-bottom: var(--space-6); max-width: 40ch;
+    }
+    .cta-meta {
+      display: flex; flex-direction: column; gap: var(--space-2);
+      padding-top: var(--space-4); border-top: var(--border-hairline);
+      font-size: 14px; color: var(--color-text-secondary);
+    }
+    .cta-meta strong { color: var(--color-text-primary); font-weight: 600; }
+    .cta-deco {
+      position: absolute; top: 0; left: 0;
+      width: 130px; height: 100%;
+      opacity: 0.14; pointer-events: none;
+      z-index: 0; display: block;
+    }
+    .cta-block > .container { position: relative; z-index: 1; }
+    .cta-form {
+      background: var(--color-surface-subtle);
+      border: var(--border-hairline);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+    }
+    .cta-form .form-head { margin-bottom: var(--space-6); }
+    .form-head-label {
+      font-family: var(--font-display); font-weight: 500;
+      font-size: 22px; letter-spacing: -0.3px;
+      color: var(--color-text-primary);
+      display: block;
+    }
+
+    /* Footer (literal da Home) */
+    .site-footer {
+      background: var(--color-background);
+      color: var(--color-text-primary);
+      border-top: 1px solid var(--color-border-hairline);
+      padding: var(--space-16) 0 var(--space-8);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--space-8);
+      margin-bottom: var(--space-12);
+    }
+    .footer-brand p { color: var(--color-text-secondary); font-size: 14px; margin-top: var(--space-3); max-width: 32ch; }
+    .footer-col h4 {
+      font-family: var(--font-display); font-size: 12px; font-weight: 600;
+      margin-bottom: var(--space-4); letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--color-text-secondary);
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: var(--space-3); }
+    .footer-col a { color: var(--color-text-secondary); font-size: 14px; transition: color .2s ease; }
+    .footer-col a:hover { color: var(--color-text-primary); }
+    .footer-col .footer-wa { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text-secondary); transition: color .2s ease; }
+    .footer-col .footer-wa:hover { color: var(--color-accent); }
+    .footer-col .footer-wa svg { width: 16px; height: 16px; fill: currentColor; }
+    .footer-bottom {
+      border-top: 1px solid var(--color-border-hairline);
+      padding-top: var(--space-6);
+      display: flex; justify-content: space-between;
+      color: var(--color-text-secondary); font-size: 12px;
+    }
+
+    /* Cookie banner (literal da Home) */
+    .cookie-banner {
+      position: fixed; bottom: var(--space-6); left: var(--space-6);
+      max-width: 420px; z-index: 80;
+      background: var(--color-surface-subtle); border: var(--border-hairline);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-floating);
+      padding: var(--space-4) var(--space-6);
+    }
+    .cookie-banner[hidden] { display: none; }
+    .cookie-banner p { font-size: 14px; margin-bottom: var(--space-3); line-height: 1.5; }
+    .cookie-banner p a { color: var(--color-accent); text-decoration: underline; }
+    .cookie-actions { display: flex; gap: var(--space-2); justify-content: flex-end; }
+    .cookie-actions button {
+      padding: 7px 16px; border-radius: var(--radius-sm);
+      font-size: 13px; font-weight: 500; border: var(--border-default);
+      background: transparent; color: var(--color-text-primary); transition: all .2s ease;
+    }
+    .cookie-actions button.primary { background: var(--color-accent); color: var(--color-on-accent); border-color: var(--color-accent); }
+    .cookie-actions button.primary:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); }
+    .cookie-actions button.secondary:hover { border-color: var(--color-accent); }
+
+    /* WhatsApp float (literal da Home) */
+    .whatsapp-float {
+      position: fixed; bottom: var(--space-6); right: var(--space-6);
+      width: 56px; height: 56px; background: var(--color-accent);
+      border-radius: var(--radius-full);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-floating); z-index: 90;
+      transition: background .25s ease, transform .25s ease;
+    }
+    .whatsapp-float:hover { background: var(--color-accent-hover); transform: scale(1.05); }
+    .whatsapp-float:active { transform: scale(0.95); }
+    .whatsapp-float svg { width: 28px; height: 28px; fill: var(--color-on-dark); }
+
+    /* Responsive compartilhado (literal da Home) */
+    @media (max-width: 1024px) {
+      .footer-grid { grid-template-columns: 1.5fr 1fr 1fr; }
+      .cta-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+      .footer-bottom { flex-direction: column; gap: var(--space-2); }
+      .cookie-banner { left: var(--space-3); right: var(--space-3); bottom: var(--space-3); max-width: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ==========================================================
+       Projetos — CSS específico desta página
+       ========================================================== */
+
+    /* Placeholder visual */
+    .todo { color: #B00; font-style: italic; font-size: 0.9em; }
+
+    /* Hero da página */
+    .page-hero {
+      padding-top: calc(52px + var(--space-12));
+      padding-bottom: var(--space-12);
+      background: var(--color-background);
+      border-bottom: var(--border-hairline);
+      min-height: 40vh;
+      display: flex; align-items: center;
+    }
+    .page-hero h1 {
+      font-family: var(--font-display); font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: -0.025em; line-height: 1.08;
+      margin-bottom: var(--space-4);
+      max-width: 22ch;
+    }
+    .page-lead {
+      font-size: 18px; color: var(--color-text-secondary);
+      max-width: 64ch; line-height: 1.55;
+    }
+
+    /* Aviso de confidencialidade (Cenário D) */
+    .aviso-confidencialidade {
+      background: var(--color-surface);
+      border-top: var(--border-hairline);
+      border-bottom: var(--border-hairline);
+      padding: var(--space-4) 0;
+    }
+    .aviso-confidencialidade p {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.55;
+      max-width: 80ch;
+    }
+
+    /* ── Bloco tabela de projetos ──────────────────────────────── */
+    .projetos-bloco {
+      padding: var(--space-16) 0;
+      background: var(--color-background);
+    }
+    .projetos-tabela {
+      border-top: var(--border-hairline);
+    }
+
+    /* Row de projeto — espelha .setor-row de setores.html */
+    .projeto-row {
+      display: grid;
+      padding: var(--space-8) 0;
+      border-bottom: var(--border-hairline);
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+    @media (min-width: 1024px) {
+      .projeto-row {
+        grid-template-columns: 1fr 2.5fr;
+        gap: var(--space-8);
+        align-items: start;
+      }
+    }
+
+    /* dt: número + tipo + localização (esquerda em desktop) */
+    .projeto-row dt {
+      display: flex; flex-direction: column;
+    }
+    .projeto-num {
+      font-family: var(--font-display); font-weight: 500;
+      font-size: 32px; line-height: 1;
+      color: var(--color-accent);
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-3);
+    }
+    .projeto-tipo {
+      font-family: var(--font-display); font-weight: 500;
+      font-size: 19px; line-height: 1.25;
+      letter-spacing: -0.2px;
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+    .projeto-contexto {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.4;
+    }
+
+    /* dd: corpo do projeto (direita em desktop) */
+    .projeto-row dd {
+      display: flex; flex-direction: column; gap: var(--space-4);
+    }
+    .projeto-campo {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.10em; text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-1);
+    }
+    .projeto-texto {
+      font-size: 15px; color: var(--color-text-secondary);
+      line-height: 1.6; max-width: 65ch;
+    }
+    .projeto-detalhe {
+      display: flex; flex-direction: column;
+    }
+
+    /* Chips de categoria — decorativos, sem link */
+    .projeto-tags {
+      display: flex; flex-wrap: wrap; gap: var(--space-2);
+      margin-top: var(--space-2);
+    }
+    .projeto-tags li {
+      display: inline-flex; align-items: center;
+      padding: 4px var(--space-3);
+      background: var(--color-accent-soft);
+      color: var(--color-accent);
+      border-radius: var(--radius-pill);
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* Bridge — parágrafo de transição antes do CTA */
+    .projetos-bridge {
+      padding: var(--space-12) 0;
+      background: var(--color-surface);
+      border-top: var(--border-hairline);
+    }
+    .projetos-bridge p {
+      font-size: 16px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      max-width: 68ch;
+    }
+    .projetos-bridge a {
+      color: var(--color-accent);
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    @media (max-width: 768px) {
+      .projetos-bloco { padding: var(--space-12) 0; }
+      .projeto-row { padding: var(--space-6) 0; }
+      .projeto-num { font-size: 26px; margin-bottom: var(--space-2); }
+      .projeto-tipo { font-size: 17px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!--
+    PLACEHOLDERS A CONFIRMAR COM CLIENTE:
+    - Projeto 5 (Licenciamento, Araucária, PR): resultado não fornecido no briefing — marcado [A COMPLETAR].
+    - Ano de cada projeto: omitido por decisão (Sprint 3.B). Ver ToDo.
+
+    QUESTÃO PARA O CLIENTE:
+    - Projeto 6 (Nota Técnica, Caldas Novas, GO): tipo "Nota Técnica / Conformidade Legal" não
+      corresponde a nenhuma das 8 categorias de §5.3. Chip atribuído: "Licenciamento Ambiental"
+      (categoria mais próxima — conformidade e regularização). Confirmar se categoria correta ou
+      se §5.3 deve incluir "Conformidade Legal" como 9ª categoria.
+
+    SWEEP PENDENTE (após aprovação desta página):
+    - Atualizar href="#" → href="projetos.html" no link "Projetos" da navbar e footer
+      nas páginas: home.html, sobre.html, servicos-empresas.html, servicos-pf.html,
+      contato.html, politica-privacidade.html, setores.html.
+  -->
+
+  <!-- Bloco 3 — Skip link -->
+  <a href="#main" class="skip-link">Pular para o conteúdo</a>
+
+  <!-- Bloco 4 — Header (aria-current em "Projetos") -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="home.html" class="brand" aria-label="Cuestas Engenharia Ambiental — Início">
+        <img src="assets/images/logo-navbar.png" alt="Cuestas Engenharia Ambiental" class="navbar-logo">
+      </a>
+      <nav aria-label="Navegação principal">
+        <ul class="nav-links">
+          <li><a href="sobre.html">Sobre</a></li>
+          <li class="nav-item-has-submenu">
+            <button type="button" class="nav-submenu-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="submenu-servicos">Serviços <span class="submenu-chevron" aria-hidden="true">▾</span></button>
+            <ul id="submenu-servicos" class="nav-submenu" hidden>
+              <li><a href="servicos-empresas.html" class="nav-submenu-link">Para Empresas</a></li>
+              <li><a href="servicos-pf.html" class="nav-submenu-link">Para Pessoas Físicas</a></li>
+            </ul>
+          </li>
+          <li><a href="projetos.html" aria-current="page">Projetos</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </nav>
+      <a href="contato.html" class="btn btn-primary" style="padding: 8px 18px; font-size: 13px;">Solicitar Orçamento</a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- Hero da página (§5.1 literal) -->
+    <section class="page-hero" aria-labelledby="page-h1">
+      <div class="container">
+        <span class="section-eyebrow">Projetos e Portfólio</span>
+        <h1 id="page-h1">Exemplos de projetos conduzidos</h1>
+        <p class="page-lead">
+          Ao longo de nossa atuação, desenvolvemos projetos técnicos para empreendimentos de diferentes portes e setores. Os casos a seguir ilustram a abrangência e a profundidade da nossa capacidade técnica.
+        </p>
+      </div>
+    </section>
+
+    <!-- Aviso de confidencialidade -->
+    <aside class="aviso-confidencialidade" aria-label="Nota sobre confidencialidade dos projetos">
+      <div class="container">
+        <p>
+          Por força de cláusulas de confidencialidade comuns em due diligence e perícias ambientais, os projetos são apresentados sem identificação do cliente — com tipo de projeto, setor, localização aproximada e escopo técnico.
+        </p>
+      </div>
+    </aside>
+
+    <!-- Lista de projetos -->
+    <section class="projetos-bloco reveal" aria-labelledby="projetos-lista-title">
+      <div class="container">
+
+        <h2 id="projetos-lista-title" class="visually-hidden">Lista de projetos</h2>
+
+        <dl class="projetos-tabela">
+
+          <!-- Projeto 01 — Due Diligence, Duque de Caxias, RJ -->
+          <div class="projeto-row" id="projeto-01">
+            <dt>
+              <span class="projeto-num">01</span>
+              <span class="projeto-tipo">Due Diligence Ambiental</span>
+              <span class="projeto-contexto">Atacadista / Varejo<br>Duque de Caxias, RJ</span>
+            </dt>
+            <dd>
+              <div class="projeto-detalhe">
+                <p class="projeto-campo">Escopo</p>
+                <p class="projeto-texto">Avaliação Ambiental Preliminar (AAP) de ativo comercial em área urbana. Vistoria in loco, análise documental de licenças e cadastros ambientais, identificação de APEs, elaboração de MCI e relatório técnico.</p>
+              </div>
+              <div class="projeto-detalhe">
+                <p class="projeto-campo">Resultado</p>
+                <p class="projeto-texto">Identificação de passivos potenciais e recomendações para investigação complementar, subsidiando decisão de aquisição com segurança técnica.</p>
+              </div>
+              <ul class="projeto-tags" aria-label="Categorias do projeto">
+                <li>Due Diligence Ambiental</li>
+              </ul>
+            </dd>
+          </div>
+
+          <!-- Projeto 02 — Due Diligence, Viana, ES -->
+          <div class="projeto-row" id="projeto-02">
+            <dt>
+              <span class="projeto-num">02</span>
+              <span class="projeto-tipo">Due Diligence Ambiental</span>
+              <span class="projeto-contexto">Logística<br>Viana, ES</span>
+            </dt>
+            <dd>
+              <div class="projeto-detalhe">
+                <p class="projeto-campo">Escopo</p>
+                <p class="projeto-texto">Due diligence documental e técnica de centro logístico de grande porte. Análise de licenciamento, outorgas, gestão de resíduos, conformidade com condicionantes e identificação de pendências regulatórias.</p>
+              </div>
+              <div class="projeto-detalhe">
+                <p class="projeto-campo">Resultado</p>
+                <p class="projeto-texto">Relatório consolidado com mapeamento de riscos regulatórios e recomendações de adequação.</p>
+              </div>
+              <ul class="projeto-tags" aria-label="Categorias do projeto">
+                <li>Due Diligence Ambiental</li>
+              </ul>
+            </dd>
+          </div>
+
+          <!-- Projeto 03 — Perícia, CAM-CCBC, Lençóis Paulista, SP -->
+          <div class="projeto-row" id="projeto-03">
+            <dt>
+              <span class="projeto-num">03</span>
+              <span class="projeto-tipo">Perícia Ambiental</span>
+              <span class="projeto-contexto">Industrial<br>Lençóis Paulista, SP</span>
+            </dt>
+            <dd>
+              <div class="projeto-detalhe">
+                <p class="projeto-campo">Escopo</p>
+                <p class="projeto-texto">Laudo de Constatação em processo de arbitragem (CAM-CCBC). Inspeção técnica de planta industrial de desaguamento e secagem térmica de lodo. Registro fotográfico e técnico do estado físico das instalações.</p>
+              </div>
+              <div class="projeto-detalhe">
+                <p class="projeto-campo">Resultado</p>
+                <p class="projeto-texto">Laudo técnico pericial entregue dentro do prazo estipulado pela câmara arbitral, com cobertura integral do escopo inspecionado.</p>
+              </div>
+              <ul class="projeto-tags" aria-label="Categorias do projeto">
+                <li>Perícias e Laudos</li>
+              </ul>
+            </dd>
+          </div>
+
+          <!-- Projeto 04 — PGRS, Construção Civil, São Paulo, SP -->
+          <div class="projeto-row" id="projeto-04">
+            <dt>
+              <span class="projeto-num">04</span>
+              <span class="projeto-tipo">Gestão de Resíduos / PGRS</span>
+              <span class="projeto-contexto">Construção Civil<br>São Paulo, SP</span>
+            </dt>
+            <dd>
+              <div class="projeto-detalhe">
+                <p class="projeto-campo">Escopo</p>
+                <p class="projeto-texto">Elaboração e implementação de PGRS para canteiro de obras de médio porte. Classificação dos resíduos gerados, definição de fluxos, treinamento de equipes e acompanhamento da destinação.</p>
+              </div>
+              <div class="projeto-detalhe">
+                <p class="projeto-campo">Resultado</p>
+                <p class="projeto-texto">Conformidade com a legislação municipal e federal. Redução de passivos relacionados à disposição inadequada de resíduos Classe I.</p>
+              </div>
+              <ul class="projeto-tags" aria-label="Categorias do projeto">
+                <li>Gestão de Resíduos</li>
+                <li>Gestão de Obras</li>
+              </ul>
+            </dd>
+          </div>
+
+          <!-- Projeto 05 — Licenciamento, Araucária, PR -->
+          <div class="projeto-row" id="projeto-05">
+            <dt>
+              <span class="projeto-num">05</span>
+              <span class="projeto-tipo">Licenciamento Ambiental</span>
+              <span class="projeto-contexto">Industrial / Logístico<br>Araucária, PR</span>
+            </dt>
+            <dd>
+              <div class="projeto-detalhe">
+                <p class="projeto-campo">Escopo</p>
+                <p class="projeto-texto">Elaboração de relatório ambiental com base em PCA (Plano de Controle Ambiental) para barracão logístico. Análise de conformidade e recomendações para licenciamento.</p>
+              </div>
+              <div class="projeto-detalhe">
+                <p class="projeto-campo">Resultado</p>
+                <p class="projeto-texto"><span class="todo">[A COMPLETAR: resultado do projeto em Araucária, PR]</span></p>
+              </div>
+              <ul class="projeto-tags" aria-label="Categorias do projeto">
+                <li>Licenciamento Ambiental</li>
+              </ul>
+            </dd>
+          </div>
+
+          <!-- Projeto 06 — Nota Técnica, Caldas Novas, GO -->
+          <div class="projeto-row" id="projeto-06">
+            <dt>
+              <span class="projeto-num">06</span>
+              <span class="projeto-tipo">Nota Técnica / Conformidade Legal</span>
+              <span class="projeto-contexto">Empreendimento Imobiliário<br>Caldas Novas, GO</span>
+            </dt>
+            <dd>
+              <div class="projeto-detalhe">
+                <p class="projeto-campo">Escopo</p>
+                <p class="projeto-texto">Elaboração de nota técnica sobre embargo por extração irregular de água subterrânea. Avaliação das implicações legais e caminhos de regularização.</p>
+              </div>
+              <ul class="projeto-tags" aria-label="Categorias do projeto">
+                <li>Licenciamento Ambiental</li><!-- categoria mais próxima — ver QUESTÃO no comentário inicial -->
+              </ul>
+            </dd>
+          </div>
+
+        </dl>
+      </div>
+    </section>
+
+    <!-- Bridge — referências por área de interesse -->
+    <div class="projetos-bridge">
+      <div class="container">
+        <p>Para discutir referências específicas em sua área de atuação — setor, localização ou tipo de serviço — entre em <a href="contato.html">contato direto</a>.</p>
+      </div>
+    </div>
+
+    <!-- Bloco 5 — CTA Contato inline (literal da Home) -->
+    <section class="cta-block reveal" id="contato" aria-labelledby="cta-title">
+      <svg class="cta-deco" aria-hidden="true" viewBox="0 0 130 600" preserveAspectRatio="none" width="130" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#677A2F" stroke-width="1.4" stroke-linecap="round" vector-effect="non-scaling-stroke">
+          <path d="M108 0 L108 600"/>
+          <path d="M86 0 L86 600"/>
+          <path d="M64 0 L64 600"/>
+          <path d="M44 0 L44 600"/>
+        </g>
+      </svg>
+      <div class="container">
+        <div class="cta-grid">
+
+          <div class="cta-text">
+            <h2 id="cta-title">Fale com um Engenheiro Ambiental.</h2>
+            <p>Tire suas dúvidas, solicite um orçamento ou agende uma vistoria. Retorno em até 24 horas.</p>
+            <div class="cta-meta">
+              <span><strong>Telefone / WhatsApp:</strong> (11) 91495-8701</span>
+              <span><strong>E-mail:</strong> contato@cuestasambiental.com</span>
+              <span><strong>Atendimento:</strong> São Paulo, SP — presencial e remoto em todo o Brasil</span>
+            </div>
+          </div>
+
+          <form class="cta-form" action="#" method="post" aria-label="Formulário de contato">
+            <div class="form-head">
+              <span class="form-head-label">Entre em Contato</span>
+            </div>
+
+            <div class="form-field">
+              <label for="nome">Nome *</label>
+              <input type="text" id="nome" name="nome" required autocomplete="name">
+            </div>
+            <div class="form-field">
+              <label for="email">E-mail *</label>
+              <input type="email" id="email" name="email" required autocomplete="email" inputmode="email">
+            </div>
+            <div class="form-field">
+              <label for="telefone">Telefone *</label>
+              <input type="tel" id="telefone" name="telefone" required autocomplete="tel" inputmode="numeric">
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="whatsapp-auth" name="whatsapp_auth">
+              <label for="whatsapp-auth">Autorizo o contato por WhatsApp</label>
+            </div>
+            <div class="form-field">
+              <label for="empresa">Empresa</label>
+              <input type="text" id="empresa" name="empresa" autocomplete="organization">
+            </div>
+            <div class="form-field">
+              <label for="mensagem">Mensagem</label>
+              <textarea id="mensagem" name="mensagem" maxlength="500"></textarea>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="privacidade" name="privacidade" required>
+              <label for="privacidade">Estou de acordo com as <a href="politica-privacidade.html">Políticas de Privacidade do site</a></label>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">
+                Enviar Mensagem
+                <span class="arrow" aria-hidden="true">→</span>
+              </button>
+            </div>
+
+            <div role="status" aria-live="polite" hidden id="form-success">
+              Obrigado pelo contato! Retornaremos em até 24 horas úteis.
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bloco 6 — Footer (literal da Home — links interiores adaptados) -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/images/logo-footer.png" alt="Cuestas Engenharia Ambiental" style="height:40px; width:auto; display:block; margin-bottom:var(--space-3);">
+          <p>Consultoria de Engenharia Ambiental. CREA nº 2622462662 — Engenheiro Responsável: Laio Cuestas.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="servicos-empresas.html">Serviços</a></li>
+            <li><a href="projetos.html">Projetos</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="servicos-empresas.html">Empresas e Empreendimentos</a></li>
+            <li><a href="#">Imóveis</a></li>
+            <li><a href="servicos-pf.html">Pessoas Físicas</a></li>
+            <li><a href="servicos-empresas.html#linha-6-laudos">Laudos e Assistência</a></li>
+            <li><a href="setores.html">Setores Atendidos</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <ul>
+            <li>
+              <a class="footer-wa"
+                 href="https://wa.me/5511914958701?text=Ol%C3%A1%2C%20encontrei%20o%20site%20da%20Cuestas%20Engenharia%20Ambiental%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20%2F%20tirar%20uma%20d%C3%BAvida."
+                 target="_blank" rel="noopener noreferrer"
+                 aria-label="WhatsApp (11) 91495-8701">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+                </svg>
+                (11) 91495-8701
+              </a>
+            </li>
+            <li>
+              <a class="footer-wa" href="mailto:contato@cuestasambiental.com">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                contato@cuestasambiental.com
+              </a>
+            </li>
+            <li>
+              <a class="footer-wa" href="https://linkedin.com/company/cuestas-engenharia-ambiental" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                LinkedIn
+              </a>
+            </li>
+            <li>
+              <a class="footer-wa" href="https://instagram.com/cuestasambiental" target="_blank" rel="noopener noreferrer" aria-label="Instagram @cuestasambiental">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                Instagram
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Cuestas Engenharia Ambiental</span>
+        <a href="politica-privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bloco 7 — WhatsApp float -->
+  <a href="https://wa.me/5511914958701?text=Ol%C3%A1%2C%20encontrei%20o%20site%20da%20Cuestas%20Engenharia%20Ambiental%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20%2F%20tirar%20uma%20d%C3%BAvida."
+     class="whatsapp-float"
+     aria-label="Fale pelo WhatsApp"
+     target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M16 .395a15.6 15.6 0 0 0-13.31 23.55L.5 31.605l7.93-2.072A15.6 15.6 0 1 0 16 .395zm0 28.43a12.84 12.84 0 0 1-6.554-1.795l-.469-.279-4.69 1.225 1.252-4.566-.305-.471A12.83 12.83 0 1 1 16 28.825zm7.026-9.61c-.385-.193-2.279-1.124-2.632-1.252-.353-.128-.61-.193-.866.193s-.994 1.252-1.219 1.51c-.224.257-.45.289-.834.096-.385-.192-1.625-.598-3.097-1.91-1.144-1.02-1.916-2.281-2.141-2.667-.224-.385-.024-.594.169-.786.174-.173.385-.45.578-.674.193-.225.257-.385.385-.642.128-.257.064-.482-.032-.674-.096-.193-.866-2.088-1.187-2.86-.313-.752-.631-.65-.866-.66l-.738-.013c-.257 0-.674.096-1.027.482s-1.348 1.317-1.348 3.211 1.38 3.726 1.572 3.984c.193.257 2.717 4.149 6.583 5.819.92.397 1.638.633 2.198.81.923.293 1.764.252 2.428.153.741-.111 2.279-.93 2.6-1.83.321-.898.321-1.667.225-1.83-.096-.161-.353-.257-.738-.45z"/>
+    </svg>
+  </a>
+
+  <!-- Bloco 7 — Cookie Banner -->
+  <div class="cookie-banner" id="cookie-banner" role="region" aria-label="Aviso de cookies">
+    <p>Usamos cookies para melhorar sua experiência. Ao continuar, você concorda com nossa <a href="politica-privacidade.html">Política de Privacidade</a>.</p>
+    <div class="cookie-actions">
+      <button type="button" class="secondary" id="cookie-decline">Personalizar</button>
+      <button type="button" class="primary" id="cookie-accept">Aceitar</button>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      /* Cookie banner */
+      var banner  = document.getElementById('cookie-banner');
+      var accept  = document.getElementById('cookie-accept');
+      var decline = document.getElementById('cookie-decline');
+      try {
+        var stored = localStorage.getItem('cuestas-cookie-consent');
+        if (stored && JSON.parse(stored).status === 'accepted') banner.hidden = true;
+      } catch (e) {}
+      accept.addEventListener('click', function() {
+        try {
+          localStorage.setItem('cuestas-cookie-consent', JSON.stringify({
+            status: 'accepted', timestamp: new Date().toISOString()
+          }));
+        } catch (e) {}
+        banner.hidden = true;
+      });
+      decline.addEventListener('click', function() { banner.hidden = true; });
+
+      /* Navbar frosted ao rolar */
+      var navbar = document.querySelector('.navbar');
+      window.addEventListener('scroll', function() {
+        navbar.classList.toggle('scrolled', window.scrollY > 10);
+      }, { passive: true });
+
+      /* Reveal on scroll */
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var reveals = document.querySelectorAll('.reveal');
+      if (reducedMotion || !('IntersectionObserver' in window)) {
+        reveals.forEach(function(el) { el.classList.add('in-view'); });
+      } else {
+        var io = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) { entry.target.classList.add('in-view'); io.unobserve(entry.target); }
+          });
+        }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
+        reveals.forEach(function(el) { io.observe(el); });
+      }
+
+      /* Form: previne reload na submissão */
+      var form = document.querySelector('.cta-form');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var success = document.getElementById('form-success');
+          if (success) success.hidden = false;
+        });
+      }
+    })();
+  </script>
+
+  <script>
+    /* Dropdown Serviços */
+    (function() {
+      var toggle  = document.querySelector('.nav-submenu-toggle');
+      var submenu = document.getElementById('submenu-servicos');
+      if (!toggle || !submenu) return;
+      function closeMenu() { toggle.setAttribute('aria-expanded','false'); submenu.hidden = true; }
+      function openMenu()  { toggle.setAttribute('aria-expanded','true');  submenu.hidden = false; }
+      toggle.addEventListener('click', function(e) { e.stopPropagation(); toggle.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu(); });
+      document.addEventListener('click', function(e) { if (!submenu.contains(e.target) && e.target !== toggle) closeMenu(); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { closeMenu(); toggle.focus(); } });
+    })();
+  </script>
+
+</body>
+</html>
