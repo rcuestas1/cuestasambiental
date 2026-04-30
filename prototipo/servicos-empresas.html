@@ -127,7 +127,7 @@
       transition: background .3s ease, backdrop-filter .3s ease;
     }
     .navbar.scrolled {
-      background: rgba(250, 250, 247, 0.72);
+      background: rgba(250, 250, 247, 0.95);
       backdrop-filter: blur(28px) saturate(200%);
       -webkit-backdrop-filter: blur(28px) saturate(200%);
     }
@@ -139,7 +139,7 @@
     .brand .brand-dot { color: var(--color-accent); }
     .navbar-logo { height: 34px; width: auto; display: block; }
     .nav-links { display: flex; gap: var(--space-8); align-items: center; font-size: 13px; list-style: none; margin: 0; padding: 0; }
-    .nav-links > li > a { color: var(--color-text-primary); opacity: 0.82; transition: opacity .2s ease, transform .2s cubic-bezier(0.28, 0.11, 0.32, 1); }
+    .nav-links > li > a { display: inline-flex; align-items: center; color: var(--color-text-primary); opacity: 0.82; transition: opacity .2s ease, transform .2s cubic-bezier(0.28, 0.11, 0.32, 1); }
     .nav-links > li > a:hover { opacity: 1; transform: translateY(-1px); }
     .nav-links > li > a[aria-current="page"] { opacity: 1; color: var(--color-accent); }
     /* Dropdown Serviços */
@@ -156,7 +156,7 @@
     .submenu-chevron { font-size: 10px; opacity: 0.6; transition: transform .2s ease; display: inline-block; }
     .nav-submenu-toggle[aria-expanded="true"] .submenu-chevron { transform: rotate(180deg); }
     .nav-submenu {
-      position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      position: fixed; top: 52px; left: 50%; transform: translateX(-50%);
       min-width: 200px; background: var(--color-background);
       border: var(--border-hairline); border-top: none;
       border-radius: 0 0 var(--radius-md) var(--radius-md);
@@ -165,7 +165,7 @@
       transition: background .3s ease;
     }
     .navbar.scrolled .nav-submenu {
-      background: rgba(250, 250, 247, 0.72);
+      background: rgba(250, 250, 247, 0.95);
       backdrop-filter: blur(28px) saturate(200%);
       -webkit-backdrop-filter: blur(28px) saturate(200%);
     }
@@ -182,11 +182,56 @@
     }
     .nav-submenu-link:hover { background: var(--color-surface); }
     .nav-submenu-link[aria-current="page"] { background: var(--color-accent-soft); color: var(--color-accent); font-weight: 500; }
-    @media (max-width: 767px) {
-      .nav-submenu { position: static; transform: none; box-shadow: none; border: none; background: transparent; padding: 0; min-width: 0; margin: var(--space-2) 0 0 var(--space-4); }
-      .nav-submenu:not([hidden]) { animation: none; }
-      .nav-submenu-link { padding: var(--space-2) 0; }
+    @media (max-width: 767px) { .nav-submenu { display: none !important; } }
+    /* Hamburger */
+    .navbar-hamburger {
+      display: none; background: none; border: none; padding: var(--space-2);
+      cursor: pointer; color: var(--color-text-primary); align-items: center;
+      justify-content: center; border-radius: var(--radius-sm); transition: background .15s ease;
     }
+    .navbar-hamburger:hover { background: var(--color-surface); }
+    .navbar-hamburger svg { width: 20px; height: 14px; overflow: visible; }
+    .navbar-hamburger line { transition: transform .2s ease, opacity .15s ease; transform-origin: 50% 50%; }
+    .navbar-hamburger[aria-expanded="true"] .ham-top { transform: rotate(45deg) translateY(7px); }
+    .navbar-hamburger[aria-expanded="true"] .ham-mid { opacity: 0; transform: scaleX(0); }
+    .navbar-hamburger[aria-expanded="true"] .ham-bot { transform: rotate(-45deg) translateY(-7px); }
+    @media (max-width: 768px) { .navbar-hamburger { display: flex; } .navbar-inner > .btn { display: none; } }
+    .navbar-mobile-menu {
+      position: fixed; top: 52px; left: 0; right: 0; z-index: 95;
+      background: var(--color-background); border-bottom: var(--border-hairline);
+      padding: var(--space-4) var(--space-6) var(--space-6); transition: background .3s ease;
+    }
+    .navbar.scrolled ~ .navbar-mobile-menu {
+      background: rgba(250, 250, 247, 0.95);
+      backdrop-filter: blur(28px) saturate(200%); -webkit-backdrop-filter: blur(28px) saturate(200%);
+    }
+    .mobile-nav-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+    .mobile-nav-list > li > a, .mobile-submenu-toggle {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-3) 0; font-size: 16px; line-height: 1.4;
+      color: var(--color-text-primary); border: none; background: none;
+      width: 100%; text-align: left; cursor: pointer; font-family: inherit; border-bottom: var(--border-hairline);
+    }
+    .mobile-nav-list > li:last-child > a { border-bottom: none; }
+    .mobile-nav-list > li > a:hover, .mobile-submenu-toggle:hover { color: var(--color-accent); }
+    .mobile-nav-list > li > a[aria-current="page"],
+    .mobile-submenu-toggle[aria-current="page"] { color: var(--color-accent); font-weight: 500; }
+    .mobile-chevron { font-size: 10px; opacity: 0.6; transition: transform .2s ease; }
+    .mobile-submenu-toggle[aria-expanded="true"] .mobile-chevron { transform: rotate(180deg); }
+    .mobile-submenu { list-style: none; margin: 0; padding: 0 0 0 var(--space-4); }
+    .mobile-submenu[hidden] { display: none; }
+    .mobile-submenu li a { display: block; padding: var(--space-3) 0; font-size: 15px; color: var(--color-text-secondary); border-bottom: var(--border-hairline); }
+    .mobile-submenu li:last-child a { border-bottom: none; }
+    .mobile-submenu li a:hover { color: var(--color-accent); }
+    .mobile-submenu li a[aria-current="page"] { color: var(--color-accent); font-weight: 500; }
+    .mobile-cta > a {
+      display: block; padding: var(--space-3) var(--space-6);
+      background: var(--color-accent); color: var(--color-on-accent) !important;
+      border-radius: var(--radius-pill); font-weight: 500; font-size: 15px;
+      text-align: center; border-bottom: none !important;
+      margin-bottom: var(--space-4); transition: background .2s ease;
+    }
+    .mobile-cta > a:hover { background: var(--color-accent-hover); }
 
     /* Form classes (literal da Home — para CTA inline) */
     .form-field { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
@@ -665,6 +710,7 @@
       <nav aria-label="Navegação principal">
         <ul class="nav-links">
           <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="setores.html">Setores</a></li>
           <li class="nav-item-has-submenu">
             <button type="button" class="nav-submenu-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="submenu-servicos" aria-current="page">Serviços <span class="submenu-chevron" aria-hidden="true">▾</span></button>
             <ul id="submenu-servicos" class="nav-submenu" hidden>
@@ -677,8 +723,31 @@
         </ul>
       </nav>
       <a href="contato.html" class="btn btn-primary" style="padding: 8px 18px; font-size: 13px;">Solicitar Orçamento</a>
+      <button class="navbar-hamburger" type="button" id="navbar-hamburger" aria-expanded="false" aria-controls="navbar-mobile-menu" aria-label="Menu">
+        <svg viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line class="ham-top" x1="0" y1="1" x2="20" y2="1"/>
+          <line class="ham-mid" x1="0" y1="7" x2="20" y2="7"/>
+          <line class="ham-bot" x1="0" y1="13" x2="20" y2="13"/>
+        </svg>
+      </button>
     </div>
   </header>
+  <div id="navbar-mobile-menu" class="navbar-mobile-menu" hidden>
+    <ul class="mobile-nav-list">
+      <li class="mobile-cta"><a href="contato.html">Solicitar Orçamento</a></li>
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="setores.html">Setores</a></li>
+      <li>
+        <button type="button" class="mobile-submenu-toggle" aria-expanded="false" aria-current="page">Serviços <span class="mobile-chevron" aria-hidden="true">▾</span></button>
+        <ul class="mobile-submenu" hidden>
+          <li><a href="servicos-empresas.html" aria-current="page">Para Empresas</a></li>
+          <li><a href="servicos-pf.html">Para Pessoas Físicas</a></li>
+        </ul>
+      </li>
+      <li><a href="projetos.html">Projetos</a></li>
+      <li><a href="contato.html">Contato</a></li>
+    </ul>
+  </div>
 
   <main id="main">
 
@@ -705,13 +774,13 @@
       <details>
         <summary>Linhas de atuação</summary>
         <ol class="toc-list">
-          <li><a href="#linha-1-avaliacao"><span class="toc-num">§4.1</span> Avaliação e Diligência</a></li>
-          <li><a href="#linha-2-licenciamento"><span class="toc-num">§4.2</span> Licenciamento e Conformidade</a></li>
-          <li><a href="#linha-3-gestao-estrategica"><span class="toc-num">§4.3</span> Gestão Estratégica</a></li>
-          <li><a href="#linha-4-residuos"><span class="toc-num">§4.4</span> Resíduos Sólidos</a></li>
-          <li><a href="#linha-5-supressao"><span class="toc-num">§4.5</span> Supressão de Vegetação</a></li>
-          <li><a href="#linha-6-laudos"><span class="toc-num">§4.6</span> Laudos e Assistência</a></li>
-          <li><a href="#linha-7-treinamentos"><span class="toc-num">§4.7</span> Treinamentos</a></li>
+          <li><a href="#linha-1-avaliacao">Avaliação e Diligência</a></li>
+          <li><a href="#linha-2-licenciamento">Licenciamento e Conformidade</a></li>
+          <li><a href="#linha-3-gestao-estrategica">Gestão Estratégica</a></li>
+          <li><a href="#linha-4-residuos">Resíduos Sólidos</a></li>
+          <li><a href="#linha-5-supressao">Supressão de Vegetação</a></li>
+          <li><a href="#linha-6-laudos">Laudos e Assistência</a></li>
+          <li><a href="#linha-7-treinamentos">Treinamentos</a></li>
         </ol>
       </details>
     </nav>
@@ -733,7 +802,6 @@
       <div class="container">
 
         <header class="linha-head">
-          <span class="section-num">§4.1</span>
           <h2 id="linha-1-title">Avaliação e Diligência Ambiental</h2>
           <p class="linha-lead">Avaliação técnica preliminar e investigação detalhada de imóveis e empreendimentos para fins de aquisição, licenciamento ou regularização.</p>
         </header>
@@ -742,8 +810,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">01</span>
-              <h3 class="servico-mini-title">Due Diligence Ambiental (EDD) — Fase I</h3>
+                            <h3 class="servico-mini-title">Due Diligence Ambiental (EDD) — Fase I</h3>
             </header>
             <p class="servico-mini-desc">Avaliação técnica preliminar de imóveis e empreendimentos para aquisição, locação, fusão, financiamento ou securitização. Conduzida em conformidade com a Decisão de Diretoria CETESB nº 038/2017/C e padrões ASTM E1527-21.</p>
             <ul class="servico-mini-tags">
@@ -758,24 +825,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">02</span>
-              <h3 class="servico-mini-title">Investigação Confirmatória — Fase II</h3>
-            </header>
-            <p class="servico-mini-desc">Investigação executada quando há indícios de contaminação do solo ou água subterrânea. Coordena sondagem, amostragem e monitoramento de gases (incluindo metano), conforme ABNT NBR 15515 e diretrizes CETESB.</p>
-            <ul class="servico-mini-tags">
-              <li>NBR 15515</li>
-              <li>Sondagem ambiental</li>
-              <li>Monitoramento de metano</li>
-            </ul>
-            <a class="servico-mini-cta" href="contato.html?servico=investigacao-fase2#form-contato">
-              Saiba mais <span aria-hidden="true">→</span>
-            </a>
-          </article>
-
-          <article class="servico-mini-card">
-            <header class="servico-mini-head">
-              <span class="servico-num">03</span>
-              <h3 class="servico-mini-title">Avaliação Ambiental Preliminar (AAP)</h3>
+                            <h3 class="servico-mini-title">Avaliação Ambiental Preliminar (AAP)</h3>
             </header>
             <p class="servico-mini-desc">Elaborada conforme metodologia CETESB para imóveis com potencial histórico de contaminação. Inclui levantamento de fontes potenciais, caracterização do meio físico e definição de áreas suspeitas.</p>
             <ul class="servico-mini-tags">
@@ -784,6 +834,21 @@
               <li>Laudo AAP</li>
             </ul>
             <a class="servico-mini-cta" href="contato.html?servico=aap#form-contato">
+              Saiba mais <span aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <article class="servico-mini-card">
+            <header class="servico-mini-head">
+                            <h3 class="servico-mini-title">Investigação Confirmatória — Fase II</h3>
+            </header>
+            <p class="servico-mini-desc">Investigação executada quando há indícios de contaminação do solo ou água subterrânea. Coordena sondagem, amostragem e monitoramento de gases (incluindo metano), conforme ABNT NBR 15515 e diretrizes CETESB.</p>
+            <ul class="servico-mini-tags">
+              <li>NBR 15515</li>
+              <li>Sondagem ambiental</li>
+              <li>Monitoramento de metano</li>
+            </ul>
+            <a class="servico-mini-cta" href="contato.html?servico=investigacao-fase2#form-contato">
               Saiba mais <span aria-hidden="true">→</span>
             </a>
           </article>
@@ -807,7 +872,6 @@
       <div class="container">
 
         <header class="linha-head">
-          <span class="section-num">§4.2</span>
           <h2 id="linha-2-title">Licenciamento e Conformidade Legal</h2>
           <p class="linha-lead">Condução integral de licenciamento ambiental, outorgas, EIV, auditorias de conformidade e demandas IBAMA federais.</p>
         </header>
@@ -816,8 +880,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">01</span>
-              <h3 class="servico-mini-title">Licenciamento Ambiental</h3>
+                            <h3 class="servico-mini-title">Licenciamento Ambiental</h3>
             </header>
             <p class="servico-mini-desc">Condução integral do processo — Licença Prévia (LP), Licença de Instalação (LI), Licença de Operação (LO) e renovações — junto a CETESB, SVMA, IBAMA e órgãos estaduais. Inclui RAP, EIA/RIMA, EAS, RCA/PCA conforme empreendimento.</p>
             <ul class="servico-mini-tags">
@@ -832,8 +895,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">02</span>
-              <h3 class="servico-mini-title">Outorga de Recursos Hídricos</h3>
+                            <h3 class="servico-mini-title">Outorga de Recursos Hídricos</h3>
             </header>
             <p class="servico-mini-desc">Obtenção e regularização de outorgas de captação, lançamento e demais interferências em recursos hídricos, junto ao DAEE (SP), INEA (RJ), IGAM (MG) e ANA.</p>
             <ul class="servico-mini-tags">
@@ -848,8 +910,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">03</span>
-              <h3 class="servico-mini-title">Estudo de Impacto de Vizinhança (EIV)</h3>
+                            <h3 class="servico-mini-title">Estudo de Impacto de Vizinhança (EIV)</h3>
             </header>
             <p class="servico-mini-desc">Exigido pelo Estatuto da Cidade (Lei 10.257/2001) para empreendimentos de impacto urbano. Análise de adensamento, infraestrutura urbana, paisagem, ventilação, iluminação e mobilidade.</p>
             <ul class="servico-mini-tags">
@@ -864,8 +925,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">04</span>
-              <h3 class="servico-mini-title">Auditoria de Conformidade Legal</h3>
+                            <h3 class="servico-mini-title">Auditoria de Conformidade Legal</h3>
             </header>
             <p class="servico-mini-desc">Diagnóstico estruturado de aderência às obrigações ambientais aplicáveis ao empreendimento — federais, estaduais e municipais. Entrega matriz de não-conformidades, plano de ação e cronograma de adequação.</p>
             <ul class="servico-mini-tags">
@@ -880,8 +940,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">05</span>
-              <h3 class="servico-mini-title">Demandas IBAMA — RAPP, TCFA, CTF/APP</h3>
+                            <h3 class="servico-mini-title">Demandas IBAMA — RAPP, TCFA, CTF/APP</h3>
             </header>
             <p class="servico-mini-desc">Cadastro CTF/APP, apuração e recolhimento da TCFA, e elaboração e envio do RAPP — entregue entre 1º de fevereiro e 31 de março de cada ano. Atendimento a metalurgia, química, têxtil, construção civil, gestão de resíduos e logística.</p>
             <ul class="servico-mini-tags">
@@ -918,7 +977,6 @@
       <div class="container">
 
         <header class="linha-head">
-          <span class="section-num">§4.3</span>
           <h2 id="linha-3-title">Gestão Ambiental Estratégica e Sistemas</h2>
           <p class="linha-lead">Sistemas de gestão ambiental, suporte SSMA em obras e ESG ambiental para grandes operações.</p>
         </header>
@@ -927,8 +985,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">01</span>
-              <h3 class="servico-mini-title">Consultoria em Gestão Ambiental — ISO 14001</h3>
+                            <h3 class="servico-mini-title">Consultoria em Gestão Ambiental — ISO 14001</h3>
             </header>
             <p class="servico-mini-desc">Implantação, manutenção, auditoria interna e suporte continuado a Sistemas de Gestão Ambiental (SGA) em conformidade com a ABNT NBR ISO 14001:2026. Inclui aspectos e impactos, política, indicadores, procedimentos e preparação para certificação.</p>
             <ul class="servico-mini-tags">
@@ -943,8 +1000,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">02</span>
-              <h3 class="servico-mini-title">Gestão Ambiental de Obras (SSMA)</h3>
+                            <h3 class="servico-mini-title">Gestão Ambiental de Obras (SSMA)</h3>
             </header>
             <p class="servico-mini-desc">Suporte técnico integrado às equipes de SSMA em canteiros, com gestão de resíduos da construção, controle de efluentes, monitoramento de emissões, ruído, fauna, flora e atendimento a condicionantes da Licença de Instalação.</p>
             <ul class="servico-mini-tags">
@@ -959,8 +1015,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">03</span>
-              <h3 class="servico-mini-title">ESG Ambiental e Relatórios de Sustentabilidade</h3>
+                            <h3 class="servico-mini-title">ESG Ambiental e Relatórios de Sustentabilidade</h3>
             </header>
             <p class="servico-mini-desc">Apoio técnico à dimensão ambiental (E) de relatórios ESG, com diagnóstico de indicadores, alinhamento a frameworks (GRI, SASB, TCFD) e inventário de emissões de GEE.</p>
             <ul class="servico-mini-tags">
@@ -992,7 +1047,6 @@
       <div class="container">
 
         <header class="linha-head">
-          <span class="section-num">§4.4</span>
           <h2 id="linha-4-title">Gestão de Resíduos Sólidos</h2>
           <p class="linha-lead">Planos de gerenciamento, conformidade SIGOR/SINIR e gestão completa de resíduos industriais e da construção.</p>
         </header>
@@ -1001,8 +1055,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">01</span>
-              <h3 class="servico-mini-title">Plano de Gerenciamento de Resíduos Sólidos (PGRS)</h3>
+                            <h3 class="servico-mini-title">Plano de Gerenciamento de Resíduos Sólidos (PGRS)</h3>
             </header>
             <p class="servico-mini-desc">Documento técnico obrigatório, elaborado por profissional habilitado, em conformidade com Lei 12.305/2010 (PNRS), Decreto 10.936/2022 e ABNT NBR 10004:2024.</p>
             <ul class="servico-mini-tags">
@@ -1017,8 +1070,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">02</span>
-              <h3 class="servico-mini-title">PGRCC — Resíduos da Construção Civil</h3>
+                            <h3 class="servico-mini-title">PGRCC — Resíduos da Construção Civil</h3>
             </header>
             <p class="servico-mini-desc">Plano técnico obrigatório para canteiros de obras, conforme Resolução CONAMA 307/2002, ABNT NBR 15112 a 15116 e NBR 10004:2024. Exigido em diversos municípios para alvará de construção e habite-se.</p>
             <ul class="servico-mini-tags">
@@ -1033,8 +1085,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">03</span>
-              <h3 class="servico-mini-title">SIGOR / SINIR / MTR</h3>
+                            <h3 class="servico-mini-title">SIGOR / SINIR / MTR</h3>
             </header>
             <p class="servico-mini-desc">Adequação ao SIGOR (CETESB) e SINIR (MMA) para empresas geradoras, transportadoras, armazenadoras temporárias ou destinadoras finais. Cadastro, capacitação e validação periódica do fluxo digital.</p>
             <ul class="servico-mini-tags">
@@ -1066,7 +1117,6 @@
       <div class="container">
 
         <header class="linha-head">
-          <span class="section-num">§4.5</span>
           <h2 id="linha-5-title">Supressão de Vegetação e Manejo Arbóreo</h2>
           <p class="linha-lead">Autorização de Supressão de Vegetação (ASV) para empreendimentos, integrada ao licenciamento ambiental, e laudos arbóreos especializados.</p>
         </header>
@@ -1075,8 +1125,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">01</span>
-              <h3 class="servico-mini-title">ASV — Supressão de Vegetação para Empreendimentos</h3>
+                            <h3 class="servico-mini-title">ASV — Supressão de Vegetação para Empreendimentos</h3>
             </header>
             <p class="servico-mini-desc">Para incorporadoras, construtoras, indústrias e logística, conduz o processo completo de Autorização de Supressão de Vegetação (ASV) junto à SVMA, secretarias municipais e órgãos estaduais (CETESB, IEF, IEMA, INEA). Inclui inventário florestal georreferenciado, classificação de espécies, plano de compensação e integração ao cronograma do licenciamento.</p>
             <ul class="servico-mini-tags">
@@ -1091,8 +1140,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">02</span>
-              <h3 class="servico-mini-title">Laudo Arbóreo e Diagnóstico Fitossanitário</h3>
+                            <h3 class="servico-mini-title">Laudo Arbóreo e Diagnóstico Fitossanitário</h3>
             </header>
             <p class="servico-mini-desc">Laudos arbóreos com diagnóstico fitossanitário, avaliação de risco de queda e recomendação técnica para manejo. Aplicável a risco iminente, conflitos de vizinhança, decisões judiciais e regularização de obra.</p>
             <ul class="servico-mini-tags">
@@ -1129,7 +1177,6 @@
       <div class="container">
 
         <header class="linha-head">
-          <span class="section-num">§4.6</span>
           <h2 id="linha-6-title">Laudos e Assistência Técnica</h2>
           <p class="linha-lead">Laudos técnicos ambientais sob ART e suporte a defesas administrativas em autos de infração e embargos.</p>
         </header>
@@ -1138,8 +1185,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">01</span>
-              <h3 class="servico-mini-title">Laudos Técnicos Ambientais</h3>
+                            <h3 class="servico-mini-title">Laudos Técnicos Ambientais</h3>
             </header>
             <p class="servico-mini-desc">Laudos de constatação, vistoria, caracterização e avaliação ambiental para finalidades técnicas, regulatórias e judiciais. Emitidos sob ART, com rastreabilidade documental e fotográfica.</p>
             <ul class="servico-mini-tags">
@@ -1154,8 +1200,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">02</span>
-              <h3 class="servico-mini-title">Assistência Técnica em Processos Administrativos</h3>
+                            <h3 class="servico-mini-title">Assistência Técnica em Processos Administrativos</h3>
             </header>
             <p class="servico-mini-desc">Suporte técnico a defesas administrativas em autos de infração, embargos e termos de compromisso de ajustamento de conduta (TAC), perante CETESB, IBAMA, Ministério Público estadual e órgãos municipais.</p>
             <ul class="servico-mini-tags">
@@ -1187,7 +1232,6 @@
       <div class="container">
 
         <header class="linha-head">
-          <span class="section-num">§4.7</span>
           <h2 id="linha-7-title">Capacitação, Treinamentos e Palestras</h2>
           <p class="linha-lead">Programas de capacitação técnica para fortalecer a cultura ambiental da organização, reduzir riscos legais e posicionar a empresa como referência em sustentabilidade dentro do seu segmento.</p>
         </header>
@@ -1196,8 +1240,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">01</span>
-              <h3 class="servico-mini-title">Treinamentos In Company</h3>
+                            <h3 class="servico-mini-title">Treinamentos In Company</h3>
             </header>
             <p class="servico-mini-desc">Treinamentos sob medida em gestão de resíduos sólidos (PNRS, NBR 10004:2024), boas práticas ambientais em obras, sistemas SIGOR/SINIR, ISO 14001 e atendimento a condicionantes de licença ambiental.</p>
             <ul class="servico-mini-tags">
@@ -1212,8 +1255,7 @@
 
           <article class="servico-mini-card">
             <header class="servico-mini-head">
-              <span class="servico-num">02</span>
-              <h3 class="servico-mini-title">Palestras e Workshops</h3>
+                            <h3 class="servico-mini-title">Palestras e Workshops</h3>
             </header>
             <p class="servico-mini-desc">Palestras técnicas para empresas, associações setoriais e instituições de ensino sobre temas atuais da legislação ambiental, ESG, áreas contaminadas, due diligence e engenharia ambiental aplicada.</p>
             <ul class="servico-mini-tags">
@@ -1324,8 +1366,9 @@
         <div class="footer-col">
           <h4>Navegação</h4>
           <ul>
+            <li><a href="home.html">Home</a></li>
             <li><a href="sobre.html">Sobre</a></li>
-            <li><a href="servicos-empresas.html">Serviços</a></li>
+            <li><a href="setores.html">Setores Atendidos</a></li>
             <li><a href="projetos.html">Projetos</a></li>
             <li><a href="contato.html">Contato</a></li>
           </ul>
@@ -1333,11 +1376,8 @@
         <div class="footer-col">
           <h4>Serviços</h4>
           <ul>
-            <li><a href="servicos-empresas.html">Empresas e Empreendimentos</a></li>
-            <li><a href="#">Imóveis</a></li>
-            <li><a href="servicos-pf.html">Pessoas Físicas</a></li>
-            <li><a href="servicos-empresas.html#linha-6-laudos">Laudos e Assistência</a></li>
-            <li><a href="setores.html">Setores Atendidos</a></li>
+            <li><a href="servicos-empresas.html">Para Empresas</a></li>
+            <li><a href="servicos-pf.html">Para Pessoas Físicas</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -1478,10 +1518,35 @@
       var submenu = document.getElementById('submenu-servicos');
       if (!toggle || !submenu) return;
       function closeMenu() { toggle.setAttribute('aria-expanded','false'); submenu.hidden = true; }
-      function openMenu()  { toggle.setAttribute('aria-expanded','true');  submenu.hidden = false; }
+      function openMenu() {
+        var r = toggle.getBoundingClientRect();
+        submenu.style.left = (r.left + r.width / 2) + 'px';
+        toggle.setAttribute('aria-expanded','true');
+        submenu.hidden = false;
+      }
       toggle.addEventListener('click', function(e) { e.stopPropagation(); toggle.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu(); });
       document.addEventListener('click', function(e) { if (!submenu.contains(e.target) && e.target !== toggle) closeMenu(); });
       document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { closeMenu(); toggle.focus(); } });
+    })();
+    /* Hamburger */
+    (function() {
+      var btn  = document.getElementById('navbar-hamburger');
+      var menu = document.getElementById('navbar-mobile-menu');
+      var sub  = menu ? menu.querySelector('.mobile-submenu-toggle') : null;
+      var subm = menu ? menu.querySelector('.mobile-submenu') : null;
+      if (!btn || !menu) return;
+      function close() { btn.setAttribute('aria-expanded','false'); menu.hidden = true; }
+      function open()  { btn.setAttribute('aria-expanded','true');  menu.hidden = false; }
+      btn.addEventListener('click', function() { btn.getAttribute('aria-expanded') === 'true' ? close() : open(); });
+      document.addEventListener('click', function(e) { if (!menu.contains(e.target) && !btn.contains(e.target)) close(); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
+      if (sub && subm) {
+        sub.addEventListener('click', function() {
+          var isOpen = sub.getAttribute('aria-expanded') === 'true';
+          sub.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+          subm.hidden = isOpen;
+        });
+      }
     })();
   </script>
 

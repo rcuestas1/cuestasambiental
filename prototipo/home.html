@@ -128,7 +128,7 @@
       transition: background .3s ease, backdrop-filter .3s ease;
     }
     .navbar.scrolled {
-      background: rgba(250, 250, 247, 0.72);
+      background: rgba(250, 250, 247, 0.95);
       backdrop-filter: blur(28px) saturate(200%);
       -webkit-backdrop-filter: blur(28px) saturate(200%);
     }
@@ -143,7 +143,7 @@
     .brand .brand-dot { color: var(--color-accent); }
     .navbar-logo { height: 34px; width: auto; display: block; }
     .nav-links { display: flex; gap: var(--space-8); align-items: center; font-size: 13px; list-style: none; margin: 0; padding: 0; }
-    .nav-links > li > a { color: var(--color-text-primary); opacity: 0.82; transition: opacity .2s ease, transform .2s cubic-bezier(0.28, 0.11, 0.32, 1); }
+    .nav-links > li > a { display: inline-flex; align-items: center; color: var(--color-text-primary); opacity: 0.82; transition: opacity .2s ease, transform .2s cubic-bezier(0.28, 0.11, 0.32, 1); }
     .nav-links > li > a:hover { opacity: 1; transform: translateY(-1px); }
     .nav-links > li > a[aria-current="page"] { opacity: 1; color: var(--color-accent); }
     /* Dropdown Serviços */
@@ -160,7 +160,7 @@
     .submenu-chevron { font-size: 10px; opacity: 0.6; transition: transform .2s ease; display: inline-block; }
     .nav-submenu-toggle[aria-expanded="true"] .submenu-chevron { transform: rotate(180deg); }
     .nav-submenu {
-      position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      position: fixed; top: 52px; left: 50%; transform: translateX(-50%);
       min-width: 200px; background: var(--color-background);
       border: var(--border-hairline); border-top: none;
       border-radius: 0 0 var(--radius-md) var(--radius-md);
@@ -169,7 +169,7 @@
       transition: background .3s ease;
     }
     .navbar.scrolled .nav-submenu {
-      background: rgba(250, 250, 247, 0.72);
+      background: rgba(250, 250, 247, 0.95);
       backdrop-filter: blur(28px) saturate(200%);
       -webkit-backdrop-filter: blur(28px) saturate(200%);
     }
@@ -186,11 +186,57 @@
     }
     .nav-submenu-link:hover { background: var(--color-surface); }
     .nav-submenu-link[aria-current="page"] { background: var(--color-accent-soft); color: var(--color-accent); font-weight: 500; }
-    @media (max-width: 767px) {
-      .nav-submenu { position: static; transform: none; box-shadow: none; border: none; background: transparent; padding: 0; min-width: 0; margin: var(--space-2) 0 0 var(--space-4); }
-      .nav-submenu:not([hidden]) { animation: none; }
-      .nav-submenu-link { padding: var(--space-2) 0; }
+    @media (max-width: 767px) { .nav-submenu { display: none !important; } }
+    /* Hamburger */
+    .navbar-hamburger {
+      display: none; background: none; border: none; padding: var(--space-2);
+      cursor: pointer; color: var(--color-text-primary); align-items: center;
+      justify-content: center; border-radius: var(--radius-sm); transition: background .15s ease;
     }
+    .navbar-hamburger:hover { background: var(--color-surface); }
+    .navbar-hamburger svg { width: 20px; height: 14px; overflow: visible; }
+    .navbar-hamburger line { transition: transform .2s ease, opacity .15s ease; transform-origin: 50% 50%; }
+    .navbar-hamburger[aria-expanded="true"] .ham-top { transform: rotate(45deg) translateY(7px); }
+    .navbar-hamburger[aria-expanded="true"] .ham-mid { opacity: 0; transform: scaleX(0); }
+    .navbar-hamburger[aria-expanded="true"] .ham-bot { transform: rotate(-45deg) translateY(-7px); }
+    @media (max-width: 768px) { .navbar-hamburger { display: flex; } .navbar-inner > .btn { display: none; } }
+    /* Mobile menu panel */
+    .navbar-mobile-menu {
+      position: fixed; top: 52px; left: 0; right: 0; z-index: 95;
+      background: var(--color-background); border-bottom: var(--border-hairline);
+      padding: var(--space-4) var(--space-6) var(--space-6); transition: background .3s ease;
+    }
+    .navbar.scrolled ~ .navbar-mobile-menu {
+      background: rgba(250, 250, 247, 0.95);
+      backdrop-filter: blur(28px) saturate(200%); -webkit-backdrop-filter: blur(28px) saturate(200%);
+    }
+    .mobile-nav-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+    .mobile-nav-list > li > a, .mobile-submenu-toggle {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-3) 0; font-size: 16px; line-height: 1.4;
+      color: var(--color-text-primary); border: none; background: none;
+      width: 100%; text-align: left; cursor: pointer; font-family: inherit; border-bottom: var(--border-hairline);
+    }
+    .mobile-nav-list > li:last-child > a { border-bottom: none; }
+    .mobile-nav-list > li > a:hover, .mobile-submenu-toggle:hover { color: var(--color-accent); }
+    .mobile-nav-list > li > a[aria-current="page"],
+    .mobile-submenu-toggle[aria-current="page"] { color: var(--color-accent); font-weight: 500; }
+    .mobile-chevron { font-size: 10px; opacity: 0.6; transition: transform .2s ease; }
+    .mobile-submenu-toggle[aria-expanded="true"] .mobile-chevron { transform: rotate(180deg); }
+    .mobile-submenu { list-style: none; margin: 0; padding: 0 0 0 var(--space-4); }
+    .mobile-submenu[hidden] { display: none; }
+    .mobile-submenu li a { display: block; padding: var(--space-3) 0; font-size: 15px; color: var(--color-text-secondary); border-bottom: var(--border-hairline); }
+    .mobile-submenu li:last-child a { border-bottom: none; }
+    .mobile-submenu li a:hover { color: var(--color-accent); }
+    .mobile-submenu li a[aria-current="page"] { color: var(--color-accent); font-weight: 500; }
+    .mobile-cta > a {
+      display: block; padding: var(--space-3) var(--space-6);
+      background: var(--color-accent); color: var(--color-on-accent) !important;
+      border-radius: var(--radius-pill); font-weight: 500; font-size: 15px;
+      text-align: center; border-bottom: none !important;
+      margin-bottom: var(--space-4); transition: background .2s ease;
+    }
+    .mobile-cta > a:hover { background: var(--color-accent-hover); }
 
     /* ==========================================================
        SEÇÃO 2 — Hero (fonte: B + overlay de imagem escura)
@@ -250,7 +296,7 @@
       font-size: 28px; letter-spacing: 0;
       color: rgba(255,255,255,0.45);
       opacity: 0;
-      animation: bob 2.4s ease-in-out 2.8s 3 forwards;
+      animation: bob 2s ease-in-out 1s infinite;
     }
     @keyframes bob {
       0%   { transform: translate(-50%, 0);   opacity: 0; }
@@ -785,6 +831,13 @@
       html { scroll-behavior: auto; }
     }
 
+    .servicos-cta-bridge {
+      display: flex;
+      justify-content: center;
+      margin-top: var(--space-10, 40px);
+      padding: 0 var(--space-6);
+    }
+
   </style>
 </head>
 <body>
@@ -802,6 +855,7 @@
       <nav aria-label="Navegação principal">
         <ul class="nav-links">
           <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="setores.html">Setores</a></li>
           <li class="nav-item-has-submenu">
             <button type="button" class="nav-submenu-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="submenu-servicos">Serviços <span class="submenu-chevron" aria-hidden="true">▾</span></button>
             <ul id="submenu-servicos" class="nav-submenu" hidden>
@@ -814,8 +868,31 @@
         </ul>
       </nav>
       <a href="contato.html" class="btn btn-primary" style="padding: 8px 18px; font-size: 13px;">Solicitar Orçamento</a>
+      <button class="navbar-hamburger" type="button" id="navbar-hamburger" aria-expanded="false" aria-controls="navbar-mobile-menu" aria-label="Menu">
+        <svg viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line class="ham-top" x1="0" y1="1" x2="20" y2="1"/>
+          <line class="ham-mid" x1="0" y1="7" x2="20" y2="7"/>
+          <line class="ham-bot" x1="0" y1="13" x2="20" y2="13"/>
+        </svg>
+      </button>
     </div>
   </header>
+  <div id="navbar-mobile-menu" class="navbar-mobile-menu" hidden>
+    <ul class="mobile-nav-list">
+      <li class="mobile-cta"><a href="contato.html">Solicitar Orçamento</a></li>
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="setores.html">Setores</a></li>
+      <li>
+        <button type="button" class="mobile-submenu-toggle" aria-expanded="false">Serviços <span class="mobile-chevron" aria-hidden="true">▾</span></button>
+        <ul class="mobile-submenu" hidden>
+          <li><a href="servicos-empresas.html">Para Empresas</a></li>
+          <li><a href="servicos-pf.html">Para Pessoas Físicas</a></li>
+        </ul>
+      </li>
+      <li><a href="projetos.html">Projetos</a></li>
+      <li><a href="contato.html">Contato</a></li>
+    </ul>
+  </div>
 
   <main id="main">
 
@@ -984,13 +1061,13 @@
         <div class="servicos-track-wrapper" id="servicos-track">
         <div class="servicos-grid">
 
-          <!-- §4.1 Avaliação e Diligência -->
+          <!-- Linha 1 — Avaliação e Diligência -->
           <a class="servico-card" href="servicos-empresas.html#linha-1-avaliacao"
-             aria-label="Avaliação e Diligência Ambiental"
+             aria-label="Due Diligence Ambiental (EDD) — Fase I"
              data-group-start="empresas">
             <span class="card-label">Empresas</span>
-            <h3>Avaliação e Diligência Ambiental</h3>
-            <p>Due Diligence (Fase I), Investigação Confirmatória (Fase II) e AAP para aquisição, licenciamento ou regularização de imóveis e empreendimentos.</p>
+            <h3>Due Diligence Ambiental (EDD) — Fase I</h3>
+            <p>Avaliação técnica preliminar de imóveis para aquisição, locação ou financiamento, conforme ASTM E1527-21 e CETESB.</p>
             <div class="card-footer">
               <span class="servico-icon-dark" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -1002,12 +1079,44 @@
             </div>
           </a>
 
-          <!-- §4.2 Licenciamento e Conformidade -->
-          <a class="servico-card" href="servicos-empresas.html#linha-2-licenciamento"
-             aria-label="Licenciamento e Conformidade Legal">
+          <a class="servico-card" href="servicos-empresas.html#linha-1-avaliacao"
+             aria-label="Avaliação Ambiental Preliminar (AAP)">
             <span class="card-label">Empresas</span>
-            <h3>Licenciamento e Conformidade Legal</h3>
-            <p>Licenciamento ambiental, outorga de água, EIV, auditoria de conformidade legal e demandas IBAMA (RAPP, TCFA, CTF/APP).</p>
+            <h3>Avaliação Ambiental Preliminar (AAP)</h3>
+            <p>Elaborada conforme metodologia CETESB para imóveis com potencial histórico de contaminação.</p>
+            <div class="card-footer">
+              <span class="servico-icon-dark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                  <path d="M11 8v3l2 2"/>
+                </svg>
+              </span>
+              <span class="servico-arrow" aria-hidden="true">→</span>
+            </div>
+          </a>
+
+          <a class="servico-card" href="servicos-empresas.html#linha-1-avaliacao"
+             aria-label="Investigação Confirmatória — Fase II">
+            <span class="card-label">Empresas</span>
+            <h3>Investigação Confirmatória — Fase II</h3>
+            <p>Investigação de solo e água subterrânea com sondagem e monitoramento, conforme ABNT NBR 15515.</p>
+            <div class="card-footer">
+              <span class="servico-icon-dark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                  <path d="M11 8v3l2 2"/>
+                </svg>
+              </span>
+              <span class="servico-arrow" aria-hidden="true">→</span>
+            </div>
+          </a>
+
+          <!-- Linha 2 — Licenciamento e Conformidade -->
+          <a class="servico-card" href="servicos-empresas.html#linha-2-licenciamento"
+             aria-label="Licenciamento Ambiental">
+            <span class="card-label">Empresas</span>
+            <h3>Licenciamento Ambiental</h3>
+            <p>Condução integral junto a CETESB, SVMA e IBAMA — LP, LI, LO e renovações.</p>
             <div class="card-footer">
               <span class="servico-icon-dark" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -1018,12 +1127,72 @@
             </div>
           </a>
 
-          <!-- §4.3 Gestão Ambiental Estratégica -->
-          <a class="servico-card" href="servicos-empresas.html#linha-3-gestao-estrategica"
-             aria-label="Gestão Ambiental Estratégica">
+          <a class="servico-card" href="servicos-empresas.html#linha-2-licenciamento"
+             aria-label="Outorga de Recursos Hídricos">
             <span class="card-label">Empresas</span>
-            <h3>Gestão Ambiental Estratégica</h3>
-            <p>Sistemas de Gestão Ambiental ISO 14001, suporte SSMA em obras e ESG ambiental.</p>
+            <h3>Outorga de Recursos Hídricos</h3>
+            <p>Obtenção de outorgas de captação e lançamento junto ao DAEE, INEA, IGAM e ANA.</p>
+            <div class="card-footer">
+              <span class="servico-icon-dark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </span>
+              <span class="servico-arrow" aria-hidden="true">→</span>
+            </div>
+          </a>
+
+          <a class="servico-card" href="servicos-empresas.html#linha-2-licenciamento"
+             aria-label="Estudo de Impacto de Vizinhança (EIV)">
+            <span class="card-label">Empresas</span>
+            <h3>Estudo de Impacto de Vizinhança (EIV)</h3>
+            <p>Exigido pelo Estatuto da Cidade para empreendimentos de impacto urbano.</p>
+            <div class="card-footer">
+              <span class="servico-icon-dark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </span>
+              <span class="servico-arrow" aria-hidden="true">→</span>
+            </div>
+          </a>
+
+          <a class="servico-card" href="servicos-empresas.html#linha-2-licenciamento"
+             aria-label="Auditoria de Conformidade Legal">
+            <span class="card-label">Empresas</span>
+            <h3>Auditoria de Conformidade Legal</h3>
+            <p>Diagnóstico de aderência às obrigações ambientais federais, estaduais e municipais.</p>
+            <div class="card-footer">
+              <span class="servico-icon-dark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </span>
+              <span class="servico-arrow" aria-hidden="true">→</span>
+            </div>
+          </a>
+
+          <a class="servico-card" href="servicos-empresas.html#linha-2-licenciamento"
+             aria-label="Demandas IBAMA — RAPP, TCFA, CTF/APP">
+            <span class="card-label">Empresas</span>
+            <h3>Demandas IBAMA — RAPP, TCFA, CTF/APP</h3>
+            <p>Cadastro CTF/APP, apuração da TCFA e elaboração do RAPP entre fevereiro e março.</p>
+            <div class="card-footer">
+              <span class="servico-icon-dark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+              </span>
+              <span class="servico-arrow" aria-hidden="true">→</span>
+            </div>
+          </a>
+
+          <!-- Linha 3 — Gestão Ambiental Estratégica -->
+          <a class="servico-card" href="servicos-empresas.html#linha-3-gestao-estrategica"
+             aria-label="ISO 14001">
+            <span class="card-label">Empresas</span>
+            <h3>ISO 14001</h3>
+            <p>Implantação e manutenção de Sistema de Gestão Ambiental conforme ISO 14001.</p>
             <div class="card-footer">
               <span class="servico-icon-dark" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -1035,12 +1204,44 @@
             </div>
           </a>
 
-          <!-- §4.4 Gestão de Resíduos -->
-          <a class="servico-card" href="servicos-empresas.html#linha-4-residuos"
-             aria-label="Gestão de Resíduos Sólidos">
+          <a class="servico-card" href="servicos-empresas.html#linha-3-gestao-estrategica"
+             aria-label="Gestão Ambiental de Obras (SSMA)">
             <span class="card-label">Empresas</span>
-            <h3>Gestão de Resíduos Sólidos</h3>
-            <p>PGRS, PGRCC e adequação às plataformas SIGOR e SINIR para empresas geradoras, transportadoras e destinadoras de resíduos.</p>
+            <h3>Gestão Ambiental de Obras (SSMA)</h3>
+            <p>Suporte técnico de SSMA em canteiros de obra, da implantação ao encerramento.</p>
+            <div class="card-footer">
+              <span class="servico-icon-dark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <path d="M9 12l2 2 4-4"/>
+                </svg>
+              </span>
+              <span class="servico-arrow" aria-hidden="true">→</span>
+            </div>
+          </a>
+
+          <a class="servico-card" href="servicos-empresas.html#linha-3-gestao-estrategica"
+             aria-label="ESG Ambiental">
+            <span class="card-label">Empresas</span>
+            <h3>ESG Ambiental</h3>
+            <p>Diagnóstico, plano de ação e relatório ESG com foco na dimensão ambiental.</p>
+            <div class="card-footer">
+              <span class="servico-icon-dark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <path d="M9 12l2 2 4-4"/>
+                </svg>
+              </span>
+              <span class="servico-arrow" aria-hidden="true">→</span>
+            </div>
+          </a>
+
+          <!-- Linha 4 — Resíduos Sólidos -->
+          <a class="servico-card" href="servicos-empresas.html#linha-4-residuos"
+             aria-label="PGRS">
+            <span class="card-label">Empresas</span>
+            <h3>PGRS</h3>
+            <p>Plano de Gerenciamento de Resíduos Sólidos para empresas geradoras e destinadoras.</p>
             <div class="card-footer">
               <span class="servico-icon-dark" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -1052,12 +1253,44 @@
             </div>
           </a>
 
-          <!-- §4.5 Supressão de Vegetação -->
-          <a class="servico-card" href="servicos-empresas.html#linha-5-supressao"
-             aria-label="Supressão de Vegetação e Manejo Arbóreo">
+          <a class="servico-card" href="servicos-empresas.html#linha-4-residuos"
+             aria-label="PGRCC (Construção Civil)">
             <span class="card-label">Empresas</span>
-            <h3>Supressão de Vegetação</h3>
-            <p>ASV (Autorização de Supressão de Vegetação) para empreendimentos, integrada ao licenciamento, e laudos arbóreos especializados.</p>
+            <h3>PGRCC (Construção Civil)</h3>
+            <p>Plano de Gerenciamento de Resíduos de Construção Civil para canteiros de obra.</p>
+            <div class="card-footer">
+              <span class="servico-icon-dark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>
+                  <path d="M10 11v6M14 11v6"/>
+                </svg>
+              </span>
+              <span class="servico-arrow" aria-hidden="true">→</span>
+            </div>
+          </a>
+
+          <a class="servico-card" href="servicos-empresas.html#linha-4-residuos"
+             aria-label="SIGOR / SINIR / MTR">
+            <span class="card-label">Empresas</span>
+            <h3>SIGOR / SINIR / MTR</h3>
+            <p>Adequação e operação nas plataformas eletrônicas de controle de resíduos.</p>
+            <div class="card-footer">
+              <span class="servico-icon-dark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>
+                  <path d="M10 11v6M14 11v6"/>
+                </svg>
+              </span>
+              <span class="servico-arrow" aria-hidden="true">→</span>
+            </div>
+          </a>
+
+          <!-- Linha 5 — Supressão de Vegetação -->
+          <a class="servico-card" href="servicos-empresas.html#linha-5-supressao"
+             aria-label="ASV — Supressão para Empreendimentos">
+            <span class="card-label">Empresas</span>
+            <h3>ASV — Supressão para Empreendimentos</h3>
+            <p>Autorização de Supressão de Vegetação integrada ao licenciamento ambiental.</p>
             <div class="card-footer">
               <span class="servico-icon-dark" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -1068,12 +1301,27 @@
             </div>
           </a>
 
-          <!-- §4.6 Laudos e Assistência -->
-          <a class="servico-card" href="servicos-empresas.html#linha-6-laudos"
-             aria-label="Laudos e Assistência Técnica">
+          <a class="servico-card" href="servicos-empresas.html#linha-5-supressao"
+             aria-label="Laudo Arbóreo e Diagnóstico Fitossanitário">
             <span class="card-label">Empresas</span>
-            <h3>Laudos e Assistência Técnica</h3>
-            <p>Laudos técnicos sob ART e suporte a defesas administrativas em autos de infração, embargos e TACs.</p>
+            <h3>Laudo Arbóreo e Diagnóstico Fitossanitário</h3>
+            <p>Levantamento arbóreo, diagnóstico fitossanitário e proposta de manejo.</p>
+            <div class="card-footer">
+              <span class="servico-icon-dark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 22V12M12 12C12 7 7 3 3 3c0 5 4.5 8.5 9 9zM12 12c0-5 5-9 9-9 0 5-4.5 8.5-9 9z"/>
+                </svg>
+              </span>
+              <span class="servico-arrow" aria-hidden="true">→</span>
+            </div>
+          </a>
+
+          <!-- Linha 6 — Laudos e Assistência -->
+          <a class="servico-card" href="servicos-empresas.html#linha-6-laudos"
+             aria-label="Laudos Técnicos Ambientais">
+            <span class="card-label">Empresas</span>
+            <h3>Laudos Técnicos Ambientais</h3>
+            <p>Laudos técnicos emitidos sob ART para processos administrativos e judiciais.</p>
             <div class="card-footer">
               <span class="servico-icon-dark" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -1085,12 +1333,45 @@
             </div>
           </a>
 
-          <!-- §4.7 Capacitação e Treinamentos -->
-          <a class="servico-card" href="servicos-empresas.html#linha-7-treinamentos"
-             aria-label="Capacitação e Treinamentos">
+          <a class="servico-card" href="servicos-empresas.html#linha-6-laudos"
+             aria-label="Assistência Técnica em Processos Administrativos">
             <span class="card-label">Empresas</span>
-            <h3>Capacitação e Treinamentos</h3>
-            <p>Treinamentos in company e palestras técnicas em PNRS, ISO 14001, áreas contaminadas e legislação ambiental.</p>
+            <h3>Assistência Técnica em Processos Administrativos</h3>
+            <p>Suporte técnico à defesa em autos de infração, embargos e TACs ambientais.</p>
+            <div class="card-footer">
+              <span class="servico-icon-dark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
+                  <path d="M14 3v6h6M9 13h6M9 17h6"/>
+                </svg>
+              </span>
+              <span class="servico-arrow" aria-hidden="true">→</span>
+            </div>
+          </a>
+
+          <!-- Linha 7 — Treinamentos -->
+          <a class="servico-card" href="servicos-empresas.html#linha-7-treinamentos"
+             aria-label="Treinamentos In Company">
+            <span class="card-label">Empresas</span>
+            <h3>Treinamentos In Company</h3>
+            <p>Capacitação presencial em PNRS, ISO 14001, áreas contaminadas e legislação ambiental.</p>
+            <div class="card-footer">
+              <span class="servico-icon-dark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </span>
+              <span class="servico-arrow" aria-hidden="true">→</span>
+            </div>
+          </a>
+
+          <a class="servico-card" href="servicos-empresas.html#linha-7-treinamentos"
+             aria-label="Palestras e Workshops">
+            <span class="card-label">Empresas</span>
+            <h3>Palestras e Workshops</h3>
+            <p>Palestras técnicas e workshops temáticos para equipes de qualidade, SSMA e jurídico.</p>
             <div class="card-footer">
               <span class="servico-icon-dark" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -1213,6 +1494,14 @@
       </div>
     </section>
 
+    <!-- CTA bridge — link para servicos-empresas.html -->
+    <div class="servicos-cta-bridge">
+      <a href="servicos-empresas.html" class="btn btn-primary">
+        Conheça todos os serviços
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
     <!-- ============================================================
          SEÇÃO 6 — CTA Contato (fonte: C)
          Ajustes: removido "Formulário completo →" e "Mais campos…"
@@ -1307,20 +1596,18 @@
         <div class="footer-col">
           <h4>Navegação</h4>
           <ul>
+            <li><a href="home.html">Home</a></li>
             <li><a href="sobre.html">Sobre</a></li>
-            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="setores.html">Setores Atendidos</a></li>
             <li><a href="projetos.html">Projetos</a></li>
-            <li><a href="#contato">Contato</a></li>
+            <li><a href="contato.html">Contato</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Serviços</h4>
           <ul>
-            <li><a href="servicos-empresas.html">Empresas e Empreendimentos</a></li>
-            <li><a href="#">Imóveis</a></li>
-            <li><a href="servicos-pf.html">Pessoas Físicas</a></li>
-            <li><a href="servicos-empresas.html#linha-6-laudos">Laudos e Assistência</a></li>
-            <li><a href="setores.html">Setores Atendidos</a></li>
+            <li><a href="servicos-empresas.html">Para Empresas</a></li>
+            <li><a href="servicos-pf.html">Para Pessoas Físicas</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -1596,10 +1883,35 @@
       var submenu = document.getElementById('submenu-servicos');
       if (!toggle || !submenu) return;
       function closeMenu() { toggle.setAttribute('aria-expanded','false'); submenu.hidden = true; }
-      function openMenu()  { toggle.setAttribute('aria-expanded','true');  submenu.hidden = false; }
+      function openMenu() {
+        var r = toggle.getBoundingClientRect();
+        submenu.style.left = (r.left + r.width / 2) + 'px';
+        toggle.setAttribute('aria-expanded','true');
+        submenu.hidden = false;
+      }
       toggle.addEventListener('click', function(e) { e.stopPropagation(); toggle.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu(); });
       document.addEventListener('click', function(e) { if (!submenu.contains(e.target) && e.target !== toggle) closeMenu(); });
       document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { closeMenu(); toggle.focus(); } });
+    })();
+    /* Hamburger */
+    (function() {
+      var btn  = document.getElementById('navbar-hamburger');
+      var menu = document.getElementById('navbar-mobile-menu');
+      var sub  = menu ? menu.querySelector('.mobile-submenu-toggle') : null;
+      var subm = menu ? menu.querySelector('.mobile-submenu') : null;
+      if (!btn || !menu) return;
+      function close() { btn.setAttribute('aria-expanded','false'); menu.hidden = true; }
+      function open()  { btn.setAttribute('aria-expanded','true');  menu.hidden = false; }
+      btn.addEventListener('click', function() { btn.getAttribute('aria-expanded') === 'true' ? close() : open(); });
+      document.addEventListener('click', function(e) { if (!menu.contains(e.target) && !btn.contains(e.target)) close(); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
+      if (sub && subm) {
+        sub.addEventListener('click', function() {
+          var isOpen = sub.getAttribute('aria-expanded') === 'true';
+          sub.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+          subm.hidden = isOpen;
+        });
+      }
     })();
   </script>
 

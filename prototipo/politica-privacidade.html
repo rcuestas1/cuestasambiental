@@ -118,7 +118,7 @@
       transition: background .3s ease, backdrop-filter .3s ease;
     }
     .navbar.scrolled {
-      background: rgba(250, 250, 247, 0.72);
+      background: rgba(250, 250, 247, 0.95);
       backdrop-filter: blur(28px) saturate(200%);
       -webkit-backdrop-filter: blur(28px) saturate(200%);
     }
@@ -130,7 +130,7 @@
     .brand .brand-dot { color: var(--color-accent); }
     .navbar-logo { height: 34px; width: auto; display: block; }
     .nav-links { display: flex; gap: var(--space-8); align-items: center; font-size: 13px; list-style: none; margin: 0; padding: 0; }
-    .nav-links > li > a { color: var(--color-text-primary); opacity: 0.82; transition: opacity .2s ease, transform .2s cubic-bezier(0.28, 0.11, 0.32, 1); }
+    .nav-links > li > a { display: inline-flex; align-items: center; color: var(--color-text-primary); opacity: 0.82; transition: opacity .2s ease, transform .2s cubic-bezier(0.28, 0.11, 0.32, 1); }
     .nav-links > li > a:hover { opacity: 1; transform: translateY(-1px); }
     .nav-links > li > a[aria-current="page"] { opacity: 1; color: var(--color-accent); }
     /* Dropdown Serviços */
@@ -147,7 +147,7 @@
     .submenu-chevron { font-size: 10px; opacity: 0.6; transition: transform .2s ease; display: inline-block; }
     .nav-submenu-toggle[aria-expanded="true"] .submenu-chevron { transform: rotate(180deg); }
     .nav-submenu {
-      position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      position: fixed; top: 52px; left: 50%; transform: translateX(-50%);
       min-width: 200px; background: var(--color-background);
       border: var(--border-hairline); border-top: none;
       border-radius: 0 0 var(--radius-md) var(--radius-md);
@@ -156,7 +156,7 @@
       transition: background .3s ease;
     }
     .navbar.scrolled .nav-submenu {
-      background: rgba(250, 250, 247, 0.72);
+      background: rgba(250, 250, 247, 0.95);
       backdrop-filter: blur(28px) saturate(200%);
       -webkit-backdrop-filter: blur(28px) saturate(200%);
     }
@@ -173,11 +173,56 @@
     }
     .nav-submenu-link:hover { background: var(--color-surface); }
     .nav-submenu-link[aria-current="page"] { background: var(--color-accent-soft); color: var(--color-accent); font-weight: 500; }
-    @media (max-width: 767px) {
-      .nav-submenu { position: static; transform: none; box-shadow: none; border: none; background: transparent; padding: 0; min-width: 0; margin: var(--space-2) 0 0 var(--space-4); }
-      .nav-submenu:not([hidden]) { animation: none; }
-      .nav-submenu-link { padding: var(--space-2) 0; }
+    @media (max-width: 767px) { .nav-submenu { display: none !important; } }
+    /* Hamburger */
+    .navbar-hamburger {
+      display: none; background: none; border: none; padding: var(--space-2);
+      cursor: pointer; color: var(--color-text-primary); align-items: center;
+      justify-content: center; border-radius: var(--radius-sm); transition: background .15s ease;
     }
+    .navbar-hamburger:hover { background: var(--color-surface); }
+    .navbar-hamburger svg { width: 20px; height: 14px; overflow: visible; }
+    .navbar-hamburger line { transition: transform .2s ease, opacity .15s ease; transform-origin: 50% 50%; }
+    .navbar-hamburger[aria-expanded="true"] .ham-top { transform: rotate(45deg) translateY(7px); }
+    .navbar-hamburger[aria-expanded="true"] .ham-mid { opacity: 0; transform: scaleX(0); }
+    .navbar-hamburger[aria-expanded="true"] .ham-bot { transform: rotate(-45deg) translateY(-7px); }
+    @media (max-width: 768px) { .navbar-hamburger { display: flex; } .navbar-inner > .btn { display: none; } }
+    .navbar-mobile-menu {
+      position: fixed; top: 52px; left: 0; right: 0; z-index: 95;
+      background: var(--color-background); border-bottom: var(--border-hairline);
+      padding: var(--space-4) var(--space-6) var(--space-6); transition: background .3s ease;
+    }
+    .navbar.scrolled ~ .navbar-mobile-menu {
+      background: rgba(250, 250, 247, 0.95);
+      backdrop-filter: blur(28px) saturate(200%); -webkit-backdrop-filter: blur(28px) saturate(200%);
+    }
+    .mobile-nav-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+    .mobile-nav-list > li > a, .mobile-submenu-toggle {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--space-3) 0; font-size: 16px; line-height: 1.4;
+      color: var(--color-text-primary); border: none; background: none;
+      width: 100%; text-align: left; cursor: pointer; font-family: inherit; border-bottom: var(--border-hairline);
+    }
+    .mobile-nav-list > li:last-child > a { border-bottom: none; }
+    .mobile-nav-list > li > a:hover, .mobile-submenu-toggle:hover { color: var(--color-accent); }
+    .mobile-nav-list > li > a[aria-current="page"],
+    .mobile-submenu-toggle[aria-current="page"] { color: var(--color-accent); font-weight: 500; }
+    .mobile-chevron { font-size: 10px; opacity: 0.6; transition: transform .2s ease; }
+    .mobile-submenu-toggle[aria-expanded="true"] .mobile-chevron { transform: rotate(180deg); }
+    .mobile-submenu { list-style: none; margin: 0; padding: 0 0 0 var(--space-4); }
+    .mobile-submenu[hidden] { display: none; }
+    .mobile-submenu li a { display: block; padding: var(--space-3) 0; font-size: 15px; color: var(--color-text-secondary); border-bottom: var(--border-hairline); }
+    .mobile-submenu li:last-child a { border-bottom: none; }
+    .mobile-submenu li a:hover { color: var(--color-accent); }
+    .mobile-submenu li a[aria-current="page"] { color: var(--color-accent); font-weight: 500; }
+    .mobile-cta > a {
+      display: block; padding: var(--space-3) var(--space-6);
+      background: var(--color-accent); color: var(--color-on-accent) !important;
+      border-radius: var(--radius-pill); font-weight: 500; font-size: 15px;
+      text-align: center; border-bottom: none !important;
+      margin-bottom: var(--space-4); transition: background .2s ease;
+    }
+    .mobile-cta > a:hover { background: var(--color-accent-hover); }
 
     /* Footer — literal da Home */
     .site-footer {
@@ -261,22 +306,31 @@
        Política de Privacidade — CSS específico desta página
        ========================================================== */
     .pp-page {
-      padding-top: 52px; /* compensa navbar fixa */
+      /* padding-top removido: .page-hero já compensa a navbar fixa */
     }
-    .pp-hero {
-      background: var(--color-surface);
-      padding: var(--space-16) 0 var(--space-8);
-      border-bottom: 1px solid var(--color-border-hairline);
+    .page-hero {
+      padding-top: calc(52px + var(--space-12));
+      padding-bottom: var(--space-12);
+      background: var(--color-background);
+      border-bottom: var(--border-hairline);
+      min-height: 40vh;
+      display: flex; align-items: center;
     }
-    .pp-hero h1 {
+    .page-hero h1 {
       font-family: var(--font-display); font-weight: 500;
-      font-size: clamp(32px, 4vw, 48px);
+      font-size: clamp(36px, 5vw, 56px);
       letter-spacing: -0.025em; line-height: 1.08;
-      margin-bottom: var(--space-3);
+      margin-bottom: var(--space-4);
+      max-width: 22ch;
+    }
+    .page-lead {
+      font-size: 18px; color: var(--color-text-secondary);
+      max-width: 64ch; line-height: 1.55;
     }
     .pp-update {
       font-size: 13px; color: var(--color-text-secondary);
     }
+    section[id] { scroll-margin-top: calc(52px + var(--space-6)); }
 
     /* Layout 2 colunas no desktop */
     .pp-layout {
@@ -406,6 +460,7 @@
       <nav aria-label="Navegação principal">
         <ul class="nav-links">
           <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="setores.html">Setores</a></li>
           <li class="nav-item-has-submenu">
             <button type="button" class="nav-submenu-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="submenu-servicos">Serviços <span class="submenu-chevron" aria-hidden="true">▾</span></button>
             <ul id="submenu-servicos" class="nav-submenu" hidden>
@@ -418,16 +473,40 @@
         </ul>
       </nav>
       <a href="contato.html" class="btn btn-primary" style="padding: 8px 18px; font-size: 13px;">Solicitar Orçamento</a>
+      <button class="navbar-hamburger" type="button" id="navbar-hamburger" aria-expanded="false" aria-controls="navbar-mobile-menu" aria-label="Menu">
+        <svg viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line class="ham-top" x1="0" y1="1" x2="20" y2="1"/>
+          <line class="ham-mid" x1="0" y1="7" x2="20" y2="7"/>
+          <line class="ham-bot" x1="0" y1="13" x2="20" y2="13"/>
+        </svg>
+      </button>
     </div>
   </header>
+  <div id="navbar-mobile-menu" class="navbar-mobile-menu" hidden>
+    <ul class="mobile-nav-list">
+      <li class="mobile-cta"><a href="contato.html">Solicitar Orçamento</a></li>
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="setores.html">Setores</a></li>
+      <li>
+        <button type="button" class="mobile-submenu-toggle" aria-expanded="false">Serviços <span class="mobile-chevron" aria-hidden="true">▾</span></button>
+        <ul class="mobile-submenu" hidden>
+          <li><a href="servicos-empresas.html">Para Empresas</a></li>
+          <li><a href="servicos-pf.html">Para Pessoas Físicas</a></li>
+        </ul>
+      </li>
+      <li><a href="projetos.html">Projetos</a></li>
+      <li><a href="contato.html">Contato</a></li>
+    </ul>
+  </div>
 
   <main id="main">
 
-    <!-- Cabeçalho da página -->
-    <section class="pp-hero">
+    <!-- Cabeçalho da página (padrão page-hero de projetos.html) -->
+    <section class="page-hero" aria-labelledby="page-h1">
       <div class="container">
-        <h1>Política de Privacidade</h1>
-        <p class="pp-update">Última atualização: <span class="placeholder">[A CONFIRMAR: data]</span></p>
+        <span class="section-eyebrow">Privacidade e Dados</span>
+        <h1 id="page-h1">Política de Privacidade</h1>
+        <p class="page-lead pp-update">Última atualização: <span class="placeholder">[A CONFIRMAR: data]</span></p>
       </div>
     </section>
 
@@ -698,20 +777,18 @@
         <div class="footer-col">
           <h4>Navegação</h4>
           <ul>
+            <li><a href="home.html">Home</a></li>
             <li><a href="sobre.html">Sobre</a></li>
-            <li><a href="home.html#servicos">Serviços</a></li>
+            <li><a href="setores.html">Setores Atendidos</a></li>
             <li><a href="projetos.html">Projetos</a></li>
-            <li><a href="home.html#contato">Contato</a></li>
+            <li><a href="contato.html">Contato</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Serviços</h4>
           <ul>
-            <li><a href="servicos-empresas.html">Empresas e Empreendimentos</a></li>
-            <li><a href="#">Imóveis</a></li>
-            <li><a href="servicos-pf.html">Pessoas Físicas</a></li>
-            <li><a href="servicos-empresas.html#linha-6-laudos">Laudos e Assistência</a></li>
-            <li><a href="setores.html">Setores Atendidos</a></li>
+            <li><a href="servicos-empresas.html">Para Empresas</a></li>
+            <li><a href="servicos-pf.html">Para Pessoas Físicas</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -832,10 +909,35 @@
       var submenu = document.getElementById('submenu-servicos');
       if (!toggle || !submenu) return;
       function closeMenu() { toggle.setAttribute('aria-expanded','false'); submenu.hidden = true; }
-      function openMenu()  { toggle.setAttribute('aria-expanded','true');  submenu.hidden = false; }
+      function openMenu() {
+        var r = toggle.getBoundingClientRect();
+        submenu.style.left = (r.left + r.width / 2) + 'px';
+        toggle.setAttribute('aria-expanded','true');
+        submenu.hidden = false;
+      }
       toggle.addEventListener('click', function(e) { e.stopPropagation(); toggle.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu(); });
       document.addEventListener('click', function(e) { if (!submenu.contains(e.target) && e.target !== toggle) closeMenu(); });
       document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { closeMenu(); toggle.focus(); } });
+    })();
+    /* Hamburger */
+    (function() {
+      var btn  = document.getElementById('navbar-hamburger');
+      var menu = document.getElementById('navbar-mobile-menu');
+      var sub  = menu ? menu.querySelector('.mobile-submenu-toggle') : null;
+      var subm = menu ? menu.querySelector('.mobile-submenu') : null;
+      if (!btn || !menu) return;
+      function close() { btn.setAttribute('aria-expanded','false'); menu.hidden = true; }
+      function open()  { btn.setAttribute('aria-expanded','true');  menu.hidden = false; }
+      btn.addEventListener('click', function() { btn.getAttribute('aria-expanded') === 'true' ? close() : open(); });
+      document.addEventListener('click', function(e) { if (!menu.contains(e.target) && !btn.contains(e.target)) close(); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
+      if (sub && subm) {
+        sub.addEventListener('click', function() {
+          var isOpen = sub.getAttribute('aria-expanded') === 'true';
+          sub.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+          subm.hidden = isOpen;
+        });
+      }
     })();
   </script>
 
