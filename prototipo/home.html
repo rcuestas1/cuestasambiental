@@ -231,7 +231,7 @@
     .mobile-submenu li a[aria-current="page"] { color: var(--color-accent); font-weight: 500; }
     .mobile-cta > a {
       display: block; padding: var(--space-3) var(--space-6);
-      background: var(--color-accent); color: var(--color-on-accent) !important;
+      background: var(--color-accent) !important; color: var(--color-on-accent) !important;
       border-radius: var(--radius-pill); font-weight: 500; font-size: 15px;
       text-align: center; border-bottom: none !important;
       margin-bottom: var(--space-4); transition: background .2s ease;
@@ -1048,7 +1048,7 @@
     <section class="servicos" id="servicos" aria-labelledby="servicos-title">
       <div class="container">
         <span class="section-eyebrow reveal">Nossos Serviços</span>
-        <h2 id="servicos-title" class="section-title reveal">Do licenciamento ao laudo. Cada serviço sob medida.</h2>
+        <h2 id="servicos-title" class="section-title reveal">Do licenciamento ao laudo.<br>Cada serviço sob medida.</h2>
         <p class="section-lead reveal">
           Atendemos empresas, empreendimentos e pessoas físicas com rigor técnico e conformidade legal em cada etapa.
         </p>
@@ -1491,16 +1491,16 @@
           <button id="serv-prev" aria-label="Anterior">&#8592;</button>
           <button id="serv-next" aria-label="Próximo">&#8594;</button>
         </div>
+
+        <!-- CTA bridge — link para servicos-empresas.html -->
+        <div class="servicos-cta-bridge">
+          <a href="servicos-empresas.html" class="btn btn-primary">
+            Conheça todos os serviços
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
     </section>
-
-    <!-- CTA bridge — link para servicos-empresas.html -->
-    <div class="servicos-cta-bridge">
-      <a href="servicos-empresas.html" class="btn btn-primary">
-        Conheça todos os serviços
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
 
     <!-- ============================================================
          SEÇÃO 6 — CTA Contato (fonte: C)
