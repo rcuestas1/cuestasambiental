@@ -417,22 +417,26 @@
 
     /* Hero da página */
     .page-hero {
-      padding-top: calc(52px + var(--space-12));
-      padding-bottom: var(--space-12);
-      background: var(--color-background);
-      border-bottom: var(--border-hairline);
-      min-height: 50vh;
+      padding-top: calc(52px + var(--space-16));
+      padding-bottom: var(--space-16);
+      background:
+        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+        url('assets/images/servicos_pf.jpg') top center / cover no-repeat;
+      border-bottom: none;
+      min-height: 60vh;
       display: flex; align-items: center;
     }
+    .page-hero .section-eyebrow { color: rgba(255,255,255,0.70); }
     .page-hero h1 {
       font-family: var(--font-display); font-weight: 500;
       font-size: clamp(36px, 5vw, 56px);
       letter-spacing: -0.025em; line-height: 1.08;
       margin-bottom: var(--space-4);
       max-width: 22ch;
+      color: var(--color-on-dark);
     }
     .page-lead {
-      font-size: 18px; color: var(--color-text-secondary);
+      font-size: 18px; color: rgba(255,255,255,0.80);
       max-width: 64ch; line-height: 1.55;
     }
 
@@ -1360,8 +1364,17 @@
         navbar.classList.toggle('scrolled', window.scrollY > 10);
       }, { passive: true });
 
-      /* Reveal on scroll */
+      /* Parallax sutil no hero */
       var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reducedMotion) {
+        var heroEl = document.querySelector('.page-hero');
+        window.addEventListener('scroll', function() {
+          if (!heroEl || window.scrollY > window.innerHeight) return;
+          heroEl.style.backgroundPositionY = Math.round(window.scrollY * 0.25) + 'px';
+        }, { passive: true });
+      }
+
+      /* Reveal on scroll */
       var reveals = document.querySelectorAll('.reveal');
       if (reducedMotion || !('IntersectionObserver' in window)) {
         reveals.forEach(function(el) { el.classList.add('in-view'); });
