@@ -10,7 +10,8 @@
   <link rel="icon" href="favicon-32x32.png" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preload" href="assets/images/logo-navbar.png" as="image">
-  <link rel="preload" href="assets/images/hero.webp" as="image" type="image/webp">
+  <link rel="preload" href="assets/images/hero-mobile.webp" as="image" type="image/webp" media="(max-width: 767px)">
+  <link rel="preload" href="assets/images/hero.webp" as="image" type="image/webp" media="(min-width: 768px)">
   <link rel="preload" href="assets/fonts/sf-pro/SF-Pro-Display-Medium.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/sf-pro/SF-Pro-Text-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <style>
@@ -260,8 +261,15 @@
       overflow: hidden;
       background:
         linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)),
-        image-set(url('assets/images/hero.webp') type('image/webp'),url('assets/images/hero.jpg') type('image/jpeg')) center / cover no-repeat;
+        image-set(url('assets/images/hero-mobile.webp') type('image/webp'),url('assets/images/hero.jpg') type('image/jpeg')) center / cover no-repeat;
       /* Ratio WCAG estimado: branco sobre overlay 60% ≈ 8:1+ — PASSA AA */
+    }
+    @media (min-width: 768px) {
+      .hero {
+        background:
+          linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)),
+          image-set(url('assets/images/hero.webp') type('image/webp'),url('assets/images/hero.jpg') type('image/jpeg')) center / cover no-repeat;
+      }
     }
     @keyframes topoDrift {
       0%   { transform: translate(-52%, -50%) scale(1.00); }
@@ -443,7 +451,7 @@
       position: absolute;
       top: 0; right: -4%;
       width: 55%; height: 100%;
-      background: url('assets/images/topografia-branco.png') top right / contain no-repeat;
+      background: image-set(url('assets/images/topografia-branco.webp') type('image/webp'),url('assets/images/topografia-branco.png') type('image/png')) top right / contain no-repeat;
       opacity: 0.035;
       pointer-events: none;
     }
@@ -900,7 +908,7 @@
        ============================================================ -->
   <header class="navbar">
     <div class="navbar-inner">
-      <a href="home.html" class="brand" aria-label="Cuestas Engenharia Ambiental — Início">
+      <a href="home.html" class="brand" aria-label="Cuestas Engenharia Ambiental — Início" aria-current="page">
         <img src="assets/images/logo-navbar.png" alt="Cuestas Engenharia Ambiental" class="navbar-logo" width="99" height="34" fetchpriority="high">
       </a>
       <nav aria-label="Navegação principal">
