@@ -6,17 +6,23 @@
   <meta name="description" content="Consultoria ambiental em São Paulo: licenciamento, due diligence, laudos técnicos e regularização para empresas, empreendimentos imobiliários e pessoas físicas.">
   <title>Cuestas Engenharia Ambiental | Consultoria Ambiental SP</title>
   <link rel="canonical" href="https://cuestasambiental.com/">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon-32x32.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="assets/images/logo-navbar.png" as="image">
+  <link rel="preload" href="assets/fonts/sf-pro/SF-Pro-Display-Medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/sf-pro/SF-Pro-Text-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <style>
 
     /* ==========================================================
        SF Pro — @font-face local (fonte: tokens-preview.html)
        ========================================================== */
-    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Regular.otf') format('opentype'); font-weight:400; font-display:swap; }
-    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Medium.otf') format('opentype'); font-weight:500; font-display:swap; }
-    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Semibold.otf') format('opentype'); font-weight:600; font-display:swap; }
-    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Regular.otf') format('opentype'); font-weight:400; font-display:swap; }
-    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Medium.otf') format('opentype'); font-weight:500; font-display:swap; }
-    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Semibold.otf') format('opentype'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Medium.woff2') format('woff2'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Semibold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Medium.woff2') format('woff2'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Semibold.woff2') format('woff2'); font-weight:600; font-display:swap; }
 
     /* ==========================================================
        Design Tokens aprovados
@@ -253,7 +259,7 @@
       overflow: hidden;
       background:
         linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)),
-        url('assets/images/hero.jpg') center / cover no-repeat;
+        image-set(url('assets/images/hero.webp') type('image/webp'),url('assets/images/hero.jpg') type('image/jpeg')) center / cover no-repeat;
       /* Ratio WCAG estimado: branco sobre overlay 60% ≈ 8:1+ — PASSA AA */
     }
     @keyframes topoDrift {
@@ -752,7 +758,7 @@
       color: var(--color-text-secondary); font-size: 14px;
       margin-top: var(--space-3); max-width: 32ch;
     }
-    .footer-col h4 {
+    .footer-col h3 {
       font-family: var(--font-display); font-size: 12px; font-weight: 600;
       margin-bottom: var(--space-4);
       letter-spacing: 0.12em; text-transform: uppercase;
@@ -780,7 +786,7 @@
        ========================================================== */
     .cookie-banner {
       position: fixed; bottom: var(--space-6); left: var(--space-6);
-      max-width: 420px; z-index: 80;
+      max-width: 420px; z-index: 95;
       background: var(--color-surface-subtle);
       border: var(--border-hairline);
       border-radius: var(--radius-md);
@@ -894,7 +900,7 @@
   <header class="navbar">
     <div class="navbar-inner">
       <a href="home.html" class="brand" aria-label="Cuestas Engenharia Ambiental — Início">
-        <img src="assets/images/logo-navbar.png" alt="Cuestas Engenharia Ambiental" class="navbar-logo" width="99" height="34">
+        <img src="assets/images/logo-navbar.png" alt="Cuestas Engenharia Ambiental" class="navbar-logo" width="99" height="34" fetchpriority="high">
       </a>
       <nav aria-label="Navegação principal">
         <ul class="nav-links">
@@ -1109,7 +1115,7 @@
           <a class="servico-card" href="servicos-empresas.html#linha-1-avaliacao"
              aria-label="Due Diligence Ambiental (EDD) — Fase I"
              data-group-start="empresas">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>Due Diligence Ambiental (EDD) — Fase I</h3>
             <p>Avaliação técnica preliminar de imóveis para aquisição, locação ou financiamento, conforme ASTM E1527-21 e CETESB.</p>
             <div class="card-footer">
@@ -1125,7 +1131,7 @@
 
           <a class="servico-card" href="servicos-empresas.html#linha-1-avaliacao"
              aria-label="Avaliação Ambiental Preliminar (AAP)">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>Avaliação Ambiental Preliminar (AAP)</h3>
             <p>Elaborada conforme metodologia CETESB para imóveis com potencial histórico de contaminação.</p>
             <div class="card-footer">
@@ -1141,7 +1147,7 @@
 
           <a class="servico-card" href="servicos-empresas.html#linha-1-avaliacao"
              aria-label="Investigação Confirmatória — Fase II">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>Investigação Confirmatória — Fase II</h3>
             <p>Investigação de solo e água subterrânea com sondagem e monitoramento, conforme ABNT NBR 15515.</p>
             <div class="card-footer">
@@ -1158,7 +1164,7 @@
           <!-- Linha 2 — Licenciamento e Conformidade -->
           <a class="servico-card" href="servicos-empresas.html#linha-2-licenciamento"
              aria-label="Licenciamento Ambiental">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>Licenciamento Ambiental</h3>
             <p>Condução integral junto a CETESB, SVMA e IBAMA — LP, LI, LO e renovações.</p>
             <div class="card-footer">
@@ -1173,7 +1179,7 @@
 
           <a class="servico-card" href="servicos-empresas.html#linha-2-licenciamento"
              aria-label="Outorga de Recursos Hídricos">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>Outorga de Recursos Hídricos</h3>
             <p>Obtenção de outorgas de captação e lançamento junto ao DAEE, INEA, IGAM e ANA.</p>
             <div class="card-footer">
@@ -1188,7 +1194,7 @@
 
           <a class="servico-card" href="servicos-empresas.html#linha-2-licenciamento"
              aria-label="Estudo de Impacto de Vizinhança (EIV)">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>Estudo de Impacto de Vizinhança (EIV)</h3>
             <p>Exigido pelo Estatuto da Cidade para empreendimentos de impacto urbano.</p>
             <div class="card-footer">
@@ -1203,7 +1209,7 @@
 
           <a class="servico-card" href="servicos-empresas.html#linha-2-licenciamento"
              aria-label="Auditoria de Conformidade Legal">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>Auditoria de Conformidade Legal</h3>
             <p>Diagnóstico de aderência às obrigações ambientais federais, estaduais e municipais.</p>
             <div class="card-footer">
@@ -1218,7 +1224,7 @@
 
           <a class="servico-card" href="servicos-empresas.html#linha-2-licenciamento"
              aria-label="Demandas IBAMA — RAPP, TCFA, CTF/APP">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>Demandas IBAMA — RAPP, TCFA, CTF/APP</h3>
             <p>Cadastro CTF/APP, apuração da TCFA e elaboração do RAPP entre fevereiro e março.</p>
             <div class="card-footer">
@@ -1234,7 +1240,7 @@
           <!-- Linha 3 — Gestão Ambiental Estratégica -->
           <a class="servico-card" href="servicos-empresas.html#linha-3-gestao-estrategica"
              aria-label="ISO 14001">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>ISO 14001</h3>
             <p>Implantação e manutenção de Sistema de Gestão Ambiental conforme ISO 14001.</p>
             <div class="card-footer">
@@ -1250,7 +1256,7 @@
 
           <a class="servico-card" href="servicos-empresas.html#linha-3-gestao-estrategica"
              aria-label="Gestão Ambiental de Obras (SSMA)">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>Gestão Ambiental de Obras (SSMA)</h3>
             <p>Suporte técnico de SSMA em canteiros de obra, da implantação ao encerramento.</p>
             <div class="card-footer">
@@ -1266,7 +1272,7 @@
 
           <a class="servico-card" href="servicos-empresas.html#linha-3-gestao-estrategica"
              aria-label="ESG Ambiental">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>ESG Ambiental</h3>
             <p>Diagnóstico, plano de ação e relatório ESG com foco na dimensão ambiental.</p>
             <div class="card-footer">
@@ -1283,7 +1289,7 @@
           <!-- Linha 4 — Resíduos Sólidos -->
           <a class="servico-card" href="servicos-empresas.html#linha-4-residuos"
              aria-label="PGRS">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>PGRS</h3>
             <p>Plano de Gerenciamento de Resíduos Sólidos para empresas geradoras e destinadoras.</p>
             <div class="card-footer">
@@ -1299,7 +1305,7 @@
 
           <a class="servico-card" href="servicos-empresas.html#linha-4-residuos"
              aria-label="PGRCC (Construção Civil)">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>PGRCC (Construção Civil)</h3>
             <p>Plano de Gerenciamento de Resíduos de Construção Civil para canteiros de obra.</p>
             <div class="card-footer">
@@ -1315,7 +1321,7 @@
 
           <a class="servico-card" href="servicos-empresas.html#linha-4-residuos"
              aria-label="SIGOR / SINIR / MTR">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>SIGOR / SINIR / MTR</h3>
             <p>Adequação e operação nas plataformas eletrônicas de controle de resíduos.</p>
             <div class="card-footer">
@@ -1332,7 +1338,7 @@
           <!-- Linha 5 — Supressão de Vegetação -->
           <a class="servico-card" href="servicos-empresas.html#linha-5-supressao"
              aria-label="ASV — Supressão para Empreendimentos">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>ASV — Supressão para Empreendimentos</h3>
             <p>Autorização de Supressão de Vegetação integrada ao licenciamento ambiental.</p>
             <div class="card-footer">
@@ -1347,7 +1353,7 @@
 
           <a class="servico-card" href="servicos-empresas.html#linha-5-supressao"
              aria-label="Laudo Arbóreo e Diagnóstico Fitossanitário">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>Laudo Arbóreo e Diagnóstico Fitossanitário</h3>
             <p>Levantamento arbóreo, diagnóstico fitossanitário e proposta de manejo.</p>
             <div class="card-footer">
@@ -1363,7 +1369,7 @@
           <!-- Linha 6 — Laudos e Assistência -->
           <a class="servico-card" href="servicos-empresas.html#linha-6-laudos"
              aria-label="Laudos Técnicos Ambientais">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>Laudos Técnicos Ambientais</h3>
             <p>Laudos técnicos emitidos sob ART para processos administrativos e judiciais.</p>
             <div class="card-footer">
@@ -1379,7 +1385,7 @@
 
           <a class="servico-card" href="servicos-empresas.html#linha-6-laudos"
              aria-label="Assistência Técnica em Processos Administrativos">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>Assistência Técnica em Processos Administrativos</h3>
             <p>Suporte técnico à defesa em autos de infração, embargos e TACs ambientais.</p>
             <div class="card-footer">
@@ -1396,7 +1402,7 @@
           <!-- Linha 7 — Treinamentos -->
           <a class="servico-card" href="servicos-empresas.html#linha-7-treinamentos"
              aria-label="Treinamentos In Company">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>Treinamentos In Company</h3>
             <p>Capacitação presencial em PNRS, ISO 14001, áreas contaminadas e legislação ambiental.</p>
             <div class="card-footer">
@@ -1413,7 +1419,7 @@
 
           <a class="servico-card" href="servicos-empresas.html#linha-7-treinamentos"
              aria-label="Palestras e Workshops">
-            <span class="card-label">Empresas</span>
+            <span class="card-label" aria-hidden="true">Empresas</span>
             <h3>Palestras e Workshops</h3>
             <p>Palestras técnicas e workshops temáticos para equipes de qualidade, SSMA e jurídico.</p>
             <div class="card-footer">
@@ -1432,7 +1438,7 @@
           <a class="servico-card" href="servicos-pf.html#avaliacao-imovel"
              aria-label="Avaliação Ambiental de Imóvel"
              data-group-start="pessoas-fisicas">
-            <span class="card-label">Pessoas Físicas</span>
+            <span class="card-label" aria-hidden="true">Pessoas Físicas</span>
             <h3>Avaliação Ambiental de Imóvel</h3>
             <p>Análise técnica antes da compra, venda ou financiamento — passivos ambientais, restrições em APP, supressão irregular.</p>
             <div class="card-footer">
@@ -1448,7 +1454,7 @@
           <!-- §5.2 Regularização Ambiental -->
           <a class="servico-card" href="servicos-pf.html#regularizacao"
              aria-label="Regularização Ambiental de Imóvel">
-            <span class="card-label">Pessoas Físicas</span>
+            <span class="card-label" aria-hidden="true">Pessoas Físicas</span>
             <h3>Regularização Ambiental</h3>
             <p>Diagnóstico e condução de regularização — construções em APP, supressão irregular, autos de infração.</p>
             <div class="card-footer">
@@ -1465,7 +1471,7 @@
           <!-- §5.3 Cortar ou Podar Árvore -->
           <a class="servico-card" href="servicos-pf.html#autorizacao-arvore"
              aria-label="Autorização para Cortar ou Podar Árvore">
-            <span class="card-label">Pessoas Físicas</span>
+            <span class="card-label" aria-hidden="true">Pessoas Físicas</span>
             <h3>Cortar ou Podar Árvore</h3>
             <p>Do laudo à motosserra: vistoria técnica, autorização da prefeitura e contratação de empresa para execução.</p>
             <div class="card-footer">
@@ -1481,7 +1487,7 @@
           <!-- §5.4 Outorga para Sítios e Chácaras -->
           <a class="servico-card" href="servicos-pf.html#outorga-pf"
              aria-label="Outorga para Sítios e Chácaras">
-            <span class="card-label">Pessoas Físicas</span>
+            <span class="card-label" aria-hidden="true">Pessoas Físicas</span>
             <h3>Outorga para Sítios e Chácaras</h3>
             <p>Autorização para uso de poço, nascente ou captação rural — DAEE, INEA, IGAM, ANA.</p>
             <div class="card-footer">
@@ -1497,7 +1503,7 @@
           <!-- §5.5 Consulta Técnica -->
           <a class="servico-card" href="servicos-pf.html#consulta-tecnica"
              aria-label="Consulta e Orientação Técnica Ambiental">
-            <span class="card-label">Pessoas Físicas</span>
+            <span class="card-label" aria-hidden="true">Pessoas Físicas</span>
             <h3>Consulta Técnica</h3>
             <p>Segunda opinião técnica para proprietários, corretores, advogados e profissionais correlatos.</p>
             <div class="card-footer">
@@ -1514,7 +1520,7 @@
           <!-- §5.6 Defesa em Auto de Infração -->
           <a class="servico-card" href="servicos-pf.html#defesa-auto-infracao"
              aria-label="Defesa Técnica em Auto de Infração">
-            <span class="card-label">Pessoas Físicas</span>
+            <span class="card-label" aria-hidden="true">Pessoas Físicas</span>
             <h3>Defesa em Auto de Infração</h3>
             <p>Manifestação técnica e laudo de apoio à defesa administrativa, em parceria com seu advogado.</p>
             <div class="card-footer">
@@ -1533,7 +1539,7 @@
 
         <div class="servicos-nav">
           <div></div>
-          <div class="servicos-dots" id="servicos-dots" aria-hidden="true"></div>
+          <div class="servicos-dots" id="servicos-dots" inert aria-hidden="true"></div>
           <div class="serv-nav-arrows">
             <button id="serv-prev" class="serv-nav-btn" aria-label="Anterior">&#8592;</button>
             <button id="serv-next" class="serv-nav-btn" aria-label="Próximo">&#8594;</button>
@@ -1635,7 +1641,7 @@
           <p>Consultoria de Engenharia Ambiental. CREA nº 2622462662 — Engenheiro Responsável: Laio Cuestas.</p>
         </div>
         <div class="footer-col">
-          <h4>Navegação</h4>
+          <h3>Navegação</h3>
           <ul>
             <li><a href="sobre.html">Sobre</a></li>
             <li><a href="setores.html">Setores Atendidos</a></li>
@@ -1644,14 +1650,14 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Serviços</h4>
+          <h3>Serviços</h3>
           <ul>
             <li><a href="servicos-empresas.html">Para Empresas</a></li>
             <li><a href="servicos-pf.html">Para Pessoas Físicas</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Contato</h4>
+          <h3>Contato</h3>
           <ul>
             <li>
               <a class="footer-wa"
@@ -1823,6 +1829,7 @@
               dot.type = 'button';
               dot.className = 'servicos-dot';
               dot.setAttribute('aria-label', 'Posicao ' + (i + 1));
+              dot.tabIndex = -1;
               (function(idx) {
                 dot.addEventListener('click', function() {
                   track.scrollTo({ left: idx * STEP, behavior: 'smooth' });

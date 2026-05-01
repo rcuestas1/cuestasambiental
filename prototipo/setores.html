@@ -6,17 +6,23 @@
   <meta name="description" content="Atendemos incorporadoras, indústrias, construtoras, postos, comércio, gestão de resíduos, fundos de investimento, escritórios jurídicos e pessoas físicas.">
   <title>Setores Atendidos | Cuestas Engenharia Ambiental</title>
   <link rel="canonical" href="https://cuestasambiental.com/setores">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon-32x32.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="assets/images/logo-navbar.png" as="image">
+  <link rel="preload" href="assets/fonts/sf-pro/SF-Pro-Display-Medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/sf-pro/SF-Pro-Text-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <style>
 
     /* ==========================================================
        SF Pro — @font-face (Bloco 1, literal da Home)
        ========================================================== */
-    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Regular.otf') format('opentype'); font-weight:400; font-display:swap; }
-    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Medium.otf') format('opentype'); font-weight:500; font-display:swap; }
-    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Semibold.otf') format('opentype'); font-weight:600; font-display:swap; }
-    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Regular.otf') format('opentype'); font-weight:400; font-display:swap; }
-    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Medium.otf') format('opentype'); font-weight:500; font-display:swap; }
-    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Semibold.otf') format('opentype'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Medium.woff2') format('woff2'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'SF Pro Display'; src:url('assets/fonts/sf-pro/SF-Pro-Display-Semibold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Medium.woff2') format('woff2'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'SF Pro Text'; src:url('assets/fonts/sf-pro/SF-Pro-Text-Semibold.woff2') format('woff2'); font-weight:600; font-display:swap; }
 
     /* ==========================================================
        Tokens — Bloco 2 (literal da Home)
@@ -336,7 +342,7 @@
       margin-bottom: var(--space-12);
     }
     .footer-brand p { color: var(--color-text-secondary); font-size: 14px; margin-top: var(--space-3); max-width: 32ch; }
-    .footer-col h4 {
+    .footer-col h3 {
       font-family: var(--font-display); font-size: 12px; font-weight: 600;
       margin-bottom: var(--space-4); letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--color-text-secondary);
@@ -357,7 +363,7 @@
     /* Cookie banner (literal da Home) */
     .cookie-banner {
       position: fixed; bottom: var(--space-6); left: var(--space-6);
-      max-width: 420px; z-index: 80;
+      max-width: 420px; z-index: 95;
       background: var(--color-surface-subtle); border: var(--border-hairline);
       border-radius: var(--radius-md); box-shadow: var(--shadow-floating);
       padding: var(--space-4) var(--space-6);
@@ -554,7 +560,7 @@
   <header class="navbar">
     <div class="navbar-inner">
       <a href="home.html" class="brand" aria-label="Cuestas Engenharia Ambiental — Início">
-        <img src="assets/images/logo-navbar.png" alt="Cuestas Engenharia Ambiental" class="navbar-logo" width="99" height="34">
+        <img src="assets/images/logo-navbar.png" alt="Cuestas Engenharia Ambiental" class="navbar-logo" width="99" height="34" fetchpriority="high">
       </a>
       <nav aria-label="Navegação principal">
         <ul class="nav-links">
@@ -867,7 +873,7 @@
           <p>Consultoria de Engenharia Ambiental. CREA nº 2622462662 — Engenheiro Responsável: Laio Cuestas.</p>
         </div>
         <div class="footer-col">
-          <h4>Navegação</h4>
+          <h3>Navegação</h3>
           <ul>
             <li><a href="sobre.html">Sobre</a></li>
             <li><a href="setores.html">Setores Atendidos</a></li>
@@ -876,14 +882,14 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Serviços</h4>
+          <h3>Serviços</h3>
           <ul>
             <li><a href="servicos-empresas.html">Para Empresas</a></li>
             <li><a href="servicos-pf.html">Para Pessoas Físicas</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Contato</h4>
+          <h3>Contato</h3>
           <ul>
             <li>
               <a class="footer-wa"
