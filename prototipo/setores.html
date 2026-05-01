@@ -59,7 +59,7 @@
 
     /* Reset + base (literal da Home) */
     *,*::before,*::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 60px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 52px; }
     body {
       margin: 0;
       background: var(--color-background);
@@ -100,7 +100,7 @@
     /* Buttons (literal da Home) */
     .btn {
       display: inline-flex; align-items: center; gap: var(--space-2);
-      padding: 13px 26px; border-radius: var(--radius-pill);
+      padding: 14px 26px; border-radius: var(--radius-pill);
       font-family: var(--font-body); font-size: 16px; font-weight: 500;
       border: 1px solid transparent; line-height: 1;
       transition: background-color .25s ease, color .25s ease, border-color .25s ease, transform .2s ease;
@@ -197,6 +197,7 @@
       display: none; background: none; border: none; padding: var(--space-2);
       cursor: pointer; color: var(--color-text-primary); align-items: center;
       justify-content: center; border-radius: var(--radius-sm); transition: background .15s ease;
+      min-width: 44px; min-height: 44px;
     }
     .navbar-hamburger:hover { background: var(--color-surface); }
     .navbar-hamburger svg { width: 20px; height: 14px; overflow: visible; }
@@ -209,6 +210,7 @@
       position: fixed; top: 52px; left: 0; right: 0; z-index: 95;
       background: var(--color-background); border-bottom: var(--border-hairline);
       padding: var(--space-4) var(--space-6) var(--space-6); transition: background .3s ease;
+      max-height: calc(100vh - 52px); overflow-y: auto;
     }
     .navbar.scrolled ~ .navbar-mobile-menu {
       background: rgba(250, 250, 247, 0.95);
@@ -256,7 +258,7 @@
       border-radius: var(--radius-sm);
       background: var(--color-surface-subtle);
       color: var(--color-text-primary);
-      font-size: 15px; font-family: var(--font-body);
+      font-size: 16px; font-family: var(--font-body);
       transition: border-color .2s ease, box-shadow .2s ease;
     }
     .form-field textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
@@ -413,7 +415,7 @@
       padding-bottom: var(--space-12);
       background: var(--color-background);
       border-bottom: var(--border-hairline);
-      min-height: 40vh;
+      min-height: 40vh; min-height: 40svh;
       display: flex; align-items: center;
     }
     .page-hero h1 {
@@ -525,6 +527,16 @@
       .setores-fallback { padding: var(--space-12) 0; }
     }
 
+
+    @media (max-width: 1024px) and (orientation: landscape) and (max-height: 500px) {
+      .page-hero {
+        min-height: auto;
+        padding-top: calc(52px + var(--space-4));
+        padding-bottom: var(--space-4);
+      }
+      .page-hero h1 { font-size: clamp(24px, 6vw, 36px); margin-bottom: var(--space-2); }
+      .page-lead { font-size: 15px; }
+    }
   </style>
 </head>
 <body>
@@ -533,14 +545,6 @@
     PÁGINA SETORES — atualizada conforme cuestas_organizacao_site_v3_seo.md §3.1 e §3.2
     9 setores listados; resumos extraídos literalmente do v3.
 
-    PENDÊNCIAS DE LINKS CRUZADOS (resolver no Sprint 4.C):
-    - Vários chips apontam para âncoras em servicos-empresas.html que ainda não existem.
-      Quando o Sprint 4.C reorganizar servicos-empresas.html nas 7 Linhas com novos serviços,
-      voltar aqui e atualizar os href="#" para apontar para as âncoras corretas.
-    - Slugs esperados: #aap, #investigacao-fase2, #outorga, #eiv, #auditoria-conformidade,
-      #rapp-ibama, #esg-ambiental, #pgrcc, #sigor-sinir-mtr, #supressao-empresas,
-      #laudos-tecnicos, #assistencia-processos, #treinamentos
-    - Em servicos-pf.html: #defesa-auto-infracao
   -->
 
   <!-- Bloco 3 — Skip link -->
@@ -550,7 +554,7 @@
   <header class="navbar">
     <div class="navbar-inner">
       <a href="home.html" class="brand" aria-label="Cuestas Engenharia Ambiental — Início">
-        <img src="assets/images/logo-navbar.png" alt="Cuestas Engenharia Ambiental" class="navbar-logo">
+        <img src="assets/images/logo-navbar.png" alt="Cuestas Engenharia Ambiental" class="navbar-logo" width="99" height="34">
       </a>
       <nav aria-label="Navegação principal">
         <ul class="nav-links">
@@ -627,9 +631,9 @@
               <ul class="setor-servicos" aria-label="Serviços relevantes">
                 <li><a href="servicos-empresas.html#linha-1-avaliacao">Due Diligence</a></li>
                 <li><a href="servicos-empresas.html#linha-2-licenciamento">Licenciamento Ambiental</a></li>
-                <li><a href="#">Supressão de Vegetação</a></li><!-- TODO: #supressao-empresas em servicos-empresas.html (Sprint 4.C) -->
-                <li><a href="#">EIV</a></li><!-- TODO: #eiv em servicos-empresas.html (Sprint 4.C) -->
-                <li><a href="#">AAP</a></li><!-- TODO: #aap em servicos-empresas.html (Sprint 4.C) -->
+                <li><a href="servicos-empresas.html#linha-5-supressao">Supressão de Vegetação</a></li>
+                <li><a href="servicos-empresas.html#linha-2-licenciamento">EIV</a></li>
+                <li><a href="servicos-empresas.html#linha-1-avaliacao">AAP</a></li>
               </ul>
             </dd>
           </div>
@@ -646,8 +650,8 @@
               <ul class="setor-servicos" aria-label="Serviços relevantes">
                 <li><a href="servicos-empresas.html#linha-2-licenciamento">Licenciamento Ambiental</a></li>
                 <li><a href="servicos-empresas.html#linha-4-residuos">PGRS</a></li>
-                <li><a href="#">Outorga de Água</a></li><!-- TODO: #outorga em servicos-empresas.html (Sprint 4.C) -->
-                <li><a href="#">RAPP / IBAMA</a></li><!-- TODO: #rapp-ibama em servicos-empresas.html (Sprint 4.C) -->
+                <li><a href="servicos-empresas.html#linha-2-licenciamento">Outorga de Água</a></li>
+                <li><a href="servicos-empresas.html#linha-2-licenciamento">RAPP / IBAMA</a></li>
               </ul>
             </dd>
           </div>
@@ -663,7 +667,7 @@
               </p>
               <ul class="setor-servicos" aria-label="Serviços relevantes">
                 <li><a href="servicos-empresas.html#linha-3-gestao-estrategica">Gestão Ambiental de Obras</a></li>
-                <li><a href="#">PGRCC</a></li><!-- TODO: #pgrcc em servicos-empresas.html (Sprint 4.C) -->
+                <li><a href="servicos-empresas.html#linha-4-residuos">PGRCC</a></li>
               </ul>
             </dd>
           </div>
@@ -679,7 +683,7 @@
               </p>
               <ul class="setor-servicos" aria-label="Serviços relevantes">
                 <li><a href="servicos-empresas.html#linha-2-licenciamento">Licenciamento Ambiental</a></li>
-                <li><a href="#">Investigação Confirmatória</a></li><!-- TODO: #investigacao-fase2 em servicos-empresas.html (Sprint 4.C) -->
+                <li><a href="servicos-empresas.html#linha-1-avaliacao">Investigação Confirmatória</a></li>
                 <li><a href="servicos-empresas.html#linha-1-avaliacao">Due Diligence</a></li>
               </ul>
             </dd>
@@ -712,9 +716,9 @@
                 Empresas geradoras, transportadoras, armazenadoras temporárias e destinadoras de resíduos — adequação ao SIGOR (CETESB) e SINIR (MMA), Manifesto de Transporte de Resíduos (MTR), Certificado de Destinação Final (CDF), registros e capacitação operacional.
               </p>
               <ul class="setor-servicos" aria-label="Serviços relevantes">
-                <li><a href="#">SIGOR / SINIR / MTR</a></li><!-- TODO: #sigor-sinir-mtr em servicos-empresas.html (Sprint 4.C) -->
+                <li><a href="servicos-empresas.html#linha-4-residuos">SIGOR / SINIR / MTR</a></li>
                 <li><a href="servicos-empresas.html#linha-4-residuos">PGRS</a></li>
-                <li><a href="#">Treinamentos In Company</a></li><!-- TODO: #treinamentos em servicos-empresas.html (Sprint 4.C) -->
+                <li><a href="servicos-empresas.html#linha-7-treinamentos">Treinamentos In Company</a></li>
               </ul>
             </dd>
           </div>
@@ -748,8 +752,8 @@
                 Laudos ambientais para contencioso e assistência técnica em processos ambientais.
               </p>
               <ul class="setor-servicos" aria-label="Serviços relevantes">
-                <li><a href="#">Laudos Técnicos</a></li><!-- TODO: #laudos-tecnicos em servicos-empresas.html (Sprint 4.C) -->
-                <li><a href="#">Assistência em Processos</a></li><!-- TODO: #assistencia-processos em servicos-empresas.html (Sprint 4.C) -->
+                <li><a href="servicos-empresas.html#linha-6-laudos">Laudos Técnicos</a></li>
+                <li><a href="servicos-empresas.html#linha-6-laudos">Assistência em Processos</a></li>
                 <li><a href="servicos-empresas.html#linha-1-avaliacao">Due Diligence</a></li>
               </ul>
             </dd>
@@ -766,8 +770,8 @@
               </p>
               <ul class="setor-servicos" aria-label="Serviços relevantes">
                 <li><a href="servicos-empresas.html#linha-1-avaliacao">Due Diligence</a></li>
-                <li><a href="#">Investigação Confirmatória</a></li><!-- TODO: #investigacao-fase2 em servicos-empresas.html (Sprint 4.C) -->
-                <li><a href="#">ESG Ambiental</a></li><!-- TODO: #esg-ambiental em servicos-empresas.html (Sprint 4.C) -->
+                <li><a href="servicos-empresas.html#linha-1-avaliacao">Investigação Confirmatória</a></li>
+                <li><a href="servicos-empresas.html#linha-3-gestao-estrategica">ESG Ambiental</a></li>
               </ul>
             </dd>
           </div>
@@ -788,7 +792,7 @@
 
     <!-- Bloco 5 — CTA Contato inline (literal da Home) -->
     <section class="cta-block reveal" id="contato" aria-labelledby="cta-title">
-      <img src="assets/images/Topografia_Verde_lateral.png" class="cta-deco" aria-hidden="true" alt="">
+      <img src="assets/images/Topografia_Verde_lateral.png" class="cta-deco" aria-hidden="true" alt="" loading="lazy">
       <div class="container">
         <div class="cta-grid">
 
@@ -859,7 +863,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="assets/images/logo-footer.png" alt="Cuestas Engenharia Ambiental" style="height:40px; width:auto; display:block; margin-bottom:var(--space-3);">
+          <img src="assets/images/logo-footer.png" alt="Cuestas Engenharia Ambiental" width="116" height="40" loading="lazy" style="height:40px; width:auto; display:block; margin-bottom:var(--space-3);">
           <p>Consultoria de Engenharia Ambiental. CREA nº 2622462662 — Engenheiro Responsável: Laio Cuestas.</p>
         </div>
         <div class="footer-col">

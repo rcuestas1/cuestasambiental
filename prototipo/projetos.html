@@ -100,7 +100,7 @@
     /* Buttons (literal da Home) */
     .btn {
       display: inline-flex; align-items: center; gap: var(--space-2);
-      padding: 13px 26px; border-radius: var(--radius-pill);
+      padding: 14px 26px; border-radius: var(--radius-pill);
       font-family: var(--font-body); font-size: 16px; font-weight: 500;
       border: 1px solid transparent; line-height: 1;
       transition: background-color .25s ease, color .25s ease, border-color .25s ease, transform .2s ease;
@@ -199,6 +199,7 @@
       display: none; background: none; border: none; padding: var(--space-2);
       cursor: pointer; color: var(--color-text-primary); align-items: center;
       justify-content: center; border-radius: var(--radius-sm); transition: background .15s ease;
+      min-width: 44px; min-height: 44px;
     }
     .navbar-hamburger:hover { background: var(--color-surface); }
     .navbar-hamburger svg { width: 20px; height: 14px; overflow: visible; }
@@ -211,6 +212,7 @@
       position: fixed; top: 52px; left: 0; right: 0; z-index: 95;
       background: var(--color-background); border-bottom: var(--border-hairline);
       padding: var(--space-4) var(--space-6) var(--space-6); transition: background .3s ease;
+      max-height: calc(100vh - 52px); overflow-y: auto;
     }
     .navbar.scrolled ~ .navbar-mobile-menu {
       background: rgba(250, 250, 247, 0.95);
@@ -258,7 +260,7 @@
       border-radius: var(--radius-sm);
       background: var(--color-surface-subtle);
       color: var(--color-text-primary);
-      font-size: 15px; font-family: var(--font-body);
+      font-size: 16px; font-family: var(--font-body);
       transition: border-color .2s ease, box-shadow .2s ease;
     }
     .form-field textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
@@ -418,7 +420,7 @@
       padding-bottom: var(--space-12);
       background: var(--color-background);
       border-bottom: var(--border-hairline);
-      min-height: 40vh;
+      min-height: 40vh; min-height: 40svh;
       display: flex; align-items: center;
     }
     .page-hero h1 {
@@ -558,6 +560,16 @@
       .projeto-tipo { font-size: 17px; }
     }
 
+
+    @media (max-width: 1024px) and (orientation: landscape) and (max-height: 500px) {
+      .page-hero {
+        min-height: auto;
+        padding-top: calc(52px + var(--space-4));
+        padding-bottom: var(--space-4);
+      }
+      .page-hero h1 { font-size: clamp(24px, 6vw, 36px); margin-bottom: var(--space-2); }
+      .page-lead { font-size: 15px; }
+    }
   </style>
 </head>
 <body>
@@ -572,11 +584,6 @@
       corresponde a nenhuma das 8 categorias de §5.3. Chip atribuído: "Licenciamento Ambiental"
       (categoria mais próxima — conformidade e regularização). Confirmar se categoria correta ou
       se §5.3 deve incluir "Conformidade Legal" como 9ª categoria.
-
-    SWEEP PENDENTE (após aprovação desta página):
-    - Atualizar href="#" → href="projetos.html" no link "Projetos" da navbar e footer
-      nas páginas: home.html, sobre.html, servicos-empresas.html, servicos-pf.html,
-      contato.html, politica-privacidade.html, setores.html.
   -->
 
   <!-- Bloco 3 — Skip link -->
@@ -586,7 +593,7 @@
   <header class="navbar">
     <div class="navbar-inner">
       <a href="home.html" class="brand" aria-label="Cuestas Engenharia Ambiental — Início">
-        <img src="assets/images/logo-navbar.png" alt="Cuestas Engenharia Ambiental" class="navbar-logo">
+        <img src="assets/images/logo-navbar.png" alt="Cuestas Engenharia Ambiental" class="navbar-logo" width="99" height="34">
       </a>
       <nav aria-label="Navegação principal">
         <ul class="nav-links">
@@ -802,7 +809,7 @@
 
     <!-- Bloco 5 — CTA Contato inline (literal da Home) -->
     <section class="cta-block reveal" id="contato" aria-labelledby="cta-title">
-      <img src="assets/images/Topografia_Verde_lateral.png" class="cta-deco" aria-hidden="true" alt="">
+      <img src="assets/images/Topografia_Verde_lateral.png" class="cta-deco" aria-hidden="true" alt="" loading="lazy">
       <div class="container">
         <div class="cta-grid">
 
@@ -873,7 +880,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="assets/images/logo-footer.png" alt="Cuestas Engenharia Ambiental" style="height:40px; width:auto; display:block; margin-bottom:var(--space-3);">
+          <img src="assets/images/logo-footer.png" alt="Cuestas Engenharia Ambiental" width="116" height="40" loading="lazy" style="height:40px; width:auto; display:block; margin-bottom:var(--space-3);">
           <p>Consultoria de Engenharia Ambiental. CREA nº 2622462662 — Engenheiro Responsável: Laio Cuestas.</p>
         </div>
         <div class="footer-col">

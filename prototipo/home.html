@@ -61,7 +61,7 @@
        Reset + base
        ========================================================== */
     *,*::before,*::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 52px; }
     body {
       margin: 0;
       background: var(--color-background);
@@ -91,7 +91,7 @@
     /* Shared buttons */
     .btn {
       display: inline-flex; align-items: center; gap: var(--space-2);
-      padding: 13px 26px; border-radius: var(--radius-pill);
+      padding: 14px 26px; border-radius: var(--radius-pill);
       font-family: var(--font-body); font-size: 16px; font-weight: 500;
       border: 1px solid transparent; line-height: 1;
       transition: background-color .25s ease, color .25s ease, border-color .25s ease, transform .2s ease;
@@ -192,6 +192,7 @@
       display: none; background: none; border: none; padding: var(--space-2);
       cursor: pointer; color: var(--color-text-primary); align-items: center;
       justify-content: center; border-radius: var(--radius-sm); transition: background .15s ease;
+      min-width: 44px; min-height: 44px;
     }
     .navbar-hamburger:hover { background: var(--color-surface); }
     .navbar-hamburger svg { width: 20px; height: 14px; overflow: visible; }
@@ -205,6 +206,7 @@
       position: fixed; top: 52px; left: 0; right: 0; z-index: 95;
       background: var(--color-background); border-bottom: var(--border-hairline);
       padding: var(--space-4) var(--space-6) var(--space-6); transition: background .3s ease;
+      max-height: calc(100vh - 52px); overflow-y: auto;
     }
     .navbar.scrolled ~ .navbar-mobile-menu {
       background: rgba(250, 250, 247, 0.95);
@@ -244,7 +246,7 @@
        ========================================================== */
     .hero {
       position: relative;
-      min-height: 100vh;
+      min-height: 100vh; min-height: 100svh;
       display: flex; align-items: center; justify-content: center;
       text-align: center;
       padding: 80px var(--space-6) var(--space-16);
@@ -533,7 +535,7 @@
       display: flex; gap: var(--space-3); justify-content: flex-end;
     }
     .serv-nav-btn {
-      width: 40px; height: 40px;
+      width: 44px; height: 44px;
       border-radius: var(--radius-full);
       border: 1px solid rgba(255,255,255,0.30);
       background: transparent; color: var(--color-on-dark);
@@ -704,7 +706,7 @@
       border-radius: var(--radius-sm);
       background: var(--color-surface-subtle);
       color: var(--color-text-primary);
-      font-size: 15px; font-family: var(--font-body);
+      font-size: 16px; font-family: var(--font-body);
       transition: border-color .2s ease, box-shadow .2s ease;
     }
     .form-field textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
@@ -834,8 +836,8 @@
 
     @media (max-width: 768px) {
       .nav-links { display: none; }
-      .hero { padding-top: 80px; min-height: 90vh; }
-      .hero h1 { font-size: clamp(40px, 11vw, 64px); }
+      .hero { padding-top: 80px; min-height: 90vh; min-height: 90svh; }
+      .hero h1 { font-size: clamp(40px, 11vw, 64px); margin-top: var(--space-6); }
       .hero-topo { opacity: 0.15; }
       .diferenciais { padding: var(--space-16) 0; }
       .diferenciais-grid { grid-template-columns: 1fr; gap: var(--space-3); }
@@ -843,6 +845,8 @@
       .setores-list { grid-template-columns: 1fr; }
       .servicos { padding: var(--space-16) 0; }
       .servico-card { flex: 0 0 220px; }
+      .servicos-toggle { flex-wrap: wrap; justify-content: center; gap: var(--space-2); }
+      .servicos-toggle .toggle-btn { padding: 9px 14px; font-size: 14px; }
       .cta-block { padding: var(--space-16) 0; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-6); }
       .footer-bottom { flex-direction: column; gap: var(--space-2); }
@@ -854,6 +858,14 @@
       .hero-ctas { flex-direction: column; align-items: center; }
       .hero-ctas .btn { width: 100%; justify-content: center; }
       .diferenciais-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1024px) and (orientation: landscape) and (max-height: 500px) {
+      .hero { padding-top: 52px; padding-bottom: var(--space-8); }
+      .hero h1 { font-size: clamp(28px, 7vw, 40px); margin-top: 8px; margin-bottom: var(--space-4); }
+      .hero-sub { margin-bottom: var(--space-6); font-size: 16px; }
+      .hero-ctas { gap: var(--space-3); }
+      .page-hero { padding-top: calc(52px + var(--space-4)); padding-bottom: var(--space-4); min-height: auto; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -882,7 +894,7 @@
   <header class="navbar">
     <div class="navbar-inner">
       <a href="home.html" class="brand" aria-label="Cuestas Engenharia Ambiental — Início">
-        <img src="assets/images/logo-navbar.png" alt="Cuestas Engenharia Ambiental" class="navbar-logo">
+        <img src="assets/images/logo-navbar.png" alt="Cuestas Engenharia Ambiental" class="navbar-logo" width="99" height="34">
       </a>
       <nav aria-label="Navegação principal">
         <ul class="nav-links">
@@ -934,7 +946,7 @@
          ============================================================ -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-content">
-<h1 id="hero-title">Engenharia aplicada à <em>decisão</em> ambiental.</h1>
+        <h1 id="hero-title">Engenharia aplicada à <em>decisão</em> ambiental.</h1>
         <p class="hero-sub">
           Consultoria ambiental especializada em licenciamento ambiental, due diligence ambiental, gestão ambiental contínua, laudos técnicos e regularização ambiental para empresas, empreendimentos imobiliários e pessoas físicas em São Paulo e em todo o Brasil.
         </p>
@@ -1544,7 +1556,7 @@
          "Contato Rápido" → "Solicitar Avaliação"
          ============================================================ -->
     <section class="cta-block reveal" id="contato" aria-labelledby="cta-title">
-      <img src="assets/images/Topografia_Verde_lateral.png" class="cta-deco" aria-hidden="true" alt="">
+      <img src="assets/images/Topografia_Verde_lateral.png" class="cta-deco" aria-hidden="true" alt="" loading="lazy">
       <div class="container">
         <div class="cta-grid">
 
@@ -1619,7 +1631,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="assets/images/logo-footer.png" alt="Cuestas Engenharia Ambiental" style="height:40px; width:auto; display:block; margin-bottom:var(--space-3);">
+          <img src="assets/images/logo-footer.png" alt="Cuestas Engenharia Ambiental" width="116" height="40" loading="lazy" style="height:40px; width:auto; display:block; margin-bottom:var(--space-3);">
           <p>Consultoria de Engenharia Ambiental. CREA nº 2622462662 — Engenheiro Responsável: Laio Cuestas.</p>
         </div>
         <div class="footer-col">
