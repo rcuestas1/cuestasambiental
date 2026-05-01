@@ -720,15 +720,15 @@
       .page-lead { font-size: 15px; }
     }
 
-    /* [PROPOSTA IMAGENS] — thumbnail em cada mini-card de serviço */
-    .servico-mini-card::before {
+    /* [PROPOSTA IMAGENS] — faixa fotográfica no topo de cada bloco de serviço */
+    .servico-bloco-head::before {
       content: '';
       display: block;
       width: 100%;
-      aspect-ratio: 16 / 9;
-      background: linear-gradient(135deg, #d4dab8 0%, #b8c48a 60%, #8fa060 100%);
-      border-radius: var(--radius-sm);
-      flex-shrink: 0;
+      aspect-ratio: 21 / 7;
+      background: linear-gradient(135deg, #d4dab8 0%, #b8c48a 50%, #8fa060 100%);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-6);
     }
   </style>
 </head>
