@@ -735,25 +735,14 @@
 <body>
 
   <!--
-    PÁGINA SERVIÇOS PESSOA FÍSICA — atualizada conforme cuestas_organizacao_site_v3_seo.md §5.1 a §5.6
-    6 serviços listados; numeração §5.x do v3 substitui §4.x do briefing antigo.
-
-    ALTERAÇÕES DO SPRINT 4.B:
-    - Numeração: §4.x → §5.x
-    - 2 serviços novos: §5.4 (Outorga PF) e §5.6 (Defesa em Auto de Infração)
-    - §5.3 escopo expandido: "do laudo à motosserra" — agora inclui contratação de empresa para execução
-    - Reordenação: Regularização (§5.2) vem antes de Cortar Árvore (§5.3) conforme v3
-
     PENDÊNCIAS:
-    - 4 marcações [VALIDAR COM CLIENTE] no FAQ permanecem (expansões editoriais sobre briefing literal)
-    - Prazo típico de 4 serviços ainda [A CONFIRMAR] com cliente
-    - Cliente deve confirmar inclusão dos 2 serviços novos (§5.4 Outorga PF, §5.6 Defesa)
+    - 4 marcações [VALIDAR COM CLIENTE] no FAQ (expansões editoriais sobre briefing literal)
+    - Prazo típico de 4 serviços marcado [A CONFIRMAR] — aguardando cliente
+    - Cliente deve confirmar: §5.4 Outorga PF e §5.6 Defesa em Auto de Infração
   -->
 
-  <!-- Bloco 3 — Skip link -->
   <a href="#main" class="skip-link">Pular para o conteúdo</a>
 
-  <!-- Bloco 4 — Header (aria-current em "Serviços" — esta é uma página hub de serviços) -->
   <header class="navbar">
     <div class="navbar-inner">
       <a href="home.html" class="brand" aria-label="Cuestas Engenharia Ambiental — Início">
@@ -838,7 +827,6 @@
     </nav>
 
     <!-- §5.1 Avaliação Ambiental de Imóvel -->
-    <!-- nth-of-type(2) = even → background: var(--color-surface) -->
     <section id="avaliacao-imovel" class="servico-bloco reveal" aria-labelledby="avaliacao-title">
       <div class="container">
         <div class="servico-bloco-grid">
@@ -888,7 +876,6 @@
     </section>
 
     <!-- §5.2 Regularização Ambiental de Imóvel -->
-    <!-- nth-of-type(3) = odd → background: var(--color-background) -->
     <section id="regularizacao" class="servico-bloco reveal" aria-labelledby="regularizacao-title">
       <div class="container">
         <div class="servico-bloco-grid">
@@ -941,7 +928,6 @@
     </section>
 
     <!-- §5.3 Autorização para Cortar ou Podar Árvore -->
-    <!-- nth-of-type(4) = even → background: var(--color-surface) -->
     <section id="autorizacao-arvore" class="servico-bloco reveal" aria-labelledby="supressao-title">
       <div class="container">
         <div class="servico-bloco-grid">
@@ -1001,7 +987,6 @@
     </section>
 
     <!-- §5.4 Outorga de Uso de Recursos Hídricos para Pessoa Física [NOVO] -->
-    <!-- nth-of-type(5) = odd → background: var(--color-background) -->
     <section id="outorga-pf" class="servico-bloco reveal" aria-labelledby="outorga-title">
       <div class="container">
         <div class="servico-bloco-grid">
@@ -1054,7 +1039,6 @@
     </section>
 
     <!-- §5.5 Consulta e Orientação Técnica Ambiental -->
-    <!-- nth-of-type(6) = even → background: var(--color-surface) -->
     <section id="consulta-tecnica" class="servico-bloco reveal" aria-labelledby="consulta-title">
       <div class="container">
         <div class="servico-bloco-grid">
@@ -1105,7 +1089,6 @@
     </section>
 
     <!-- §5.6 Defesa Técnica em Auto de Infração Ambiental [NOVO] -->
-    <!-- nth-of-type(7) = odd → background: var(--color-background) -->
     <section id="defesa-auto-infracao" class="servico-bloco reveal" aria-labelledby="defesa-title">
       <div class="container">
         <div class="servico-bloco-grid">
@@ -1154,7 +1137,6 @@
     </section>
 
     <!-- §5.x FAQ — Perguntas Frequentes -->
-    <!-- nth-of-type(6) = even, mas usa .faq-bloco com background próprio -->
     <section id="faq" class="faq-bloco reveal" aria-labelledby="faq-title">
       <div class="container">
         <div class="faq-head">
@@ -1194,7 +1176,7 @@
       </div>
     </section>
 
-    <!-- Bloco 5 — CTA Contato inline (literal da Home) -->
+    <!-- CTA Contato -->
     <section class="cta-block reveal" id="contato" aria-labelledby="cta-title">
       <img src="assets/images/Topografia_Verde_lateral.png" class="cta-deco" aria-hidden="true" alt="" loading="lazy">
       <div class="container">
@@ -1264,7 +1246,6 @@
 
   </main>
 
-  <!-- Bloco 6 — Footer (literal da Home) -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
@@ -1336,7 +1317,6 @@
     </div>
   </footer>
 
-  <!-- Bloco 7 — WhatsApp float -->
   <a href="https://wa.me/5511914958701?text=Ol%C3%A1%2C%20encontrei%20o%20site%20da%20Cuestas%20Engenharia%20Ambiental%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20%2F%20tirar%20uma%20d%C3%BAvida."
      class="whatsapp-float"
      aria-label="Fale pelo WhatsApp"
@@ -1346,7 +1326,6 @@
     </svg>
   </a>
 
-  <!-- Bloco 7 — Cookie Banner -->
   <div class="cookie-banner" id="cookie-banner" role="region" aria-label="Aviso de cookies">
     <p>Usamos cookies para melhorar sua experiência. Ao continuar, você concorda com nossa <a href="politica-privacidade.html">Política de Privacidade</a>.</p>
     <div class="cookie-actions">

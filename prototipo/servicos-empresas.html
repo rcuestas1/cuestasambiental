@@ -708,35 +708,41 @@
       .page-hero h1 { font-size: clamp(24px, 6vw, 36px); margin-bottom: var(--space-2); }
       .page-lead { font-size: 15px; }
     }
+
+    /* Thumbnail de serviço — gerenciado via CMS
+       Upload: assets/images/servicos/[slug].jpg  (560×315 px, 16:9)
+       Enquanto a imagem não existir, mostra gradiente idêntico ao protótipo aprovado. */
+    .servico-mini-thumb {
+      margin: 0;
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: linear-gradient(135deg, #d4dab8 0%, #b8c48a 60%, #8fa060 100%);
+      flex-shrink: 0;
+    }
+    .servico-mini-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
   </style>
 </head>
 <body>
 
   <!--
-    PÁGINA SERVIÇOS PARA EMPRESAS — reestruturada conforme cuestas_organizacao_site_v3_seo.md §4.1 a §4.7
-    20 serviços organizados como mini-cards em 7 Linhas de atuação.
-
-    ALTERAÇÕES DO SPRINT 4.C:
-    - Estrutura mudou de 7 serviços lineares (§3.x) para 7 Linhas de §4.x com mini-cards
-    - Numeração: §3.x → §4.x (briefing v3)
-    - Mini-cards densidade controlada: header + descrição + tags + CTA "Saiba mais"
-    - 2 cross-links inline (Outorga §4.2.2, Supressão §4.5.1) para versão PF
-    - Schema.org como comentário HTML antes de cada Linha (preparação Astro Etapa 8)
-    - Perícias Judiciais §4.6.2 REMOVIDAS (decisão fixada — protocolo §10)
-    - Treinamentos §4.7 ATIVO (decisão fixada — protocolo §10)
-
     PENDÊNCIAS:
-    - Cliente deve revisar visualmente as 13 descrições de serviços novos
-    - Cliente deve confirmar serviços novos: ESG, Auditoria, RAPP/IBAMA, Outorga PJ,
+    - Cliente deve revisar as 13 descrições de serviços novos
+    - Cliente deve confirmar: ESG, Auditoria, RAPP/IBAMA, Outorga PJ,
       EIV, PGRCC, SIGOR/SINIR/MTR, Laudo Arbóreo, Assistência em Processos, Palestras
-    - 7 mini-CTAs de footer apontam para contato.html?linha=slug — querystring será
-      consumido na Etapa 8 (Astro) para pré-preencher campo "Assunto" do form
+    - CTAs de cada Linha apontam para contato.html?linha=slug — implementar querystring
+      no Astro para pré-preencher campo "Assunto" do form de contato
   -->
 
-  <!-- Bloco 3 — Skip link -->
   <a href="#main" class="skip-link">Pular para o conteúdo</a>
 
-  <!-- Bloco 4 — Header (aria-current em "Serviços") -->
   <header class="navbar">
     <div class="navbar-inner">
       <a href="home.html" class="brand" aria-label="Cuestas Engenharia Ambiental — Início">
@@ -804,7 +810,7 @@
       </div>
     </div>
 
-    <!-- TOC — Índice de Linhas (sticky horizontal em ≥768px, <details> em <768px) -->
+    <!-- TOC — Índice de Linhas de atuação -->
     <nav class="page-toc" aria-label="Índice de linhas de serviço">
       <details>
         <summary>Linhas de atuação</summary>
@@ -844,6 +850,9 @@
         <div class="servicos-mini-grid">
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/due-diligence.jpg" alt="Due Diligence Ambiental" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Due Diligence Ambiental (EDD) — Fase I</h3>
             </header>
@@ -859,6 +868,9 @@
           </article>
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/aap.jpg" alt="Avaliação Ambiental Preliminar" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Avaliação Ambiental Preliminar (AAP)</h3>
             </header>
@@ -874,6 +886,9 @@
           </article>
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/investigacao-fase2.jpg" alt="Investigação Confirmatória Fase II" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Investigação Confirmatória — Fase II</h3>
             </header>
@@ -914,6 +929,9 @@
         <div class="servicos-mini-grid">
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/licenciamento.jpg" alt="Licenciamento Ambiental" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Licenciamento Ambiental</h3>
             </header>
@@ -929,6 +947,9 @@
           </article>
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/outorga.jpg" alt="Outorga de Recursos Hídricos" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Outorga de Recursos Hídricos</h3>
             </header>
@@ -944,6 +965,9 @@
           </article>
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/eiv.jpg" alt="Estudo de Impacto de Vizinhança" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Estudo de Impacto de Vizinhança (EIV)</h3>
             </header>
@@ -959,6 +983,9 @@
           </article>
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/auditoria-conformidade.jpg" alt="Auditoria de Conformidade Legal" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Auditoria de Conformidade Legal</h3>
             </header>
@@ -974,6 +1001,9 @@
           </article>
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/rapp-ibama.jpg" alt="Demandas IBAMA — RAPP, TCFA, CTF/APP" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Demandas IBAMA — RAPP, TCFA, CTF/APP</h3>
             </header>
@@ -1019,6 +1049,9 @@
         <div class="servicos-mini-grid">
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/iso-14001.jpg" alt="Consultoria em Gestão Ambiental ISO 14001" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Consultoria em Gestão Ambiental — ISO 14001</h3>
             </header>
@@ -1034,6 +1067,9 @@
           </article>
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/gestao-obras.jpg" alt="Gestão Ambiental de Obras SSMA" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Gestão Ambiental de Obras (SSMA)</h3>
             </header>
@@ -1049,6 +1085,9 @@
           </article>
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/esg-ambiental.jpg" alt="ESG Ambiental e Relatórios de Sustentabilidade" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">ESG Ambiental e Relatórios de Sustentabilidade</h3>
             </header>
@@ -1089,6 +1128,9 @@
         <div class="servicos-mini-grid">
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/pgrs.jpg" alt="Plano de Gerenciamento de Resíduos Sólidos" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Plano de Gerenciamento de Resíduos Sólidos (PGRS)</h3>
             </header>
@@ -1104,6 +1146,9 @@
           </article>
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/pgrcc.jpg" alt="PGRCC Resíduos da Construção Civil" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">PGRCC — Resíduos da Construção Civil</h3>
             </header>
@@ -1119,6 +1164,9 @@
           </article>
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/sigor-sinir-mtr.jpg" alt="SIGOR SINIR MTR" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">SIGOR / SINIR / MTR</h3>
             </header>
@@ -1159,6 +1207,9 @@
         <div class="servicos-mini-grid">
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/supressao-empresas.jpg" alt="ASV Supressão de Vegetação para Empreendimentos" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">ASV — Supressão de Vegetação para Empreendimentos</h3>
             </header>
@@ -1174,6 +1225,9 @@
           </article>
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/laudo-arboreo.jpg" alt="Laudo Arbóreo e Diagnóstico Fitossanitário" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Laudo Arbóreo e Diagnóstico Fitossanitário</h3>
             </header>
@@ -1219,6 +1273,9 @@
         <div class="servicos-mini-grid">
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/laudos-tecnicos.jpg" alt="Laudos Técnicos Ambientais" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Laudos Técnicos Ambientais</h3>
             </header>
@@ -1234,6 +1291,9 @@
           </article>
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/assistencia-processos.jpg" alt="Assistência Técnica em Processos Administrativos" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Assistência Técnica em Processos Administrativos</h3>
             </header>
@@ -1274,6 +1334,9 @@
         <div class="servicos-mini-grid">
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/treinamentos.jpg" alt="Treinamentos In Company" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Treinamentos In Company</h3>
             </header>
@@ -1289,6 +1352,9 @@
           </article>
 
           <article class="servico-mini-card">
+            <figure class="servico-mini-thumb">
+              <img src="assets/images/servicos/palestras.jpg" alt="Palestras e Workshops" width="560" height="315" loading="lazy">
+            </figure>
             <header class="servico-mini-head">
                             <h3 class="servico-mini-title">Palestras e Workshops</h3>
             </header>
@@ -1315,7 +1381,7 @@
     </section>
 
 
-    <!-- Bloco 5 — CTA Contato inline (literal da Home) -->
+    <!-- CTA Contato -->
     <section class="cta-block reveal" id="contato" aria-labelledby="cta-title">
       <img src="assets/images/Topografia_Verde_lateral.png" class="cta-deco" aria-hidden="true" alt="" loading="lazy">
       <div class="container">
@@ -1383,7 +1449,6 @@
 
   </main>
 
-  <!-- Bloco 6 — Footer (literal da Home) -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
@@ -1455,7 +1520,6 @@
     </div>
   </footer>
 
-  <!-- Bloco 7 — WhatsApp float -->
   <a href="https://wa.me/5511914958701?text=Ol%C3%A1%2C%20encontrei%20o%20site%20da%20Cuestas%20Engenharia%20Ambiental%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20%2F%20tirar%20uma%20d%C3%BAvida."
      class="whatsapp-float"
      aria-label="Fale pelo WhatsApp"
@@ -1465,7 +1529,6 @@
     </svg>
   </a>
 
-  <!-- Bloco 7 — Cookie Banner -->
   <div class="cookie-banner" id="cookie-banner" role="region" aria-label="Aviso de cookies">
     <p>Usamos cookies para melhorar sua experiência. Ao continuar, você concorda com nossa <a href="politica-privacidade.html">Política de Privacidade</a>.</p>
     <div class="cookie-actions">
@@ -1584,6 +1647,15 @@
         });
       }
     })();
+  </script>
+
+  <script>
+    /* Esconde <img> quebrado — deixa o gradiente do <figure> aparecer como placeholder */
+    document.querySelectorAll('.servico-mini-thumb img').forEach(function(img) {
+      function hide() { img.style.display = 'none'; }
+      img.addEventListener('error', hide);
+      if (img.complete && !img.naturalWidth) hide();
+    });
   </script>
 
 </body>
